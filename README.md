@@ -1,2 +1,1 @@
-# labconsultoria-
-Projeto de uma pagina web com dashboard e banco de dados relacionais com PHP 8 Projeto de uma página web com dashboard interativo com admin e banco de dados relacional. será desenvolvido com VSCode, PHP, JavaScript e Mysql Workbench.
+# labconsultoria-Projeto de uma página web com Dashboard interativo e painel Administrativo com Banco de Dados relacional desenvolvido com VSCode, PHP, JavaScript e Mysql Workbench, para meu primeiro cliente de uma empresa de consultoria de alimentos em BH-MG.
