@@ -3,7 +3,8 @@
 {% block conteudo %}  
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0">
-        <h5 class="card-title">Usuários</h5>
+        <a class="card-title">Usuários</a>
+        <a href="{{url('admin/usuarios/cadastrar')}}" class="btn btn-primary">Cadastar</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -22,7 +23,7 @@
                 <tbody>
                     {% for usuario in usuarios %}
                     <tr>
-                        <th>{{usuario.id_tbl_usuario}}</th>
+                        <th>{{usuario.id_tbl_Usuario}}</th>
                         <td>{{usuario.nome_usuario}}</td>
                         <td>{{usuario.data_criacao}}</td>
                         <td>{{usuario.email_usuario}}</td>

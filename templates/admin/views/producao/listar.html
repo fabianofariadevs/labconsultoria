@@ -3,7 +3,7 @@
 {% block conteudo %}  
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0">
-        <h5 class="card-title">Produção</h5>
+        <h5 class="card-title">Planejamento de Produção</h5>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -23,8 +23,8 @@
                 <tbody>
                     {% for producao in producoes %}
                     <tr>
-                        <th>{{post.id_tbl_usuario}}</th>
-                        <td>{{post.nome_usuario}}</td>
+                        <th>{{producao.id_tbl_usuario}}</th>
+                        <td>{{producao.nome_usuario}}</td>
                         <td>
                             {% if producao.status == 1 %}
                             Ativo

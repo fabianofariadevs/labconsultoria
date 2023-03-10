@@ -3,7 +3,8 @@
 {% block conteudo %}  
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0">
-        <h5 class="card-title">Receitas</h5>
+        <a class="card-title">Receitas</a>
+        <a href="{{url('admin/receitas/cadastrar')}}" class="btn btn-primary">Cadastar</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -22,8 +23,13 @@
                 <tbody>
                     {% for receita in receitas %}
                     <tr>
-                        <th>{{post.id}}</th>
-                        <td>{{post.nome}}</td>
+                        <th>{{receita.id_tbl_Receita}}</th>
+                        <td>{{receita.nome_receita}}</td>
+                        <td>{{receita.descricao_receita}}</td>
+                        <td>{{receita.modo_preparo}}</td>
+                        <td>{{receita.qtde_prevista_receita}}</td>
+                        <td>{{receita.validade_receita}}</td>
+                        <td>{{receita.observacao_receita}}</td>
                         <td>
                             {% if receita.status == 1 %}
                             Ativo

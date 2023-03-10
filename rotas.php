@@ -31,9 +31,11 @@ SimpleRouter::group(['namespace' => 'Admin'], function () {
     
     //ADMIN RECEITAS
     SimpleRouter::get(URL_ADMIN.'receitas/listar', 'AdminReceitas@listar');
+    SimpleRouter::match(['get','post'], URL_ADMIN.'receitas/cadastrar', 'AdminReceitas@cadastrar');
     
     //ADMIN USUARIOS
     SimpleRouter::get(URL_ADMIN.'usuarios/listar', 'AdminUsuarios@listar');
+    SimpleRouter::match(['get','post'], URL_ADMIN.'usuarios/cadastrar', 'AdminUsuarios@cadastrar');
     
     //ADMIN PRODUÇÃO
     SimpleRouter::get(URL_ADMIN.'producao/listar', 'AdminProducao@listar');
@@ -46,9 +48,11 @@ SimpleRouter::group(['namespace' => 'Admin'], function () {
     
     //ADMIN MIX PRODUTOS
     SimpleRouter::get(URL_ADMIN.'mixProdutos/listar', 'AdminMixProdutos@listar');
+    SimpleRouter::match(['get','post'], URL_ADMIN.'mixProdutos/cadastrar', 'AdminmixProdutos@cadastrar');
     
     //ADMIN CLIENTES
     SimpleRouter::get(URL_ADMIN.'clientes/listar', 'AdminClientes@listar');
+    SimpleRouter::match(['get','post'], URL_ADMIN.'clientes/cadastrar', 'AdminClientes@cadastrar');
 });
 
 SimpleRouter::start();
