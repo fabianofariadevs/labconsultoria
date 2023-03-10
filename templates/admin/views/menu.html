@@ -1,0 +1,66 @@
+<input type="checkbox" id="menu"><!-- comment -->
+<div class="sidebar">
+    <div class="sidebarLogo">
+        <a href="{{url('admin/dashboard')}}" data-bs-toggle="tooltip" title="Pagina Inicial">
+            <div class="logo">
+                <img src="https://i.postimg.cc/k54vbtBF/userlmn-ebfdb7b90b9b59a3c0ece37c1d46cf20-removebg-preview.png" alt="{{constant('SITE_NOME')}}"/>
+            </div>
+        </a>
+    </div>
+    
+    <div class="sidebarMenu">
+        <ul>
+            <li class="sidebarTitulo">
+                Administração
+            </li>
+            <li>
+                <a href="{{url('admin/posts/listar')}}" tooltip="tooltip" title="Administração de Posts">
+                    <i class="fa-solid fa-file-pen"></i>
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url('admin/categorias/listar')}}" tooltip="tooltip" title="Administração Categorias">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Categorias</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url('admin/usuarios/listar')}}" tooltip="tooltip" title="Administração Usuários">
+                    <i class="fas fa-users"></i>
+                    <span>Usuários</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url('admin/clientes/listar')}}" tooltip="tooltip" title="Administração Clientes">
+                    <i class="fas fa-users"></i>
+                    <span>Clientes</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url('admin/fornecedor/listar')}}" tooltip="tooltip" title="Administração Fornecedores">
+                    <i class="fas fa-users"></i>
+                    <span>Fornecedores</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url('admin/producao/listar')}}" tooltip="tooltip" title="Administração Planejamento Produção">
+                    <i class="fa-solid fa-list"></i>
+                    <span>PLANEJAMENTO de Produção</span>
+                </a>
+                <li>
+                <a href="{{url('admin/mixProdutos/listar')}}" tooltip="tooltip" title="Administração Mix Produtos">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Mix de Produtos</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url('admin/receitas/listar')}}" tooltip="tooltip" title="Administração Receitas">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Receitas</span>
+                </a>
+            </li>
+            </li>
+        </ul>
+    </div>
+</div>

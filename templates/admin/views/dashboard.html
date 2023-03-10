@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block corpo %}
+
+{% include 'menu.html' %}
+
+<div class="conteudo">
+    {% include 'topo.html' %}
+    <main>
+        {% block conteudo %}
+        <div class="card-border-0 shadow-sm">
+            <div class="card-header bg-white border-0">
+                <h5 class="card-title">PORTAL DE DASHBOARD</h5>
+            </div>
+            <div class="card-body">Conteudo em Desenvolvimento                     
+            </div>
+        </div>
+        {% endblock %}
+    </main>
+    {% include 'rodape.html' %}
+</div>
+
+{% endblock %}

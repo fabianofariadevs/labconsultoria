@@ -1,0 +1,49 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}  
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0">
+        <h5 class="card-title">Clientes</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Nome Cliente</th>
+                        <th scope="col">Endereço</th>
+                        <th scope="col">Bairro</th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr>
+                        <th>{{cliente.id_tbl_cliente_fabrica}}</th>
+                        <td>{{cliente.nome_cliente}}</td>
+                        <td>{{cliente.endereco_cliente}}</td>
+                        <td>{{cliente.bairro_cli}}</td>
+                        <td>{{cliente.cidade_cli}}</td>
+                        <td>{{cliente.estado_cli}}</td>
+                        <td>{{cliente.telefone_cli}}</td>
+                        <td>
+                            {% if cliente.status == 1 %}
+                            Ativo
+                            {% else %}
+                            Inativo
+                            {% endif %}
+                        </td>
+                        <td></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>     
+        
+        
+    </div>
+</div>
+{% endblock %}

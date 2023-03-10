@@ -1,0 +1,42 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}  
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0">
+        <h5 class="card-title">Fornecedor</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Endereço</th>
+                        <th scope="col">Contato</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fornecedor in fornecedores %}
+                    <tr>
+                        <th>{{post.id_fornecedor}}</th>
+                        <td>{{post.nome_fornec}}</td>
+                        <td>
+                            {% if fornecedor.status == 1 %}
+                            Ativo
+                            {% else %}
+                            Inativo
+                            {% endif %}
+                        </td>
+                        <td></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>     
+        
+        
+    </div>
+</div>
+{% endblock %}

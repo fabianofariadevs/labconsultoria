@@ -1,0 +1,49 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}  
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0">
+        <h5 class="card-title">Usuários</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">data cadastro</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Senha</th>
+                        <th scope="col">Empresa</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <th>{{usuario.id_tbl_usuario}}</th>
+                        <td>{{usuario.nome_usuario}}</td>
+                        <td>{{usuario.data_criacao}}</td>
+                        <td>{{usuario.email_usuario}}</td>
+                        <td>{{usuario.senha_usuario}}</td>
+                        <td>{{usuario.empresa_colab}}</td>
+                        <td>{{usuario.status}}</td>
+                        <td>
+                            {% if usuario.status == 1 %}
+                            Ativo
+                            {% else %}
+                            Inativo
+                            {% endif %}
+                        </td>
+                        <td></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>     
+        
+        
+    </div>
+</div>
+{% endblock %}
