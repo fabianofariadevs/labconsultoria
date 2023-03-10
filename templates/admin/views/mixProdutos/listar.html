@@ -13,19 +13,24 @@
                         <th scope="col">id</th>
                         <th scope="col">Nome Produto</th>
                         <th scope="col">departamento</th>
-                        <th scope="col">Rendimento_Kg</th>
-                        <th scope="col">Rendimento_receita_Unid</th>
+                        <th scope="col">Rend_Kg</th>
+                        <th scope="col">Rend_receita_Unid</th>
                         <th scope="col">Validade</th>
                         <th scope="col">Categoria</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for mixproduto in mixprodutos %}
+                    {% for mixProduto in mixProdutos %}
                     <tr>
-                        <th>{{post.id_tbl_produto_mix}}</th>
-                        <td>{{post.produto_mix}}</td>
+                        <th>{{mixProduto.id_tbl_produto_mix}}</th>
+                        <td>{{mixProduto.produto_mix}}</td>
+                        <td>{{mixProduto.departamento}}</td>
+                        <td>{{mixProduto.rendimento_receita_kg}}</td>
+                        <td>{{mixProduto.rendimento_receita_unid}}</td>
+                        <td>{{mixProduto.validade_produto}}</td>
+                        <td>{{mixProduto.categoria_produto}}</td>
                         <td>
-                            {% if mixProdutos.status == 1 %}
+                            {% if mixProduto.status == 1 %}
                             Ativo
                             {% else %}
                             Inativo

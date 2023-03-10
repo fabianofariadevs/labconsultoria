@@ -3,9 +3,8 @@
 namespace sistema\Modelo;
 
 use sistema\Nucleo\Conexao;
-
 /**
- * Classe Usuários Modelo
+ * Classe UsuárioModelo
  *
  * @author Fabiano Faria
  */
@@ -22,21 +21,11 @@ class UsuarioModelo
     
     public function buscaPorId(int $id): bool|object
     {
-        $query = "SELECT * FROM 'tbl_usuario' WHERE 'id_tbl_usuario' = {$id} "; 
+        $query = "SELECT * FROM 'tbl_usuario' WHERE 'id_tbl_usuario' - 1 ORDER BY id DESC"; 
         $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetch();
 
         return $resultado; 
     }
-    
-    public function posts(int $id): array
-    {
-        $query = "SELECT * FROM 'tbl_usuario' WHERE 'id_tbl_usuario' = {$id} AND status = 1 ORDER BY id DESC "; 
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-
-        return $resultado;        
-    }
-    
-   
+      
 }

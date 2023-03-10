@@ -4,9 +4,11 @@ namespace sistema\Controlador;
 //filha do controlador aula 55
 use sistema\Nucleo\Controlador;
 //postmodelo chamando view index para apresentar os dados
-use sistema\Modelo\Postmodelo;
-use sistema\Modelo\Usuariomodelo;
-use sistema\Modelo\clienteModelo;
+use sistema\Modelo\PostModelo;
+use sistema\Modelo\UsuarioModelo;
+use sistema\Modelo\FornecedorModelo;
+use sistema\Modelo\MixProdutosModelo;
+use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\helpers;
 use Site\Modelo\CategoriaModelo;
 //classe filha chamando o pai
@@ -107,21 +109,55 @@ class SiteControlador extends Controlador
             'categorias' => $this->clientes(),
         ]);
     }    
-/**
+    /**
      * Usuarios
      * @return array
      */
-    public function Usuario(): array
+    public function usuarios(): array
     {
         return (new UsuarioModelo())->busca();
     }
-    public function Usuarios(int $id):void
+    public function usuario(int $id):void
     {
         $posts = (new UsuarioModelo())->posts($id);
         
         echo $this->template->renderizar('listar.html', [
-            'Usuarios' => $posts,
-            //'categorias' => $this->clientes(),
+            'usuarios' => $posts,
+            'categorias' => $this->usuarios(),
+        ]);
+    }   
+    /**
+     * Fornecedor
+     * @return array
+     */
+    public function fornecedor(): array
+    {
+        return (new FornecedorModelo())->busca();
+    }
+    public function fornecedores(int $id):void
+    {
+        $posts = (new FornecedorModelo())->posts($id);
+        
+        echo $this->template->renderizar('listar.html', [
+            'fornecedor' => $posts,
+            'categorias' => $this->fornecedor(),
+        ]);
+    }   
+    /**
+     * MixProdutos
+     * @return array
+     */
+    public function mixProdutos(): array
+    {
+        return (new MixProdutosModelo())->busca();
+    }
+    public function mixProduto(int $id):void
+    {
+        $posts = (new MixProdutosModelo())->posts($id);
+        
+        echo $this->template->renderizar('listar.html', [
+            'mixProdutos' => $posts,
+            'categorias' => $this->mixProdutos(),
         ]);
     }   
     

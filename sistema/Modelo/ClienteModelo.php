@@ -4,7 +4,7 @@ namespace sistema\Modelo;
 
 use sistema\Nucleo\Conexao;
  /**
- * Classe clientes Modelo
+ * Classe clienteModelo
  *
  * @author Fabiano Faria
  */

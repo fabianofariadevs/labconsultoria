@@ -3,13 +3,16 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\UsuarioModelo;
-
+/* Classe AdminUsuarios
+ *
+ * @author Fabiano Faria
+ */
 class AdminUsuarios extends AdminControlador
 {
     public function listar(): void
     {
-        echo $this->template->renderizar('Usuarios/listar.html', [
-            'Usuarios'=> (new UsuarioModelo())->busca()
+        echo $this->template->renderizar('usuarios/listar.html', [
+            'usuarios'=> (new UsuarioModelo())->busca()
         ]);
         
     }

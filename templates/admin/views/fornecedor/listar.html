@@ -20,8 +20,11 @@
                 <tbody>
                     {% for fornecedor in fornecedores %}
                     <tr>
-                        <th>{{post.id_fornecedor}}</th>
-                        <td>{{post.nome_fornec}}</td>
+                        <th>{{fornecedor.id_fornecedor}}</th>
+                        <td>{{fornecedor.nome_fornec}}</td>
+                        <td>{{fornecedor.endereco_fornec}}</td>
+                        <td>{{fornecedor.contato_whatsapp}}</td>
+                        <td>{{fornecedor.email_fornec}}</td>
                         <td>
                             {% if fornecedor.status == 1 %}
                             Ativo
