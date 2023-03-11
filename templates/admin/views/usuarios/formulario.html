@@ -1,0 +1,40 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}  
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0">
+        <a class="card-title">Cadastro de Receitas</a>
+    
+    <div class="card-body">
+        <form action="{{url('admin/usuarios/cadastrar')}}" method="post">
+            <div class="mb-3">
+                <label for="nomeReceita" class="form-label">Nome da Receita</label>
+                <input type="text" name="nomeReceita" id="nomeReceita" class="form-control"></input>             
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Descrição</label>
+                <textarea name="texto" id="texto" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Modo de preparo</label>
+                <textarea name="texto" id="texto" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Qtde prevista da receita</label>
+                <textarea name="texto" id="texto" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Validade</label>
+                <textarea name="texto" id="texto" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Observação</label>
+                <textarea name="texto" id="texto" class="form-control" rows="3"></textarea>
+            </div>
+                
+        </form>   
+        
+    </div>
+    </div>
+</div>
+{% endblock %}

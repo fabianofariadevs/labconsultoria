@@ -1,0 +1,56 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}  
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/dashboard')}}">
+                Admin
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Receitas
+        </li>
+    </ol>
+</nav>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form action="{{url('admin/usuarios/cadastrar')}}" method="post">
+            <div class="mb-3">
+                <label for="nomeReceita" class="form-label">Nome da Receita</label>
+                <input type="text" name="nomeReceita" id="nomeReceita" class="form-control"></input>             
+            </div>
+            <div class="mb-3">
+                <label for="descricao" class="form-label">Descrição</label>
+                <input type="text" name="descricao" id="descricao" class="form-control"></input>
+            </div>
+            
+            <div class="mb-3">
+                <label for="texto" class="form-label">Modo de preparo</label>
+                <textarea name="texto" id="texto" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Qtde prevista da receita</label>
+                <textarea name="texto" id="texto" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Validade</label>
+                <textarea name="texto" id="texto" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Observação</label>
+                <textarea name="texto" id="texto" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" name="status">
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+            </select>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Cadastrar">
+                
+        </form>   
+    </div>
+</div>
+{% endblock %}

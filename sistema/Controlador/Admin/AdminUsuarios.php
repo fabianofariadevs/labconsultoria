@@ -14,7 +14,11 @@ class AdminUsuarios extends AdminControlador
         echo $this->template->renderizar('usuarios/listar.html', [
             'usuarios'=> (new UsuarioModelo())->busca()
         ]);
-        
+    }
+    
+    public function cadastrar(): void
+    {
+        echo $this->template->renderizar('usuarios/formulario.html', []);
     }
     
 

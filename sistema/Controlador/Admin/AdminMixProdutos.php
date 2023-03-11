@@ -11,8 +11,11 @@ class AdminMixProdutos extends AdminControlador
         echo $this->template->renderizar('mixProdutos/listar.html', [
             'mixProdutos'=> (new MixProdutosModelo())->busca()
         ]);
-        
     }
     
+    public function cadastrar(): void
+    {
+        echo $this->template->renderizar('mixProdutos/formulario.html', []);
+    }
 
 }
