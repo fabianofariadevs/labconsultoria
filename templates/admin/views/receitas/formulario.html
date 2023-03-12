@@ -27,26 +27,41 @@
             </div>
             
             <div class="mb-3">
-                <label for="texto" class="form-label">Modo de preparo</label>
-                <textarea name="texto" id="texto" class="form-control" rows="2"></textarea>
+                <label for="preparo" class="form-label">Modo de preparo</label>
+                <textarea name="preparo" id="preparo" class="form-control" rows="3"></textarea>
             </div>
             <div class="mb-3">
-                <label for="texto" class="form-label">Qtde prevista da receita</label>
-                <textarea name="texto" id="texto" class="form-control" rows="1"></textarea>
+                <label for="qtde" class="form-label">Qtde prevista da receita</label>
+                <textarea name="qtde" id="qtde" class="form-control" rows="1"></textarea>
             </div>
             <div class="mb-3">
-                <label for="texto" class="form-label">Validade</label>
-                <textarea name="texto" id="texto" class="form-control" rows="1"></textarea>
+                <label for="validade" class="form-label">Validade</label>
+                <textarea name="validade" id="validade" class="form-control" rows="1"></textarea>
             </div>
             <div class="mb-3">
-                <label for="texto" class="form-label">Observação</label>
-                <textarea name="texto" id="texto" class="form-control" rows="3"></textarea>
+                <label for="obs" class="form-label">Observação</label>
+                <textarea name="obs" id="obs" class="form-control" rows="3"></textarea>
             </div>
-            <div class="mb-3">
-                <select class="form-select" name="status">
-                <option value="1">Ativo</option>
-                <option value="0">Inativo</option>
-            </select>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="cliente_id" class="form-label">Cliente</label>
+                        <select class="form-select" name="cliente_id" id="cliente.id_tbl_cliente">
+                            {% for cliente in clientes %}
+                            <option value="{{cliente.id_tbl_cliente}}">{{cliente.nome_cliente}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="1">Ativo</option>
+                            <option value="0">Inativo</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Cadastrar">
                 

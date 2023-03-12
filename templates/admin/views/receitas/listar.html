@@ -18,7 +18,8 @@
                         <th scope="col">Qtde Prevista</th>
                         <th scope="col">Validade</th>
                         <th scope="col">Observação</th>
-                        <th scope="col">Status</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,14 +32,14 @@
                         <td>{{receita.qtde_prevista_receita}}</td>
                         <td>{{receita.validade_receita}}</td>
                         <td>{{receita.observacao_receita}}</td>
-                        <td>
+                        <td class="text-center">
                             {% if receita.status == 1 %}
-                            Ativo
+                            <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
                             {% else %}
-                            Inativo
+                            <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                             {% endif %}
                         </td>
-                        <td></td>
+                        <td class="text-center"></td>
                     </tr>
                     {%endfor%}
                 </tbody>

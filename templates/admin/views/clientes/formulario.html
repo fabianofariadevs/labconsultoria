@@ -17,26 +17,38 @@
     <div class="card-body">
         <form action="{{url('admin/clientes/cadastrar')}}" method="post">
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" name="titulo" id="titulo" class="form-control">
+                <label for="Nome" class="form-label">Nome Cliente</label>
+                <input type="text" name="nome" id="nome" class="form-control">
             </div>
             <div class="mb-3">
-                <label for="texto" class="form-label">Texto</label>
+                <label for="texto" class="form-label">Endereço</label>
+                <textarea name="endereco" id="endereco" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="bairro" class="form-label">Bairro</label>
+                <input type="text" name="bairro" id="bairro" class="form-control"></input>             
+            </div>
+            <div class="mb-3">
+                <label for="cidade" class="form-label">Cidade</label>
+                <input type="text" name="cidade" id="cidade" class="form-control"></input>
+            </div>
+            
+            <div class="mb-3">
+                <label for="estado" class="form-label">Modo de preparo</label>
+                <textarea name="texto" id="texto" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Qtde prevista da receita</label>
+                <textarea name="texto" id="texto" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Validade</label>
+                <textarea name="texto" id="texto" class="form-control" rows="1"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="texto" class="form-label">Observação</label>
                 <textarea name="texto" id="texto" class="form-control" rows="3"></textarea>
             </div>
-//final
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="cliente_id" class="form-label">Cliente</label>
-                        <select class="form-select" name="cliente_id" id="cliente.id_tbl_cliente">
-                            {% for cliente in clientes %}
-                            <option value="{{cliente.id_tbl_cliente}}">{{cliente.nome_cliente}}</option>
-                            {%endfor%}
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" name="status">
@@ -44,9 +56,6 @@
                             <option value="0">Inativo</option>
                         </select>
                     </div>
-                </div>
-            </div>
-
             <input type="submit" class="btn btn-primary" value="Cadastrar">
         </form>
     </div>    

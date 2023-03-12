@@ -18,7 +18,8 @@
                         <th scope="col">Cidade</th>
                         <th scope="col">Estado</th>
                         <th scope="col">Telefone</th>
-                        <th scope="col">Status</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,22 +32,19 @@
                         <td>{{cliente.cidade_cli}}</td>
                         <td>{{cliente.estado_cli}}</td>
                         <td>{{cliente.telefone_cli}}</td>
-                        <td>{{cliente.status}}</td>
-                        <td>
+                        <td class="text-center">
                             {% if cliente.status == 1 %}
-                            Ativo
+                            <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
                             {% else %}
-                            Inativo
+                            <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                             {% endif %}
                         </td>
-                        <td></td>
+                        <td class="text-center"></td>
                     </tr>
                     {%endfor%}
                 </tbody>
             </table>
         </div>     
-        
-        
     </div>
 </div>
 {% endblock %}

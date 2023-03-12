@@ -31,11 +31,17 @@ class ReceitaModelo
     
     public function armazenar(array $dados):void 
     {
-        $query = "INSERT INTO `tbl_receita` (`nome_receita`, `descricao_receita`, `modo_preparo`, `qtde_prevista_receita`, `validade_receita`, `observacao_receita`) VALUES (?, ?, ?, ?, ?, ?);";
-         $stmt = Conexao::getInstancia()->query($query);
-         $stmt->execute([$dados[`nome_receita`],$dados[`descricao_receita`],$dados[`modo_preparo`],$dados[`qtde_prevista_receita`],$dados[`validade_receita`],$dados[`observacao_receita`]]);
+        $query = "INSERT INTO `tbl_receita` ('id_tbl_Receita' ,`nome_receita`, `descricao_receita`, `modo_preparo`, `qtde_prevista_receita`, `validade_receita`, `observacao_receita`) VALUES (:id_tbl_Receita, :nome_receita, :descricao_receita, :modo_preparo, :qtde_prevista_receita, :validade_receita, :observacao_receita);";
+         $stmt = Conexao::getInstancia()->prepare($query);
+         $stmt->execute($dados);
     }
 
     
        
 }
+
+
+       // $query = "INSERT INTO `tbl_receita` (`nome_receita`, `descricao_receita`, `modo_preparo`, `qtde_prevista_receita`, `validade_receita`, `observacao_receita`) VALUES (?, ?, ?, ?, ?, ?);";
+      //   $stmt = Conexao::getInstancia()->prepare($query);
+        // $stmt->execute([$dados[`nome_receita`],$dados[`descricao_receita`],$dados[`modo_preparo`],$dados[`qtde_prevista_receita`],$dados[`validade_receita`],$dados[`observacao_receita`]]);
+    

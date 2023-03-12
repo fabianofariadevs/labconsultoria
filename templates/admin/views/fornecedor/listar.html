@@ -3,7 +3,8 @@
 {% block conteudo %}  
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0">
-        <h5 class="card-title">Relaçao de Fornecedores</h5>
+        <a class="card-title">Relação de Fornecedores</a>
+        <a href="{{url('admin/fornecedor/cadastrar')}}" class="btn btn-primary">Cadastar</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -15,24 +16,26 @@
                         <th scope="col">Endereço</th>
                         <th scope="col">Contato</th>
                         <th scope="col">Email</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for fornecedor in fornecedores %}
+                        {% for fornecedor in fornecedores %}
                     <tr>
                         <th>{{fornecedor.id_fornecedor}}</th>
                         <td>{{fornecedor.nome_fornec}}</td>
                         <td>{{fornecedor.endereco_fornec}}</td>
                         <td>{{fornecedor.contato_whatsapp}}</td>
                         <td>{{fornecedor.email_fornec}}</td>
-                        <td>
+                        <td class="text-center">
                             {% if fornecedor.status == 1 %}
-                            Ativo
+                            <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
                             {% else %}
-                            Inativo
+                            <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                             {% endif %}
                         </td>
-                        <td></td>
+                        <td class="text-center"></td>
                     </tr>
                     {%endfor%}
                 </tbody>

@@ -35,7 +35,7 @@ class ClienteModelo
     public function armazenar(array $dados):void 
     {
         $query = "INSERT INTO `tbl_cliente_fabrica` (`nome_cliente`, `endereco_cliente`, `bairro_cli`, `cidade_cli`, `estado_cli`, `telefone_cli`, `email_cli`, `responsavel_empresa`, `whatsapp`, `cnpj_fabrica`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-         $stmt = Conexao::getInstancia()->query($query);
+         $stmt = Conexao::getInstancia()->prepare($query);
          $stmt->execute([$dados[`nome_cliente`],$dados[`endereco_cliente`],$dados[`bairro_cli`],$dados[`cidade_cli`],$dados[`estado_cli`],$dados[`telefone_cli`],$dados[`email_cli`],$dados[`responsavel_empresa`],$dados[`whatsapp`],$dados[`cnpj_fabrica`]]);
     }
 
