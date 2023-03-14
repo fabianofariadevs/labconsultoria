@@ -27,8 +27,8 @@ class SiteControlador extends Controlador
      {
         $posts = (new PostModelo())->busca("status = 1");
         
-        echo $this->template->renderizar('index.html', [
-            'posts' => $posts
+        echo $this->template->renderizar('index.html', ['posts' => $posts->resultado(true),
+            'categorias' => $this->categorias(),
         ]);
     }
     
@@ -65,15 +65,17 @@ class SiteControlador extends Controlador
     }
     
     //tbl_receita ver no local post
-    public function buscar(): void
+    public function buscar():void
     {
         $busca = filter_input(INPUT_POST,'busca', FILTER_DEFAULT);
         if(isset($busca)){
-            $posts = (new PostModelo())->pesquisa($busca);
-            foreach ($posts as $post) {
-                echo "<li class-'list-group-item fw-bold'><a href=".helpers::url('post/').$post->id.">$post->titulo</a></li>";
+            $posts = (new PostModelo())->busca("status = 1 AND titulo LIKE '%{$busca}%'")->resultado(true);
+            
+            foreach ($posts as $post){
+                echo "<li class='list-group-item fw-bold'><a href=".Helpers::url('post/').$post->id.">$post->titulo</a></li>";
+            }
         }
-    }
+        
     }
 /**
      * Busca post por ID

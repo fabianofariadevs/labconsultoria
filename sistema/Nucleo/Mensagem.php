@@ -68,10 +68,10 @@ class Mensagem
      * Cria a sessão das mensagens flash
      * @return void
      */
-    //public function flash(): void
-    //{
-      //  (new Sessao())->criar('flash', $this);
-    //}
+    public function flash(): void
+    {
+        (new Sessao())->criar('flash', $this);
+    }
 
     
 }

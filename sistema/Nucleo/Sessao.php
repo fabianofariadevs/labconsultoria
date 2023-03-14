@@ -85,14 +85,14 @@ class Sessao
      * Checa ou limpa mensagens flash
      * @return Mensagem|null
      */
-    //public function flash(): ?Mensagem
-    //{
-      //  if ($this->checar('flash')) {
-        //    $flash = $this->flash;
-          //  $this->limpar('flash');
-           // return $flash;
-       // }
-        //return null;
-    //}
+    public function flash(): ?Mensagem
+    {
+        if ($this->checar('flash')) {
+            $flash = $this->flash;
+            $this->limpar('flash');
+            return $flash;
+        }
+        return null;
+    }
 
 }

@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/labconsultoria/sistema/Controlador/SiteControlador.php</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/usuarios/listar.html</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/site/views/index.html</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/categorias/listar.html</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/site/views/sidebar.html</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
