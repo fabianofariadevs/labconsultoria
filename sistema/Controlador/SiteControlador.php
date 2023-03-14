@@ -24,14 +24,14 @@ class SiteControlador extends Controlador
      * @return void
      */
     public function index(): void
-    {
-        $posts = (new PostModelo())->busca();
-
+     {
+        $posts = (new PostModelo())->busca("status = 1");
+        
         echo $this->template->renderizar('index.html', [
-            'posts' => $posts,
-           // 'categorias' => $this->categorias(),
-                ]);
+            'posts' => $posts
+        ]);
     }
+    
     /**
      * Sobre
      * @return void
@@ -106,7 +106,7 @@ class SiteControlador extends Controlador
         
         echo $this->template->renderizar('listar.html', [
             'clientes' => $posts,
-            'categorias' => $this->clientes(),
+            'clientes' => $this->clientes(),
         ]);
     }    
     /**

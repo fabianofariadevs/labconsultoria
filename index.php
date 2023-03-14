@@ -22,9 +22,6 @@ foreach ($posts as $post) {
 }*/
 
 
-
-
-
 /* //echo \sistema\Nucleo\helpers::cadastrar();
 //aula 52 composer
 $document = new \Bissolli\ValidadorCpfCnpj\CPF('123.456.789.00');

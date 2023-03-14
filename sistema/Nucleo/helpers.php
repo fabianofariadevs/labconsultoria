@@ -1,14 +1,35 @@
 <?php
 namespace sistema\Nucleo;
 use Exception;
+use sistema\Nucleo\Sessao;
+/**
+ * Classe Helper - Classe auxiliar responsável por prover métodos estáticos para manipular e validar dados no sistema.
+ *
+ * @author Fabiano Faria
+ */
 
-class helpers
+class Helpers
 {
     /**
- * Monta url de acordo com o ambiente
- * @param string $url parte da url ex. admin
- * @return string url completa
- */
+     * Instancia e retorna as mensagens flash por sessão
+     * @return string|null
+     */
+    public static function flash(): ?string
+    {
+        $sessao = new Sessao();
+
+        if ($flash = $sessao->flash()) {
+            echo $flash;
+        }
+        return null;
+    }
+
+    
+    /**
+    * Monta url de acordo com o ambiente
+    * @param string $url parte da url ex. admin
+    * @return string url completa
+    */
     public static function url(string $url = null) : string
     {
         $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
@@ -20,7 +41,11 @@ class helpers
         }
         return $ambiente .'/'.$url;
     }
-###
+    /**
+     * Redireciona para a url informada
+     * @param string $url
+     * @return void
+     */
        public static function redirecionar(string $url = null): void
     {
         header('HTTP/1.1 302 Found');
