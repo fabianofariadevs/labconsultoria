@@ -2,6 +2,7 @@
 namespace sistema\Nucleo;
 use Exception;
 use sistema\Nucleo\Sessao;
+
 /**
  * Classe Helper - Classe auxiliar responsável por prover métodos estáticos para manipular e validar dados no sistema.
  *
