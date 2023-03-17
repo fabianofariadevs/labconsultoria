@@ -4,8 +4,9 @@ namespace sistema\Nucleo;
 
 use PDO;
 use PDOException;
-
+//**
 /* Classe Conexao - Padrão Singleton: Retorna uma instância única de uma classe.
+ * 
  * @author Fabiano Faria
  */
 class Conexao
@@ -17,6 +18,8 @@ class Conexao
         if(empty(self::$instancia)) {
             try {
                 self::$instancia = new PDO('mysql:host='.DB_HOST.';port='.DB_PORTA.';dbname='.DB_NOME, DB_USUARIO, DB_SENHA, [
+                    //garante que o charset do PDO seja o mesmo do banco de dados
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
                    //todo erro através da PDO será uma exceção
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                    //converter qualquer resultado como um objeto anonimo
@@ -25,8 +28,7 @@ class Conexao
                     PDO::ATTR_CASE => PDO::CASE_NATURAL        
                     
                 ]);
-            }
-            catch(PDOException $ex) {
+            } catch(PDOException $ex) {
                 die("Erro de conexão:: ".$ex->getMessage());
             }
         }

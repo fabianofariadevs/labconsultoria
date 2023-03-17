@@ -3,14 +3,24 @@
 namespace sistema\Modelo;
 
 use sistema\Nucleo\Conexao;
+use sistema\Nucleo\Modelo;
 /**
  * Classe PostModelo
  *
  * @author Fabiano Faria
  */
-class Postmodelo 
+class Postmodelo extends Modelo
 {
-    public function busca(): array
+    public function __construct()
+    {
+        parent::__construct('posts');
+    }
+
+}
+    
+    
+   ///apartir da aula 107 paramos de usar esse metodo, agora com sessao de classes 
+/*    public function busca(): array
     {
         //aqui escolhemos quais as colunas ou id selecionar
         //ex: SELECT * FROM table WHERE id = 1 AND id = 2;
@@ -38,7 +48,7 @@ class Postmodelo
         $resultado = $stmt->fetch();
         return $resultado;
     }
- */
+
     public function pesquisa(string $busca): array
     {
         $query = "SELECT * FROM 'tbl_receita' WHERE status = 1 AND titulo LIKE '%{$busca}%' ";
@@ -47,3 +57,5 @@ class Postmodelo
         return $resultado;
     }
 }
+ * 
+ */

@@ -2,11 +2,13 @@
 
 namespace sistema\Suporte;
 
-use sistema\Nucleo\helpers;
 use Twig\Lexer;
+use sistema\Nucleo\Helpers;
 
-class Template
 //atributo twig
+//Classe tamplate...
+class Template
+
 { 
     private \Twig\Environment $twig;
 //vai receber um diretorio
@@ -53,7 +55,7 @@ class Template
                                 return Helpers::resumirTexto($texto, $limite);
                             })
             ),
-            $this->twig->addFunction(
+           $this->twig->addFunction(
                     new \Twig\TwigFunction('flash', function () {
                                 return Helpers::flash();
                             })

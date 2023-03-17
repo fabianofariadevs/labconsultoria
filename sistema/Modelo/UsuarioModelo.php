@@ -32,7 +32,7 @@ class UsuarioModelo extends Modelo
             return false;
         }
         
-        if($dados['senha'] != $usuario->senha){
+        if(isset($dados['senha']) != $usuario->senha){
             $this->mensagem->alerta("Os dados informados para o login estão incorretos!")->flash();
             return false;
         }

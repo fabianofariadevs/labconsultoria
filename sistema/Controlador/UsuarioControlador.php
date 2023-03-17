@@ -1,28 +1,40 @@
 <?php
 
 namespace sistema\Controlador;
-
+//filha do controlador aula 55
 use sistema\Nucleo\Controlador;
-use sistema\Nucleo\Helpers;
-use sistema\Nucleo\Sessao;
+//postmodelo chamando view index para apresentar os dados
+//use sistema\Modelo\PostModelo;
 use sistema\Modelo\UsuarioModelo;
-
+//use sistema\Modelo\FornecedorModelo;
+//use sistema\Modelo\MixProdutosModelo;
+//use sistema\Modelo\ClienteModelo;
+use sistema\Nucleo\Helpers;
+//use Site\Modelo\CategoriaModelo;
+use sistema\Nucleo\Sessao;
+//classe filha chamando o pai
 class UsuarioControlador extends Controlador
 {
-
     public function __construct()
-    {
+    //diretorio definido
+    { 
         parent::__construct('templates/site/views');
-    }
-
+    } 
+    /**
+     * Home Page
+     * @return void
+     */
     public static function usuario(): ?UsuarioModelo
-    {
+     {
         $sessao = new Sessao();
-        if(!$sessao->checar('id_tbl_Usuario')){
+        if(!$sessao->checar('usuarioId')){
             return null;
         }
         
-        return (new UsuarioModelo())->buscaPorId($sessao->id_tbl_Usuario);
+        return (new UsuarioModelo())->buscaPorId($sessao->usuarioId);
     }
 
+   
 }
+
+

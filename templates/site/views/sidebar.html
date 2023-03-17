@@ -3,9 +3,9 @@
 </h4>
 
 <ul class="list-group list-group-flush">
-    {% for cliente in clientes %}
-  <a href="{{url('clientes/'~cliente.id_tbl_cliente_fabrica)}}" class="list-group-item list-group-item-action fw-bold" tooltip="tooltip" title="{{cliente.nome_cliente}}">
-      {{cliente.nome_cliente}}
+    {% for categoria in categorias %}
+ <a href="{{url('categoria/'~categoria.id)}}" class="list-group-item list-group-item-action fw-bold" tooltip="tooltip" title="{{categoria.titulo}}">
+      {{categoria.titulo}}
   </a>
   {% endfor %}
 </ul>

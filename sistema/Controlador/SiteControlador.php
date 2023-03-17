@@ -9,7 +9,7 @@ use sistema\Modelo\UsuarioModelo;
 use sistema\Modelo\FornecedorModelo;
 use sistema\Modelo\MixProdutosModelo;
 use sistema\Modelo\ClienteModelo;
-use sistema\Nucleo\helpers;
+use sistema\Nucleo\Helpers;
 use Site\Modelo\CategoriaModelo;
 //classe filha chamando o pai
 class SiteControlador extends Controlador
@@ -27,7 +27,8 @@ class SiteControlador extends Controlador
      {
         $posts = (new PostModelo())->busca("status = 1");
         
-        echo $this->template->renderizar('index.html', ['posts' => $posts->resultado(true),
+        echo $this->template->renderizar('index.html', [
+            'posts' => $posts->resultado(true),
             'categorias' => $this->categorias(),
         ]);
     }

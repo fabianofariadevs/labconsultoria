@@ -8,7 +8,7 @@ date_default_timezone_set ('America/Sao_Paulo');
 //informações conexão com banco de dados
 define('DB_HOST', 'localhost');
 define('DB_PORTA', '3307');
-define('DB_NOME', 'db_labconsultoria');
+define('DB_NOME', 'db_labconsult');
 define('DB_USUARIO', 'root');
 define('DB_SENHA', '');
 

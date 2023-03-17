@@ -11,7 +11,7 @@ use sistema\Nucleo\Sessao;
 class AdminControlador extends Controlador
 {
     protected $usuario;
-    
+
     public function __construct()
     {
         parent::__construct('templates/admin/views');
@@ -22,11 +22,10 @@ class AdminControlador extends Controlador
             $this->mensagem->erro('Faça login para acessar o painel de controle!')->flash();
             
             $sessao = new Sessao();
-            $sessao->limpar('id_tbl_Usuario');
+            $sessao->limpar('usuarioId');
             
             Helpers::redirecionar('admin/login');
+        }
     }
-       
     
-}
 }

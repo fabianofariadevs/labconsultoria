@@ -1,5 +1,7 @@
 <?php
+
 namespace sistema\Nucleo;
+
 use Exception;
 use sistema\Nucleo\Sessao;
 
@@ -8,7 +10,6 @@ use sistema\Nucleo\Sessao;
  *
  * @author Fabiano Faria
  */
-
 class Helpers
 {
     /**

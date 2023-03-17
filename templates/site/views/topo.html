@@ -7,10 +7,10 @@
 
             <ul class="navbar navbar-dark bg-dark col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-2">
                 <li>
-                    <a href="{{ url('index') }}" class="nav-link px-2" tooltip="tooltip" title="Página Inicial">Home</a>
+                    <a href="{{ url('index') }}" class="nav-link px-2" tooltip="tooltip" title="Página Inicial">Página Inical</a>
                 </li>
-                
-                 <li class="nav-item dropdown">
+             ////teste  cat menu
+             <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Categorias
           </a>
@@ -23,7 +23,7 @@
             </li>
             {% endfor %}
           </ul>
-        </li>
+            </li>    
                         
                 <li>
                     <a href="{{ url('sobre') }}" class="nav-link px-2" tooltip="tooltip" title="Sobre Nós">Sobre nós</a>
@@ -34,9 +34,7 @@
                 </li>
             </ul>
 
-            <form data-url-busca="{{ url('buscar') }}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                <input type="search" name="busca" id="busca" class="form-control form-control-dark text-bg-dark" placeholder="Buscar..." aria-label="Search">
-            </form>            
+                 
 
             <div class="text-end">
                 <a href="" class="btn btn-outline-light me-2" tooltip="tooltip" title="Faça login">
@@ -48,7 +46,7 @@
             </div>
         </div>
         
-        <div class="my-3" id="buscaResultado"></div>
+        
         
     </div>
 </header>

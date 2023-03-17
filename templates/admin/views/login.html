@@ -8,7 +8,7 @@
                 <h1 class="h3 mb-3 text-center">Painel Administrativo</h1>
                 <p class="text-center">Informe seu login e senha para entrar no sistema.</p>
 
-        
+                {{ flash() }}
 
                 <form action="{{url('admin/login')}}" method="post">      
                     <div class="form-floating mb-3">

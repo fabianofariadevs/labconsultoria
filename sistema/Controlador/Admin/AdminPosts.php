@@ -13,8 +13,7 @@ use sistema\Nucleo\Helpers;
  */
 class AdminPosts extends AdminControlador
 {
-
-    public function listar(): void
+    public function listar():void
     {
         $post = new PostModelo();
 
@@ -27,11 +26,11 @@ class AdminPosts extends AdminControlador
             ]
         ]);
     }
-
-    public function cadastrar(): void
+    
+     public function cadastrar():void
     {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-        if (isset($dados)) {
+         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+         if (isset($dados)) {
 
             $post = new PostModelo();
 
@@ -98,5 +97,4 @@ class AdminPosts extends AdminControlador
             }
         }
     }
-
 }

@@ -2,6 +2,14 @@
 
 namespace sistema\Controlador\Admin;
 
+use sistema\Nucleo\Sessao;
+use sistema\Nucleo\Helpers;
+
+/**
+ * Classe AdminDashboard
+ *
+ * @author Fabiano Faria
+ */
 class AdminDashboard extends AdminControlador
 {
     public function dashboard(): void
@@ -18,6 +26,5 @@ class AdminDashboard extends AdminControlador
         $this->mensagem->informa('Você saiu do painel de controle!')->flash();
         Helpers::redirecionar('admin/login');
     }
-    
 
 }

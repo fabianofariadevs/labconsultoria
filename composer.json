@@ -12,9 +12,13 @@
     },
     "authors": [
         {
-            "name": "fabiano"
+            "name": "fabiano Faria",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "email": "fabianofariadevs2022@gmail.com"
+    },
     "minimum-stability": "dev",
     "require": {
         "php": ">= 8.0",

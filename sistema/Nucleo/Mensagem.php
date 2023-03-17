@@ -3,10 +3,12 @@
 namespace sistema\Nucleo;
 
 //classe mensagem, responsável por exibr as mensagens do sistema.
+//@autor Fabiano Faria
 class Mensagem
 {
     private $texto;
     public $css;
+    
     public function __toString()
     {
         return $this->renderizar();
@@ -55,7 +57,7 @@ class Mensagem
     *@return string */
     public function renderizar(): string
     {
-        return "<div class='{$this->css}'>{$this->texto}</div>";
+        return "<div class='{$this->css} alert-dismissible fade show'>{$this->texto}<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>";
     }
    //metodo responsável por filtrar as mensagens 
    //@param string $mensagem
