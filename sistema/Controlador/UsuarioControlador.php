@@ -20,9 +20,9 @@ class UsuarioControlador extends Controlador
     { 
         parent::__construct('templates/site/views');
     } 
-    /**
+    /**Busca usuário pela sessão
      * Home Page
-     * @return void
+     * @return UsuarioModelo / null
      */
     public static function usuario(): ?UsuarioModelo
      {

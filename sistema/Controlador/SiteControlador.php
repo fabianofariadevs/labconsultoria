@@ -40,7 +40,8 @@ class SiteControlador extends Controlador
     public function sobre(): void
     {
         echo $this->template->renderizar('sobre.html', [
-            'titulo' => 'SOBRE'
+            'titulo' => 'SOBRE',
+            'categorias' => $this->categorias(),
         ]);
     }
     public function base(): void
@@ -83,12 +84,13 @@ class SiteControlador extends Controlador
      * @param int $id
      * @return void
      */
-    public function post(int $id):void
+    public function post(string $slug):void
     {
-        $post = (new PostModelo())->buscaPorId($id);
+        $post = (new PostModelo())->buscaPorId($slug);
         if(!$post){
             Helpers::redirecionar('404');
         }
+        $post->salvarVisitas();
         
         echo $this->template->renderizar('post.html', [
             'post' => $post,
@@ -170,15 +172,24 @@ class SiteControlador extends Controlador
      */
     public function categorias(): array
     {
-        return (new CategoriaModelo())->busca();
+        return (new CategoriaModelo())->busca("status = 1")->resultado(true);
     }
-
-    public function categoria(int $id):void
+    /**
+     * Lista posts por categoria
+     * @param string $slug
+     * @return void
+     */
+    public function categoria(string $slug):void
     {
-        $posts = (new CategoriaModelo())->posts($id);
-        
+        $categoria = (new CategoriaModelo())->buscaPorSlug($slug);
+        if (!$categoria) {
+            Helpers::redirecionar('404');
+        }
+
+        $categoria->salvarVisitas();
+
         echo $this->template->renderizar('categoria.html', [
-            'posts' => $posts,
+            'posts' => (new CategoriaModelo())->posts($categoria->id),
             'categorias' => $this->categorias(),
         ]);
     }    

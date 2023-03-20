@@ -3,104 +3,159 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\UsuarioModelo;
-use sistema\Modelo\CategoriaModelo;
 use sistema\Nucleo\Helpers;
+
 /* Classe AdminUsuarios
- *
  * @author Fabiano Faria
  */
 class AdminUsuarios extends AdminControlador
 {
+
+    /**
+     * Lista usuários
+     * @return void
+     */
     public function listar(): void
     {
-        $post = new UsuarioModelo();
-        
+        $usuario = new UsuarioModelo();
+
         echo $this->template->renderizar('usuarios/listar.html', [
-            'clientes' => $post->busca()->ordem('status ASC, id_tbl_Usuario DESC')->resultado(true),
+            'usuarios' => $usuario->busca()->ordem('level DESC, status ASC')->resultado(true),
             'total' => [
-                'clientes' => $post->total(),
-                'clientesAtivo' => $post->busca('status = 1')->total(),
-                'clientesInativo' => $post->busca('status = 0')->total()
+                'usuarios' => $usuario->busca('level != 3')->total(),
+                'usuariosAtivo' => $usuario->busca('status = 1 AND level != 3')->total(),
+                'usuariosInativo' => $usuario->busca('status = 0 AND level != 3')->total(),
+                'admin' => $usuario->busca('level = 3')->total(),
+                'adminAtivo' => $usuario->busca('status = 1 AND level = 3')->total(),
+                'adminInativo' => $usuario->busca('status = 0 AND level = 3')->total()
             ]
         ]);
     }
 
+    /**
+     * Cadastra usuário
+     * @return void
+     */
     public function cadastrar(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
+            //checa os dados 
+            if ($this->validarDados($dados)) {
 
-            $post = new UsuarioModelo();
+                if (empty($dados['senha'])) {
+                    $this->mensagem->alerta('Informe uma senha para o usuário')->flash();
+                } else {
+                    $usuario = new UsuarioModelo();
 
-            $post->nome_usuario = $dados['nome_usuario'];
-            $post->sobrenome_usuario = $dados['sobrenome_usuario'];
-            $post->email_usuario = $dados['email_usuario'];
-            $post->level = $dados['level'];
-            $post->senha_usuario = $dados['senha_usuario'];
-            $post->empresa_colab = $dados['empresa_colab'];
-            $post->status = $dados['status'];
-           
-            if ($post->salvar()) {
-                $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
-                Helpers::redirecionar('admin/usuarios/listar');
+                    $usuario->nome = $dados['nome'];
+                    $usuario->email = $dados['email'];
+                    $usuario->senha = Helpers::gerarSenha($dados['senha']);
+                    $usuario->level = $dados['level'];
+                    $usuario->status = $dados['status'];
+
+                    if ($usuario->salvar()) {
+                        $this->mensagem->sucesso('Usuário cadastrado com sucesso')->flash();
+                        Helpers::redirecionar('admin/usuarios/listar');
+                    } else {
+                        $usuario->mensagem()->flash();
+                    }
+                }
             }
         }
 
         echo $this->template->renderizar('usuarios/formulario.html', [
-    /////ver aquiiiii cat???        
-            //'categorias' => (new CategoriaModelo())->busca()
+            'usuario' => $dados
         ]);
     }
 
+    /**
+     * Edita os dados do usuário por ID
+     * @param int $id
+     * @return void
+     */
     public function editar(int $id): void
     {
-        $post = (new UsuarioModelo())->buscaPorId($id);
+        $usuario = (new UsuarioModelo())->buscaPorId($id);
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
+            if ($this->validarDados($dados)) {
+                $usuario = (new UsuarioModelo())->buscaPorId($id);
 
-            $post->nome_usuario = $dados['nome_usuario'];
-            $post->sobrenome_usuario = $dados['sobrenome_usuario'];
-            $post->email_usuario = $dados['email_usuario'];
-            $post->level = $dados['level'];
-            $post->senha_usuario = $dados['senha_usuario'];
-            $post->empresa_colab = $dados['empresa_colab'];
-            $post->status = $dados['status'];
+                $usuario->nome = $dados['nome'];
+                $usuario->email = $dados['email'];
+                $usuario->senha = (!empty($dados['senha']) ? Helpers::gerarSenha($dados['senha']) : $usuario->senha);
+                $usuario->level = $dados['level'];
+                $usuario->status = $dados['status'];
+                $usuario->atualizado_em = date('Y-m-d H:i:s');
 
-            if ($post->salvar()) {
-                $this->mensagem->sucesso('Usuário atualizado com sucesso')->flash();
-                Helpers::redirecionar('admin/usuarios/listar');
+                if ($usuario->salvar()) {
+                    $this->mensagem->sucesso('Usuário atualizado com sucesso')->flash();
+                    Helpers::redirecionar('admin/usuarios/listar');
+                } else {
+                    $usuario->mensagem()->flash();
+                }
             }
         }
 
         echo $this->template->renderizar('usuarios/formulario.html', [
-    ////ver aqui tb???        
-     //       'post' => $post,
-       //     'categorias' => (new CategoriaModelo())->busca()
+            'usuario' => $usuario
         ]);
     }
 
+    /**
+     * Checa os dados do formulário
+     * @param array $dados
+     * @return bool
+     */
+    public function validarDados(array $dados): bool
+    {
+        if (empty($dados['nome'])) {
+            $this->mensagem->alerta('Informe o nome do usuário')->flash();
+            return false;
+        }
+        if (empty($dados['email'])) {
+            $this->mensagem->alerta('Informe o e-mail do usuário')->flash();
+            return false;
+        }
+        if (!Helpers::validarEmail($dados['email'])) {
+            $this->mensagem->alerta('Informe um e-mail válido!')->flash();
+            return false;
+        }
+        
+        if(!empty($dados['senha'])){
+            if(!Helpers::validarSenha($dados['senha'])){
+                $this->mensagem->alerta('A senha deve ter entre 6 e 50 caracteres!')->flash();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Deletar um usuário por ID
+     * @param int $id
+     * @return void
+     */
     public function deletar(int $id): void
     {
-//        $id = filter_var($id, FILTER_VALIDATE_INT);
         if (is_int($id)) {
-            $post = (new UsuarioModelo())->buscaPorId($id);
-            if (!$post) {
-                $this->mensagem->alerta('O Usuário que você está tentando deletar não existe!')->flash();
+            $usuario = (new UsuarioModelo())->buscaPorId($id);
+            if (!$usuario) {
+                $this->mensagem->alerta('O usuário que você está tentando deletar não existe!')->flash();
                 Helpers::redirecionar('admin/usuarios/listar');
             } else {
-                if($post->deletar()){
+                if ($usuario->deletar()) {
                     $this->mensagem->sucesso('Usuário deletado com sucesso!')->flash();
-                Helpers::redirecionar('admin/usuarios/listar');
-                }else {
-                    $this->mensagem->erro($post->erro())->flash();
-                Helpers::redirecionar('admin/usuarios/listar');
+                    Helpers::redirecionar('admin/usuarios/listar');
+                } else {
+                    $this->mensagem->erro($usuario->erro())->flash();
+                    Helpers::redirecionar('admin/usuarios/listar');
                 }
-                
-                
             }
         }
     }
-
 
 }

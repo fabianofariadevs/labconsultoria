@@ -12,7 +12,10 @@ use sistema\Nucleo\Helpers;
  */
 class AdminCategorias extends AdminControlador
 {
-
+    /**
+     * Lista categorias
+     * @return void
+     */
     public function listar(): void
     {
         $categorias = new CategoriaModelo();
@@ -26,18 +29,35 @@ class AdminCategorias extends AdminControlador
             ]
         ]);
     }
-
+    /**
+     * Cadastra uma categoria
+     * @return void
+     */
     public function cadastrar(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
-            (new CategoriaModelo())->armazenar($dados);
-            
-            $this->mensagem->sucesso('Categoria cadastrada com sucesso')->flash();
-            Helpers::redirecionar('admin/categorias/listar');
+            if ($this->validarDados($dados)) {
+            $categoria = new CategoriaModelo();
+
+                $categoria->usuario_id = $this->usuario->id;
+                $categoria->slug = Helpers::slug($dados['titulo']);
+                $categoria->titulo = $dados['titulo'];
+                $categoria->texto = $dados['texto'];
+                $categoria->status = $dados['status'];
+
+                if ($categoria->salvar()) {
+                    $this->mensagem->sucesso('Categoria cadastrada com sucesso')->flash();
+                    Helpers::redirecionar('admin/categorias/listar');
+                } else {
+                    $this->mensagem->erro($categoria->erro())->flash();
+                    Helpers::redirecionar('admin/categorias/listar');
+                }
+            }
         }
 
-        echo $this->template->renderizar('categorias/formulario.html', []);
+        echo $this->template->renderizar('categorias/formulario.html', [
+            'categoria' => $dados]);
     }
 
     public function editar(int $id): void
@@ -46,23 +66,69 @@ class AdminCategorias extends AdminControlador
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
-            (new CategoriaModelo())->atualizar($dados, $id);
-            
-            $this->mensagem->sucesso('Categoria atualizada com sucesso')->flash();
-            Helpers::redirecionar('admin/categorias/listar');
-        }
+            if ($this->validarDados($dados)) {
+                $categoria = (new CategoriaModelo())->buscaPorId($categoria->id);
 
+                $categoria->usuario_id = $this->usuario->id;
+                $categoria->slug = Helpers::slug($dados['titulo']);
+                $categoria->titulo = $dados['titulo'];
+                $categoria->texto = $dados['texto'];
+                $categoria->status = $dados['status'];
+                $categoria->atualizado_em = date('Y-m-d H:i:s');
+
+                if ($categoria->salvar()) {
+                    $this->mensagem->sucesso('Categoria atualizada com sucesso')->flash();
+                    Helpers::redirecionar('admin/categorias/listar');
+                } else {
+                    $this->mensagem->erro($categoria->erro())->flash();
+                    Helpers::redirecionar('admin/categorias/listar');
+                }
+            }
+        }
         echo $this->template->renderizar('categorias/formulario.html', [
             'categoria' => $categoria
         ]);
     }
+    /**
+     * Valida os dados do formulário
+     * @param array $dados
+     * @return bool
+     */
+    private function validarDados(array $dados): bool
+    {
+        if (empty($dados['titulo'])) {
+            $this->mensagem->alerta('Escreva um título para a Categoria!')->flash();
+            return false;
+        }
+        return true;
+    }
 
+    /**
+     * Deleta uma categoria pelo ID
+     * @param int $id
+     * @return void
+     */
     public function deletar(int $id): void
     {
-        (new CategoriaModelo())->deletar($id);
-        
-        $this->mensagem->sucesso('Categoria deletada com sucesso')->flash();
-        Helpers::redirecionar('admin/categorias/listar');
+        if (is_int($id)) {
+            $categoria = (new CategoriaModelo())->buscaPorId($id);
+
+            if (!$categoria) {
+                $this->mensagem->alerta('O categoria que você está tentando deletar não existe!')->flash();
+                Helpers::redirecionar('admin/categorias/listar');
+            } elseif ($categoria->posts($categoria->id)) {
+                $this->mensagem->alerta("A categoria {$categoria->titulo} tem posts cadastrados, delete ou altere os posts antes de deletar!")->flash();
+                Helpers::redirecionar('admin/categorias/listar');
+            } else {
+                if ($categoria->deletar()) {
+                    $this->mensagem->sucesso('Categoria deletada com sucesso!')->flash();
+                    Helpers::redirecionar('admin/categorias/listar');
+                } else {
+                    $this->mensagem->erro($categoria->erro())->flash();
+                    Helpers::redirecionar('admin/categorias/listar');
+                }
+            }
+        }
     }
 
 }
