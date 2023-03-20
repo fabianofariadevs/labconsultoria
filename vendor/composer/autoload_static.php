@@ -30,10 +30,6 @@ class ComposerStaticInitdc5936b2d6cef82cf987e407ba3eb877
         array (
             'Pecee\\' => 6,
         ),
-        'B' => 
-        array (
-            'Bissolli\\ValidadorCpfCnpj\\' => 26,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -56,10 +52,6 @@ class ComposerStaticInitdc5936b2d6cef82cf987e407ba3eb877
         'Pecee\\' => 
         array (
             0 => __DIR__ . '/..' . '/pecee/simple-router/src/Pecee',
-        ),
-        'Bissolli\\ValidadorCpfCnpj\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/bissolli/validador-cpf-cnpj/src',
         ),
     );
 

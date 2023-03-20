@@ -23,7 +23,8 @@
     "require": {
         "php": ">= 8.0",
         "pecee/simple-router": "dev-master",
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "digitalnature/php-ref": "dev-master"
         
     }
 }

@@ -4,60 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "338c93b0385c6f810b7203815f76b993",
+    "content-hash": "2651b9544ea709211ccb98024c29f60d",
     "packages": [
-        {
-            "name": "bissolli/validador-cpf-cnpj",
-            "version": "v1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bissolli/validador-cpf-cnpj.git",
-                "reference": "9ae383648473ea8b7040d766ced8aeb1a1cf3fc8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bissolli/validador-cpf-cnpj/zipball/9ae383648473ea8b7040d766ced8aeb1a1cf3fc8",
-                "reference": "9ae383648473ea8b7040d766ced8aeb1a1cf3fc8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Bissolli\\ValidadorCpfCnpj\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gustavo Bissolli",
-                    "email": "gustavo.bissolli@gmail.com"
-                }
-            ],
-            "description": "Classe em PHP para validação de CPF e CNPJ.",
-            "homepage": "https://github.com/bissolli/validador-cpf-cnpj",
-            "keywords": [
-                "brasil",
-                "cnpj",
-                "cpf",
-                "documento",
-                "laravel",
-                "validador"
-            ],
-            "support": {
-                "issues": "https://github.com/bissolli/validador-cpf-cnpj/issues",
-                "source": "https://github.com/bissolli/validador-cpf-cnpj/tree/master"
-            },
-            "time": "2018-08-14T09:13:34+00:00"
-        },
         {
             "name": "pecee/simple-router",
             "version": "dev-master",

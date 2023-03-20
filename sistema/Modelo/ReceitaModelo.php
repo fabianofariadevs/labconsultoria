@@ -9,7 +9,7 @@ use sistema\Nucleo\Conexao;
  *
  * @author Fabiano Faria
  */
-class ReceitaModelo
+class ReceitaModelo extends modelo
 {
     public function busca(): array
     {
