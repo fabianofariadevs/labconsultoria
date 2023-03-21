@@ -1,4 +1,3 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
 <?php
 // Arquivo index responsável pela inicialização do sistema
@@ -22,7 +21,9 @@ foreach ($posts as $post) {
 }*/
 
 
-/* //echo \sistema\Nucleo\helpers::cadastrar();
+/*
+ * 
+ *  //echo \sistema\Nucleo\helpers::cadastrar();
 //aula 52 composer
 $document = new \Bissolli\ValidadorCpfCnpj\CPF('123.456.789.00');
 var_dump($document->isValid());

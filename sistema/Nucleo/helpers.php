@@ -13,6 +13,41 @@ use sistema\Nucleo\Sessao;
 class Helpers
 {
     /**
+     * Valida a senha
+     * @param string $senha
+     * @return bool
+     */
+    public static function validarSenha(string $senha): bool
+    {
+        if(mb_strlen($senha) >= 6 && mb_strlen($senha) <= 50){
+            return true;
+        }
+                
+        return false;
+    }
+    
+    /**
+     * Gera senha segura
+     * @param string $senha
+     * @return string
+     */
+    public static function gerarSenha(string $senha): string
+    {
+        return password_hash($senha, PASSWORD_DEFAULT, ['cost' => 10]);
+    }
+    
+    /**
+     * Verifica a senha
+     * @param string $senha
+     * @param string $hash
+     * @return bool
+     */
+    public static function verificarSenha(string $senha, string $hash): bool
+    {
+        return password_verify($senha, $hash);
+    }
+
+    /**
      * Instancia e retorna as mensagens flash por sessão
      * @return string|null
      */

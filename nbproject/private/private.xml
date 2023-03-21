@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/posts/formulario.html</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/posts/listar.html</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/receitas/listar.html</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/receitas/formulario.html</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/dashboard.html</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/sistema/Modelo/Postmodelo.php</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/sistema/Biblioteca/Upload.php</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/sistema/Modelo/ReceitaModelo.php</file>
-            <file>file:/C:/xampp/htdocs/labconsultoria/composer.json</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

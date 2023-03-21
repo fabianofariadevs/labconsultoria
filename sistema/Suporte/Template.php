@@ -4,6 +4,7 @@ namespace sistema\Suporte;
 
 use Twig\Lexer;
 use sistema\Nucleo\Helpers;
+use sistema\Controlador\UsuarioControlador;
 
 //atributo twig
 //Classe tamplate...
@@ -55,9 +56,19 @@ class Template
                                 return Helpers::resumirTexto($texto, $limite);
                             })
             ),
-           $this->twig->addFunction(
+            $this->twig->addFunction(
                     new \Twig\TwigFunction('flash', function () {
                                 return Helpers::flash();
+                            })
+            ),
+            $this->twig->addFunction(
+                    new \Twig\TwigFunction('usuario', function () {
+                                return UsuarioControlador::usuario();
+                            })
+            ),
+            $this->twig->addFunction(
+                    new \Twig\TwigFunction('contarTempo', function (string $data) {
+                                return Helpers::contarTempo($data);
                             })
             ),
             

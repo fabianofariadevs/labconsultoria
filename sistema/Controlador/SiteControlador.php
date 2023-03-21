@@ -5,10 +5,10 @@ namespace sistema\Controlador;
 use sistema\Nucleo\Controlador;
 //postmodelo chamando view index para apresentar os dados
 use sistema\Modelo\PostModelo;
-use sistema\Modelo\UsuarioModelo;
-use sistema\Modelo\FornecedorModelo;
-use sistema\Modelo\MixProdutosModelo;
-use sistema\Modelo\ClienteModelo;
+//use sistema\Modelo\UsuarioModelo;
+//use sistema\Modelo\FornecedorModelo;
+//use sistema\Modelo\MixProdutosModelo;
+//use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\Helpers;
 use Site\Modelo\CategoriaModelo;
 //classe filha chamando o pai

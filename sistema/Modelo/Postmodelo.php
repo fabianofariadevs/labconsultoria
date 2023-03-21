@@ -2,7 +2,6 @@
 
 namespace sistema\Modelo;
 
-use sistema\Nucleo\Conexao;
 use sistema\Nucleo\Modelo;
 /**
  * Classe PostModelo
@@ -11,51 +10,44 @@ use sistema\Nucleo\Modelo;
  */
 class Postmodelo extends Modelo
 {
+
     public function __construct()
     {
         parent::__construct('posts');
     }
 
-}
-    
-    
-   ///apartir da aula 107 paramos de usar esse metodo, agora com sessao de classes 
-/*    public function busca(): array
+    /**
+     * Busca a categoria pelo ID
+     * @return CategoriaModelo|null
+     */
+    public function categoria(): ?CategoriaModelo
     {
-        //aqui escolhemos quais as colunas ou id selecionar
-        //ex: SELECT * FROM table WHERE id = 1 AND id = 2;
-        //COM LIMIT, OFFSET, OU OPERADORES
-        $query = "SELECT * FROM posts ";
-        $stmt = Conexao::getInstancia()->query($query);        
-        $resultado = $stmt->fetchAll();
-        //var_dump($resultado);
-        return $resultado;
-
-    }
-    
-    public function buscaporId(int$id): bool | object
-    {
-        //aqui buscar por ID
-        $query = "SELECT * FROM 'posts' WHERE status - 1 ORDER BY id DESC";
-        $stmt = Conexao::getInstancia()->query($query);        
-        $resultado = $stmt->fetch();
-        return $resultado;
-    }
-/*    public function buscaPorId(int $id): bool | object
-    {
-        $query = "SELECT * FROM posts WHERE id - {$id}";
-        $stmt = Conexao::getInstancia()->query($query);        
-        $resultado = $stmt->fetch();
-        return $resultado;
+        if ($this->categoria_id) {
+            return (new CategoriaModelo())->buscaPorId($this->categoria_id);
+        }
+        return null;
     }
 
-    public function pesquisa(string $busca): array
+    /**
+     * Busca o usuário pelo ID
+     * @return UsuarioModelo|null
+     */
+    public function usuario(): ?UsuarioModelo
     {
-        $query = "SELECT * FROM 'tbl_receita' WHERE status = 1 AND titulo LIKE '%{$busca}%' ";
-        $stmt = Conexao::getInstancia()->query($query);        
-        $resultado = $stmt->fetchAll();
-        return $resultado;
+        if ($this->usuario_id) {
+            return (new UsuarioModelo())->buscaPorId($this->usuario_id);
+        }
+        return null;
     }
+    
+    /**
+     * Salva o post com slug
+     * @return bool
+     */
+    public function salvar(): bool
+    {
+        $this->slug();
+        return parent::salvar();
+    }
+
 }
- * 
- */
