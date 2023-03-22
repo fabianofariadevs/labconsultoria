@@ -66,6 +66,7 @@ class UsuarioModelo extends Modelo
         $this->mensagem->sucesso("{$usuario->nome}, seja bem vindo ao painel de controle")->flash();
         return true;
     }
+    
     public function salvar(): bool
     {
         if($this->busca("email = :e AND id != :id","e={$this->email}&id={$this->id}")->resultado()){

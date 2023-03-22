@@ -4,10 +4,16 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/labconsultoria/templates/site/views/post.html</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/topo.html</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/sistema/Controlador/SiteControlador.php</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/templates/site/views/topo.html</file>
             <file>file:/C:/xampp/htdocs/labconsultoria/templates/site/views/busca.html</file>
             <file>file:/C:/xampp/htdocs/labconsultoria/sistema/Modelo/UsuarioModelo.php</file>
             <file>file:/C:/xampp/htdocs/labconsultoria/templates/site/views/base.html</file>
             <file>file:/C:/xampp/htdocs/labconsultoria/templates/site/views/categoria.html</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/sistema/Controlador/Admin/AdminControlador.php</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/templates/site/views/index.html</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/rotas.php</file>
         </group>
     </open-files>
 </project-private>
