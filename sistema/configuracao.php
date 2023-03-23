@@ -26,5 +26,9 @@ define('URL_SITE', 'labconsultoria/');
 //painel admin CONSTANTE ADMIN 
 define('URL_ADMIN', 'labconsultoria/admin/');
 
+//painel PRODUÇÃO CONSTANTE Producao 
+define('URL_PRODUCAO', 'labconsultoria/producao/');
+
+
 
 
