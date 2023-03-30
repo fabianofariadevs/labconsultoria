@@ -26,7 +26,6 @@ class AdminLogin extends Controlador
         if($usuario && $usuario->level == 3){
             Helpers::redirecionar('admin/dashboard');
         }
-        
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             if (in_array('', $dados)) {
@@ -38,8 +37,15 @@ class AdminLogin extends Controlador
                 }
             }
         }
-
         echo $this->template->renderizar('login.html', []);
     }
 
 }
+
+//      var_dump($dados);
+        
+   
+
+/*
+ *      
+ */

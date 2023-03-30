@@ -33,22 +33,22 @@ class Conexao
             }
         }
         return self::$instancia;     
-}
-/**
-* Construtor do tipo protegido previne que uma nova instância da
-* Classe seja criada através do operador `new` de fora dessa classe.
-*/
-protected function __construct()
-{
-    
-}
-/**
-* Método clone do tipo privado previne a clonagem dessa instância da classe
-* @return void
-*/
-private function __clone(): void
-{
+    }
+    /**
+    * Construtor do tipo protegido previne que uma nova instância da
+    * Classe seja criada através do operador `new` de fora dessa classe.
+    */
+    protected function __construct()
+    {
 
-}
+    }
+    /**
+    * Método clone do tipo privado previne a clonagem dessa instância da classe
+    * @return void
+    */
+    private function __clone(): void
+    {
+
+    }
 
 }

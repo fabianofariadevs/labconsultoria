@@ -180,7 +180,7 @@
                                                 Escrito por {{post.usuario.nome}} {{ contarTempo(post.cadastrado_em) }} {{post.categoria.titulo}}
                                             </small>
                                         </th>
-                                        <td class="text-center">{{post.visitas}}</td>
+                                        <td class="text-center">{{formatarNumero(post.visitas)}}</td>
                                         <td class="text-center">
 
                                             <a href="{{ url('admin/posts/editar/'~post.id) }}" tooltip="tooltip" title="Editar">
@@ -244,7 +244,7 @@
                                             {{categoria.titulo}}
                                         </td>
                                         <td class="text-center">
-                                            {{categoria.visitas}}
+                                            {{formatarNumero(categoria.visitas)}}
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/categorias/editar/'~categoria.id) }}" tooltip="tooltip" title="Editar">

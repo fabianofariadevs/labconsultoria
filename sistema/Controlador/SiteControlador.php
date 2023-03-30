@@ -11,6 +11,7 @@ use sistema\Modelo\PostModelo;
 //use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\Helpers;
 use Site\Modelo\CategoriaModelo;
+use sistema\Biblioteca\Paginar;
 //classe filha chamando o pai
 class SiteControlador extends Controlador
 {
@@ -28,22 +29,16 @@ class SiteControlador extends Controlador
         $posts = (new PostModelo())->busca("status = 1");
         
         echo $this->template->renderizar('index.html', [
-            'posts' => $posts->resultado(true),
+            'posts' => [
+                'slides' => $posts->ordem('id DESC')->limite(3)->resultado(true),
+                'posts' => $posts->ordem('id DESC')->limite(10)->offset(3)->resultado(true),
+                'maisLidos' => (new PostModelo())->busca("status = 1")->ordem('visitas DESC')->limite(5)->resultado(true),
+            ],
             'categorias' => $this->categorias(),
         ]);
     }
     
-    /**
-     * Sobre
-     * @return void
-     */
-    public function sobre(): void
-    {
-        echo $this->template->renderizar('sobre.html', [
-            'titulo' => 'SOBRE',
-            'categorias' => $this->categorias(),
-        ]);
-    }
+    
     public function base(): void
     {
         echo $this->template->renderizar('base.html', [
@@ -65,28 +60,31 @@ class SiteControlador extends Controlador
             'subtitulo' => 'SERVIÇOS  de subtitulo'
         ]);
     }
-    
-    //tbl_receita ver no local post
+    /**
+     * Busca posts 
+     * @return void
+     */
     public function buscar():void
     {
         $busca = filter_input(INPUT_POST,'busca', FILTER_DEFAULT);
         if(isset($busca)){
             $posts = (new PostModelo())->busca("status = 1 AND titulo LIKE '%{$busca}%'")->resultado(true);
-            
-            foreach ($posts as $post){
-                echo "<li class='list-group-item fw-bold'><a href=".Helpers::url('post/').$post->id.">$post->titulo</a></li>";
+            if ($posts) {
+                foreach ($posts as $post) {
+                    echo "<li class='list-group-item fw-bold'><a href=" .Helpers::url('post/') . $post->id . ">$post->titulo</a></li>";
+                }
             }
-        }
         
+        }
     }
 /**
      * Busca post por ID
-     * @param int $id
+     * @param int $slug
      * @return void
      */
     public function post(string $slug):void
     {
-        $post = (new PostModelo())->buscaPorId($slug);
+        $post = (new PostModelo())->buscaPorSlug($slug);
         if(!$post){
             Helpers::redirecionar('404');
         }
@@ -94,6 +92,50 @@ class SiteControlador extends Controlador
         
         echo $this->template->renderizar('post.html', [
             'post' => $post,
+            'categorias' => $this->categorias(),
+        ]);
+    }
+     /**
+     * Categorias
+     * @return array
+     */
+    public function categorias(): array
+    {
+        return (new CategoriaModelo())->busca("status = 1")->resultado(true);
+    }
+    /**
+     * Lista posts por categoria
+     * @param string $slug
+     * @return void
+     */
+    public function categoria(string $slug, int $pagina = null):void
+    {
+        $categoria = (new CategoriaModelo())->buscaPorSlug($slug);
+        if (!$categoria) {
+            Helpers::redirecionar('404');
+        }
+
+        $categoria->salvarVisitas();
+        $posts = (new PostModelo());
+        $total = $posts->busca('categoria_id = :c', "c={$categoria->id} COUNT(id)", 'id')->total();
+
+        $paginar = new Paginar(Helpers::url('categoria/' . $slug), ($pagina ?? 1), 6, 3, $total);
+
+        echo $this->template->renderizar('categoria.html', [
+            'posts' => $posts->busca("categoria_id = {$categoria->id}")->limite($paginar->limite())->offset($paginar->offset())->resultado(true),
+            'paginacao' => $paginar->renderizar(),
+            'paginacaoInfo' => $paginar->info(),
+            'categorias' => $this->categorias(),
+        ]);
+    }    
+    /**
+     * Sobre
+     * @return void
+     */
+    public function sobre(): void
+    {
+        echo $this->template->renderizar('sobre.html', [
+            'titulo' => 'SOBRE',
             'categorias' => $this->categorias(),
         ]);
     }
@@ -166,34 +208,7 @@ class SiteControlador extends Controlador
         ]);
     }   
     
-    /**
-     * Categorias
-     * @return array
-     */
-    public function categorias(): array
-    {
-        return (new CategoriaModelo())->busca("status = 1")->resultado(true);
-    }
-    /**
-     * Lista posts por categoria
-     * @param string $slug
-     * @return void
-     */
-    public function categoria(string $slug):void
-    {
-        $categoria = (new CategoriaModelo())->buscaPorSlug($slug);
-        if (!$categoria) {
-            Helpers::redirecionar('404');
-        }
-
-        $categoria->salvarVisitas();
-
-        echo $this->template->renderizar('categoria.html', [
-            'posts' => (new CategoriaModelo())->posts($categoria->id),
-            'categorias' => $this->categorias(),
-        ]);
-    }    
-    
+   
         /**
      * ERRO 404
      * @return void

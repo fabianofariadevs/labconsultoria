@@ -13,6 +13,7 @@
         </li>
     </ol>
 </nav>
+{{flash()}}
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
         <div>
@@ -27,11 +28,12 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover" id="tabela">
                 <thead>
                     <tr>
                         <th>id</th>
                         <th>Título</th>
+                        <th class="text-center">Visitas</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Ação</th>
                     </tr>
@@ -40,7 +42,8 @@
                     {% for categoria in categorias %}
                     <tr>
                         <th>{{categoria.id}}</th>
-                        <td>{{categoria.titulo}}</td>
+                        <td class="fw-bold">{{categoria.titulo}}</td>
+                        <td class="text-center">{{categoria.visitas}}</td>
                         <td class="text-center">
                             {% if categoria.status == 1 %}
                             <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
