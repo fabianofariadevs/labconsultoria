@@ -4,22 +4,22 @@ namespace sistema\Modelo;
 
 use sistema\Nucleo\Modelo;
  /**
- * Classe clienteModelo
+ * Classe CompraModelo
  *
  * @author Fabiano Faria
  */
-class ClienteModelo extends Modelo
+class CompraModelo extends Modelo
 {
  public function __construct()
     {
-        parent::__construct('tbl_cliente_fabrica');
+        parent::__construct('tbl_pedido_compra');
     }
 
     /**
-     * Busca a categoria pelo ID
-     * @return CategoriaModelo|null
+     * Busca a compra pelo ID
+     * @return CompraModelo|null
      */
-    public function categoria(): ?CategoriaModelo
+    public function compra(): ?CompraModelo
     {
         if ($this->categoria_id) {
             return (new CategoriaModelo())->buscaPorId($this->categoria_id);

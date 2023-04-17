@@ -4,17 +4,17 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{url('admin/dashboard')}}">
+            <a href="{{url('producao/dashboard')}}">
                 Home
             </a>
         </li>
          <li class="breadcrumb-item">
-            <a href="{{url('admin/posts/listar')}}">
-                Posts
+            <a href="{{url('producao/producao/listar')}}">
+                Produção
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            {% if post.id %}Atualizar{%else%}Cadastrar{%endif%}
+            {% if producao.id_tbl_usuario %}Atualizar{%else%}Cadastrar{%endif%}
         </li>
     </ol>
 </nav>
@@ -22,7 +22,7 @@
 {{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-       <form action="{% if post.id %}{{url('admin/posts/editar/'~post.id)}}{%else%}{{url('admin/posts/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
+       <form action="{% if producao.id %}{{url('producao/producao/editar/'~producao.id_tbl_usuario)}}{%else%}{{url('producao/producao/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="capa" class="form-label">Capa</label>
                 <input class="form-control" type="file" id="capa" name="capa" accept=".png, .jpg, .jpeg">

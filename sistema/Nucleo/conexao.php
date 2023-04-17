@@ -17,7 +17,7 @@ class Conexao
     {
         if(empty(self::$instancia)) {
             try {
-                self::$instancia = new PDO('mysql:host='.DB_HOST.';port='.DB_PORTA.';dbname='.DB_NOME, DB_USUARIO, DB_SENHA, [
+                self::$instancia = new PDO('mysql:host=' . DB_HOST . ';port=' . DB_PORTA . ';dbname=' . DB_NOME, DB_USUARIO, DB_SENHA, [
                     //garante que o charset do PDO seja o mesmo do banco de dados
                     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
                    //todo erro através da PDO será uma exceção
@@ -29,26 +29,26 @@ class Conexao
                     
                 ]);
             } catch(PDOException $ex) {
-                die("Erro de conexão:: ".$ex->getMessage());
+                die("Erro de conexão:: " . $ex->getMessage());
             }
         }
         return self::$instancia;     
-}
-/**
-* Construtor do tipo protegido previne que uma nova instância da
-* Classe seja criada através do operador `new` de fora dessa classe.
-*/
-protected function __construct()
-{
-    
-}
-/**
-* Método clone do tipo privado previne a clonagem dessa instância da classe
-* @return void
-*/
-private function __clone(): void
-{
+    }
+    /**
+    * Construtor do tipo protegido previne que uma nova instância da
+    * Classe seja criada através do operador `new` de fora dessa classe.
+    */
+    protected function __construct()
+    {
 
-}
+    }
+    /**
+    * Método clone do tipo privado previne a clonagem dessa instância da classe
+    * @return void
+    */
+    private function __clone(): void
+    {
+
+    }
 
 }

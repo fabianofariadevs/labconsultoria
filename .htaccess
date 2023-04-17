@@ -1,11 +1,18 @@
-#ADICIONAR COMENTÁRIOS
-Options +indexes
+#Bloqueia a listagem dos diretórios sem um index padrão
+Options -indexes
 
+#Define a url base
 RewriteBase /labconsultoria
+
+#Ativa o modo de reescrita
 RewriteEngine On
+
+#Define a condição sob a qual a reescrita ocorrera
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-l
+
+#Define que será aplicado uma regra de reescrita
 RewriteRule ^(.*)$ index.php/$1
 
 

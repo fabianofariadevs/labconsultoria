@@ -26,20 +26,29 @@ class AdminLogin extends Controlador
         if($usuario && $usuario->level == 3){
             Helpers::redirecionar('admin/dashboard');
         }
-        
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        
+  //       var_dump($dados);
+        
         if (isset($dados)) {
             if (in_array('', $dados)) {
                 $this->mensagem->alerta('Todos os campos são obrigatórios!')->flash();
             } else {
                 $usuario = (new UsuarioModelo())->login($dados, 3);
                 if($usuario){
-                    Helpers::redirecionar('admin/login');
+                    Helpers::redirecionar('admin/dashboard');
                 }
             }
         }
-
         echo $this->template->renderizar('login.html', []);
     }
 
 }
+
+     
+        
+   
+
+/*
+ *      
+ */

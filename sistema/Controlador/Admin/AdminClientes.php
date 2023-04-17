@@ -3,7 +3,6 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\ClienteModelo;
-use sistema\Modelo\ReceitaModelo;
 use sistema\Nucleo\helpers;
 /* Classe AdminClientes
  *
@@ -50,8 +49,7 @@ class AdminClientes extends AdminControlador
 
         echo $this->template->renderizar('clientes/formulario.html', [
   ///***ver qual classe cliente????          
-            'categorias' => (new CategoriaModelo())->busca()
-        ]);
+            'tbl_cliente_fabrica' => $dados]);
     }
 
     public function editar(int $id): void

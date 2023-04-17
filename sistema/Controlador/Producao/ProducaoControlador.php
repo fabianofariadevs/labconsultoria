@@ -1,6 +1,6 @@
 <?php
 
-namespace sistema\Controlador\Admin;
+namespace sistema\Controlador\Producao;
 //chamando a classe pai controlador
 use sistema\Nucleo\Controlador;
 use sistema\Nucleo\Helpers;
@@ -8,7 +8,7 @@ use sistema\Controlador\UsuarioControlador;
 use sistema\Nucleo\Sessao;
 
 //Classe ADMIN Controlador
-class AdminControlador extends Controlador
+class ProducaoControlador extends Controlador
 {
     protected $usuario;
 

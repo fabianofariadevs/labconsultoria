@@ -2,46 +2,52 @@
 
 namespace sistema\Modelo;
 
-use sistema\Nucleo\Conexao;
+use sistema\Nucleo\Modelo;
 
 /**
  * Classe ReceitaModelo
  *
  * @author Fabiano Faria
  */
-class ReceitaModelo extends modelo
+class ReceitaModelo extends Modelo
 {
-    public function busca(): array
+   public function __construct()
     {
-        $query = "SELECT * FROM tbl_receita "; 
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-        return $resultado;        
-    }
-    //var_dump($resultado);
-    
-    public function buscaPorId(int $id): bool|object
-    {
-        $query = "SELECT * FROM 'tbl_receita' WHERE 'id_tbl_Receita' = {$id} "; 
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetch();
-
-        return $resultado; 
-    }
-    
-    public function armazenar(array $dados):void 
-    {
-        $query = "INSERT INTO `tbl_receita` ('id_tbl_Receita' ,`nome_receita`, `descricao_receita`, `modo_preparo`, `qtde_prevista_receita`, `validade_receita`, `observacao_receita`) VALUES (:id_tbl_Receita, :nome_receita, :descricao_receita, :modo_preparo, :qtde_prevista_receita, :validade_receita, :observacao_receita);";
-         $stmt = Conexao::getInstancia()->prepare($query);
-         $stmt->execute($dados);
+        parent::__construct('tbl_receita');
     }
 
+    /**
+     * Busca a Receita pelo ID
+     * @return ReceitaModelo|null
+     */
+    public function receita(): ?ReceitaModelo
+    {
+        if ($this->id_tbl_Receita) {
+            return (new ReceitaModelo())->buscaPorId($this->id_tbl_Receita);
+        }
+        return null;
+    }
+
+    /**
+     * Busca o usuário pelo ID
+     * @return UsuarioModelo|null
+     */
+    public function usuario(): ?UsuarioModelo
+    {
+        if ($this->usuario_id) {
+            return (new UsuarioModelo())->buscaPorId($this->usuario_id);
+        }
+        return null;
+    }
     
-       
+    /**
+     * Salva o post com slug
+     * @return bool
+     */
+    public function salvar(): bool
+    {
+        $this->slug();
+        return parent::salvar();
+    }
+
 }
-
-
-       // $query = "INSERT INTO `tbl_receita` (`nome_receita`, `descricao_receita`, `modo_preparo`, `qtde_prevista_receita`, `validade_receita`, `observacao_receita`) VALUES (?, ?, ?, ?, ?, ?);";
-      //   $stmt = Conexao::getInstancia()->prepare($query);
-        // $stmt->execute([$dados[`nome_receita`],$dados[`descricao_receita`],$dados[`modo_preparo`],$dados[`qtde_prevista_receita`],$dados[`validade_receita`],$dados[`observacao_receita`]]);
-    

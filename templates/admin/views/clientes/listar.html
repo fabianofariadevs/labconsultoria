@@ -43,17 +43,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for cliente in clientes %}
+                    {% for tbl_cliente_fabrica in tbl_cliente_fabricas %}
                     <tr>
-                        <th>{{cliente.id_tbl_cliente_fabrica}}</th>
-                        <td>{{cliente.nome_cliente}}</td>
-                        <td>{{cliente.endereco_cliente}}</td>
-                        <td>{{cliente.bairro_cli}}</td>
-                        <td>{{cliente.cidade_cli}}</td>
-                        <td>{{cliente.estado_cli}}</td>
-                        <td>{{cliente.telefone_cli}}</td>
+                        <th>{{tbl_cliente_fabrica.id_tbl_cliente_fabrica}}</th>
+                        <td>{{tbl_cliente_fabrica.nome_cliente}}</td>
+                        <td>{{tbl_cliente_fabrica.endereco_cliente}}</td>
+                        <td>{{tbl_cliente_fabrica.bairro_cli}}</td>
+                        <td>{{tbl_cliente_fabrica.cidade_cli}}</td>
+                        <td>{{tbl_cliente_fabrica.estado_cli}}</td>
+                        <td>{{tbl_cliente_fabrica.telefone_cli}}</td>
                         <td class="text-center">
-                            {% if cliente.status == 1 %}
+                            {% if tbl_cliente_fabrica.status == 1 %}
                             <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
                             {% else %}
                             <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
@@ -61,10 +61,10 @@
                         </td>
                         <td class="text-center">
 
-                            <a href="{{ url('admin/clientes/editar/'~cliente.id_tbl_cliente_fabrica) }}" tooltip="tooltip" title="Editar">
+                            <a href="{{ url('admin/clientes/editar/'~tbl_cliente_fabrica.id_tbl_cliente_fabrica) }}" tooltip="tooltip" title="Editar">
                                 <i class="fa-solid fa-pen m-1"></i>
                             </a>
-                            <a href="{{ url('admin/clientes/deletar/'~cliente.id_tbl_cliente_fabrica) }}" tooltip="tooltip" title="Deletar">
+                            <a href="{{ url('admin/clientes/deletar/'~tbl_cliente_fabrica.id_tbl_cliente_fabrica) }}" tooltip="tooltip" title="Deletar">
                                 <i class="fa-solid fa-trash m-1"></i>
                             </a>
 

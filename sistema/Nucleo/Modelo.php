@@ -292,7 +292,7 @@ abstract class Modelo
     public function total(): int
     {
         $stmt = Conexao::getInstancia()->prepare($this->query);
-        $stmt->execute();
+        $stmt->execute($this->parametros);
 
         return $stmt->rowCount();
     }
@@ -300,7 +300,7 @@ abstract class Modelo
      * Salva e atualiza os dados
      * @return bool
      */
-    public function salvar()
+    public function salvar(): bool
     {
         //CADASTRAR
         if (empty($this->id)) {
