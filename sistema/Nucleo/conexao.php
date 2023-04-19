@@ -33,6 +33,7 @@ class Conexao
                 die("Erro de conexão:: " . $ex->getMessage());
             }
         }
+<<<<<<< HEAD
         return self::$instancia;
     }
 
@@ -55,3 +56,25 @@ class Conexao
     }
 
 }
+=======
+        return self::$instancia;     
+    }
+    /**
+    * Construtor do tipo protegido previne que uma nova instância da
+    * Classe seja criada através do operador `new` de fora dessa classe.
+    */
+    protected function __construct()
+    {
+
+    }
+    /**
+    * Método clone do tipo privado previne a clonagem dessa instância da classe
+    * @return void
+    */
+    private function __clone(): void
+    {
+
+    }
+
+}
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f

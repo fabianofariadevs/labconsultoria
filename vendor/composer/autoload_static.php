@@ -9,6 +9,7 @@ class ComposerStaticInitdc5936b2d6cef82cf987e407ba3eb877
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '7cca0da9604df282f16d129f538c9833' => __DIR__ . '/..' . '/digitalnature/php-ref/ref.php',
         'b8e94ba46d4b2634cf2c82da3dc1b1b2' => __DIR__ . '/../..' . '/sistema/configuracao.php',
     );
 

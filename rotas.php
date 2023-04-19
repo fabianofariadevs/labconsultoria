@@ -97,11 +97,19 @@ try {
 
 
 
+<<<<<<< HEAD
 //PRODUCAO PRODUÇÃO
         SimpleRouter::get(URL_PRODUCAO .'producao/listar', 'ProducaoProducao@listar');
         SimpleRouter::match(['get','post'], URL_PRODUCAO .'producao/cadastrar', 'ProducaoProducao@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_PRODUCAO . 'producao/editar/{id}', 'ProducaoProducao@editar');
         SimpleRouter::get(URL_PRODUCAO . 'producao/deletar/{id}', 'ProducaoProducao@deletar');
+=======
+//ADMIN RECEITAS
+        SimpleRouter::get(URL_PRODUCAO .'receitas/listar', 'ProducaoReceitas@listar');
+        SimpleRouter::match(['get','post'], URL_PRODUCAO .'receitas/cadastrar', 'ProducaoReceitas@cadastrar');
+        SimpleRouter::match(['get', 'post'], URL_PRODUCAO . 'receitas/editar/{id}', 'ProducaoReceitas@editar');
+        SimpleRouter::get(URL_PRODUCAO . 'receitas/deletar/{id}', 'ProducaoReceitas@deletar');
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
 
 //PRODUCAO FORNECEDORES
         SimpleRouter::get(URL_PRODUCAO .'fornecedor/listar', 'ProducaoFornecedor@listar');
@@ -109,6 +117,7 @@ try {
         SimpleRouter::match(['get', 'post'], URL_PRODUCAO . 'fornecedor/editar/{id}', 'ProducaoFornecedor@editar');
         SimpleRouter::get(URL_PRODUCAO . 'fornecedor/deletar/{id}', 'ProducaoFornecedor@deletar');
 
+<<<<<<< HEAD
 //PRODUCAO PLANEJAMENTO DE PRODUÇÃO
         
         
@@ -117,6 +126,21 @@ try {
         SimpleRouter::match(['get','post'], URL_PRODUCAO .'mixProdutos/cadastrar', 'ProducaomixProdutos@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_PRODUCAO . 'mixProdutos/editar/{id}', 'ProducaomixProdutos@editar');
         SimpleRouter::get(URL_PRODUCAO . 'mixProdutos/deletar/{id}', 'ProducaomixProdutos@deletar');
+=======
+
+//ADMIN PRODUÇÃO
+        SimpleRouter::get(URL_PRODUCAO .'producao/listar', 'ProducaoProducao@listar');
+
+//ADMIN FORNECEDORES
+        SimpleRouter::get(URL_PRODUCAO .'fornecedor/listar', 'ProducaoFornecedor@listar');
+
+//ADMIN PLANEJAMENTO DE PRODUÇÃO
+        SimpleRouter::get(URL_PRODUCAO .'producao/listar', 'ProducaoProducao@listar');
+
+//ADMIN MIX PRODUTOS
+        SimpleRouter::get(URL_PRODUCAO .'mixProdutos/listar', 'ProducaomixProdutos@listar');
+        SimpleRouter::match(['get','post'], URL_PRODUCAO .'mixProdutos/cadastrar', 'ProducaomixProdutos@cadastrar');
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
 
 
 });

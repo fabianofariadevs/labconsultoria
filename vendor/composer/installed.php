@@ -3,7 +3,7 @@
         'name' => 'ceodevs/projetolab',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'dd3b27f286f047cf873b0413733bfe44117adaf4',
+        'reference' => 'cd85c9de6917cc6a3c53c157152dd77831451f50',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,16 +13,27 @@
         'ceodevs/projetolab' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'dd3b27f286f047cf873b0413733bfe44117adaf4',
+            'reference' => 'cd85c9de6917cc6a3c53c157152dd77831451f50',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'digitalnature/php-ref' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '2381f04d7ebcbce1072e86b98a0ccbad191f3290',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../digitalnature/php-ref',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'dev_requirement' => false,
+        ),
         'pecee/simple-router' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '515fbc173cd5a623d65e31b7775b761251a74db4',
+            'reference' => '97b61fb8bfeff9afb754c540dc8b065e1a9489c6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../pecee/simple-router',
             'aliases' => array(

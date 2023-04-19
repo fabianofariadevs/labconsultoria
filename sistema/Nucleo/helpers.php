@@ -47,7 +47,6 @@ class Helpers
     {
         return password_verify($senha, $hash);
     }
-
     /**
      * Instancia e retorna as mensagens flash por sessão
      * @return string|null
@@ -61,7 +60,10 @@ class Helpers
         }
         return null;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     /**
      * Redireciona para a url informada
      * @param string $url
@@ -78,10 +80,17 @@ class Helpers
     }
 
     /**
+<<<<<<< HEAD
      * Válida um número de CPF
      * @param string $cpf
      * @return bool
      */
+=======
+    * Válida um número de CPF
+    * @param string $cpf
+    * @return bool
+    */
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     public static function validarCpf(string $cpf): bool
     {
         $cpf = self::limparNumero($cpf);
@@ -100,6 +109,7 @@ class Helpers
         }
         return true;
     }
+<<<<<<< HEAD
 
     /**
      * Limpa todos os caracteres não numéricos
@@ -120,6 +130,26 @@ class Helpers
     {
         $mapa['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?¨|;:.,\\\'<>°ºª  ';
 
+=======
+    /**
+     * Limpa todos os caracteres não numéricos
+     * @param string $numero
+     * @return string
+     */
+    public static function limparNumero(string $numero): string
+    {
+        return preg_replace('/[^0-9]/', '', $numero);
+    }
+    /**
+     * Gera url amigável
+     * @param string $string
+     * @return string slug
+     */
+    public static function slug(string $string): string
+    {
+        $mapa['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?¨|;:.,\\\'<>°ºª  ';
+
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
         $mapa['b'] = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
         $slug = \strtr(utf8_decode($string), utf8_decode($mapa['a']), $mapa['b']);
         $slug = strip_tags(trim($slug));
@@ -161,6 +191,7 @@ class Helpers
 
         return $dataFormatada;
     }
+<<<<<<< HEAD
 
     /**
      * Monta url de acordo com o ambiente
@@ -180,6 +211,25 @@ class Helpers
 
     ####
 
+=======
+    /**
+    * Monta url de acordo com o ambiente
+    * @param string $url parte da url ex. admin
+    * @return string url completa
+    */
+    public static function url(string $url = null) : string
+    {
+        $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
+        $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
+        
+        if (str_starts_with($url, '/'))
+        {
+            return $ambiente . $url;
+        }
+        return $ambiente .'/'.$url;
+    }
+    ####
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     /**
      * Checa se o servidor é localhost
      * @return bool

@@ -11,9 +11,14 @@ use sistema\Modelo\PostModelo;
 use sistema\Modelo\MixProdutosModelo;
 use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\Helpers;
+<<<<<<< HEAD
 use Sistema\Modelo\CategoriaModelo;
 use sistema\Biblioteca\Paginar;
 
+=======
+use Site\Modelo\CategoriaModelo;
+use sistema\Biblioteca\Paginar;
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
 //classe filha chamando o pai
 class SiteControlador extends Controlador
 {
@@ -41,7 +46,12 @@ class SiteControlador extends Controlador
             'categorias' => $this->categorias(),
         ]);
     }
+<<<<<<< HEAD
 
+=======
+    
+    
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     public function base(): void
     {
         echo $this->template->renderizar('base.html', [
@@ -49,7 +59,10 @@ class SiteControlador extends Controlador
             'subtitulo' => 'teste BASE de subtitulo'
         ]);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     public function contatos(): void
     {
         echo $this->template->renderizar('contatos.html', [
@@ -57,7 +70,10 @@ class SiteControlador extends Controlador
             'subtitulo' => 'teste CONTATO de subtitulo'
         ]);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     public function servicos(): void
     {
         echo $this->template->renderizar('servicos.html', [
@@ -65,11 +81,15 @@ class SiteControlador extends Controlador
             'subtitulo' => 'SERVIÇOS  de subtitulo'
         ]);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     /**
      * Busca posts 
      * @return void
      */
+<<<<<<< HEAD
     public function buscar(): void
     {
         $busca = filter_input(INPUT_POST, 'busca', FILTER_DEFAULT);
@@ -84,10 +104,27 @@ class SiteControlador extends Controlador
     }
 
     /**
+=======
+    public function buscar():void
+    {
+        $busca = filter_input(INPUT_POST,'busca', FILTER_DEFAULT);
+        if(isset($busca)){
+            $posts = (new PostModelo())->busca("status = 1 AND titulo LIKE '%{$busca}%'")->resultado(true);
+            if ($posts) {
+                foreach ($posts as $post) {
+                    echo "<li class='list-group-item fw-bold'><a href=" .Helpers::url('post/') . $post->id . ">$post->titulo</a></li>";
+                }
+            }
+        
+        }
+    }
+/**
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
      * Busca post por ID
      * @param int $slug
      * @return void
      */
+<<<<<<< HEAD
     public function post(string $slug): void
     {
         $post = (new PostModelo())->buscaPorSlug($slug);
@@ -96,13 +133,27 @@ class SiteControlador extends Controlador
         }
         $post->salvarVisitas();
 
+=======
+    public function post(string $slug):void
+    {
+        $post = (new PostModelo())->buscaPorSlug($slug);
+        if(!$post){
+            Helpers::redirecionar('404');
+        }
+        $post->salvarVisitas();
+        
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
         echo $this->template->renderizar('post.html', [
             'post' => $post,
             'categorias' => $this->categorias(),
         ]);
     }
+<<<<<<< HEAD
 
     /**
+=======
+     /**
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
      * Categorias
      * @return array
      */
@@ -110,13 +161,20 @@ class SiteControlador extends Controlador
     {
         return (new CategoriaModelo())->busca("status = 1")->resultado(true);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     /**
      * Lista posts por categoria
      * @param string $slug
      * @return void
      */
+<<<<<<< HEAD
     public function categoria(string $slug): void
+=======
+    public function categoria(string $slug, int $pagina = null):void
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     {
         $categoria = (new CategoriaModelo())->buscaPorSlug($slug);
         if (!$categoria) {
@@ -124,6 +182,7 @@ class SiteControlador extends Controlador
         }
 
         $categoria->salvarVisitas();
+<<<<<<< HEAD
         
         echo $this->template->renderizar('categoria.html', [
             'posts' => (new CategoriaModelo())->posts($categoria->id),
@@ -131,6 +190,20 @@ class SiteControlador extends Controlador
         ]);
     }
 
+=======
+        $posts = (new PostModelo());
+        $total = $posts->busca('categoria_id = :c', "c={$categoria->id} COUNT(id)", 'id')->total();
+
+        $paginar = new Paginar(Helpers::url('categoria/' . $slug), ($pagina ?? 1), 6, 3, $total);
+
+        echo $this->template->renderizar('categoria.html', [
+            'posts' => $posts->busca("categoria_id = {$categoria->id}")->limite($paginar->limite())->offset($paginar->offset())->resultado(true),
+            'paginacao' => $paginar->renderizar(),
+            'paginacaoInfo' => $paginar->info(),
+            'categorias' => $this->categorias(),
+        ]);
+    }    
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     /**
      * Sobre
      * @return void
@@ -142,7 +215,10 @@ class SiteControlador extends Controlador
             'categorias' => $this->categorias(),
         ]);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     /**
      * Clientes
      * @return array
@@ -218,9 +294,16 @@ class SiteControlador extends Controlador
             'mixProdutos' => $posts,
             'categorias' => $this->mixProdutos(),
         ]);
+<<<<<<< HEAD
     }
 
     /**
+=======
+    }   
+    
+   
+        /**
+>>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
      * ERRO 404
      * @return void
      */
