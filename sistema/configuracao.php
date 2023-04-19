@@ -2,8 +2,8 @@
 //classe pai
 // Arquivo de configuração do sistema
 //fazer temporizador sistema****aula31
-// define o fusorario
-date_default_timezone_set ('America/Sao_Paulo');
+// define o fuso horario
+date_default_timezone_set('America/Sao_Paulo');
 
 //informações conexão com banco de dados
 define('DB_HOST', 'localhost');
@@ -18,7 +18,7 @@ define('SITE_DESCRICAO', 'LAB - Consultoria e Treinamentos');
 
 //urls do sistema
 define('URL_PRODUCAO', 'https://labct.com.br');
-define('URL_DESENVOLVIMENTO', 'https://localhost/labconsultoria');
+define('URL_DESENVOLVIMENTO', 'http://localhost/labconsultoria');
 
 //const site_nome - 'Labct';
 define('URL_SITE', 'labconsultoria/');

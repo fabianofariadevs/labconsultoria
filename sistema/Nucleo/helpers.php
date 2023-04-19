@@ -12,6 +12,7 @@ use sistema\Nucleo\Sessao;
  */
 class Helpers
 {
+
     /**
      * Valida a senha
      * @param string $senha
@@ -19,13 +20,13 @@ class Helpers
      */
     public static function validarSenha(string $senha): bool
     {
-        if(mb_strlen($senha) >= 6 && mb_strlen($senha) <= 50){
+        if (mb_strlen($senha) >= 6 && mb_strlen($senha) <= 50) {
             return true;
         }
-                
+
         return false;
     }
-    
+
     /**
      * Gera senha segura
      * @param string $senha
@@ -35,7 +36,7 @@ class Helpers
     {
         return password_hash($senha, PASSWORD_DEFAULT, ['cost' => 10]);
     }
-    
+
     /**
      * Verifica a senha
      * @param string $senha
@@ -46,6 +47,7 @@ class Helpers
     {
         return password_verify($senha, $hash);
     }
+
     /**
      * Instancia e retorna as mensagens flash por sessão
      * @return string|null
@@ -59,26 +61,27 @@ class Helpers
         }
         return null;
     }
+
     /**
      * Redireciona para a url informada
      * @param string $url
      * @return void
      */
-       public static function redirecionar(string $url = null): void
+    public static function redirecionar(string $url = null): void
     {
         header('HTTP/1.1 302 Found');
-        
+
         $local = ($url ? self::url($url) : self::url());
-        
+
         header("Location: {$local} ");
         exit();
     }
 
     /**
-    * Válida um número de CPF
-    * @param string $cpf
-    * @return bool
-    */
+     * Válida um número de CPF
+     * @param string $cpf
+     * @return bool
+     */
     public static function validarCpf(string $cpf): bool
     {
         $cpf = self::limparNumero($cpf);
@@ -97,6 +100,7 @@ class Helpers
         }
         return true;
     }
+
     /**
      * Limpa todos os caracteres não numéricos
      * @param string $numero
@@ -106,6 +110,7 @@ class Helpers
     {
         return preg_replace('/[^0-9]/', '', $numero);
     }
+
     /**
      * Gera url amigável
      * @param string $string
@@ -156,23 +161,25 @@ class Helpers
 
         return $dataFormatada;
     }
+
     /**
-    * Monta url de acordo com o ambiente
-    * @param string $url parte da url ex. admin
-    * @return string url completa
-    */
-    public static function url(string $url = null) : string
+     * Monta url de acordo com o ambiente
+     * @param string $url parte da url ex. admin
+     * @return string url completa
+     */
+    public static function url(string $url = null): string
     {
         $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
         $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
-        
+
         if (str_starts_with($url, '/')) {
-                return $ambiente . $url;
+            return $ambiente . $url;
         }
         return $ambiente . '/' . $url;
     }
 
     ####
+
     /**
      * Checa se o servidor é localhost
      * @return bool
@@ -316,5 +323,3 @@ class Helpers
     }
 
 }
-
-

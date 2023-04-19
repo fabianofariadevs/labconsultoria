@@ -36,7 +36,7 @@ class AdminLogin extends Controlador
             } else {
                 $usuario = (new UsuarioModelo())->login($dados, 3);
                 if($usuario){
-                    Helpers::redirecionar('admin/dashboard');
+                    Helpers::redirecionar('admin/login');
                 }
             }
         }

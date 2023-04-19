@@ -11,7 +11,7 @@ use sistema\Modelo\PostModelo;
 use sistema\Modelo\MixProdutosModelo;
 use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\Helpers;
-use Site\Modelo\CategoriaModelo;
+use Sistema\Modelo\CategoriaModelo;
 use sistema\Biblioteca\Paginar;
 
 //classe filha chamando o pai
@@ -116,7 +116,7 @@ class SiteControlador extends Controlador
      * @param string $slug
      * @return void
      */
-    public function categoria(string $slug, int $pagina = null): void
+    public function categoria(string $slug): void
     {
         $categoria = (new CategoriaModelo())->buscaPorSlug($slug);
         if (!$categoria) {
@@ -124,15 +124,9 @@ class SiteControlador extends Controlador
         }
 
         $categoria->salvarVisitas();
-        $posts = (new PostModelo());
-        $total = $posts->busca('categoria_id = :c', "c={$categoria->id} COUNT(id)", 'id')->total();
-
-        $paginar = new Paginar(Helpers::url('categoria/' . $slug), ($pagina ?? 1), 6, 3, $total);
-
+        
         echo $this->template->renderizar('categoria.html', [
-            'posts' => $posts->busca("categoria_id = {$categoria->id}")->limite($paginar->limite())->offset($paginar->offset())->resultado(true),
-            'paginacao' => $paginar->renderizar(),
-            'paginacaoInfo' => $paginar->info(),
+            'posts' => (new CategoriaModelo())->posts($categoria->id),
             'categorias' => $this->categorias(),
         ]);
     }

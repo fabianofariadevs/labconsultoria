@@ -8,6 +8,7 @@ use sistema\Nucleo\Helpers;
 /* Classe AdminUsuarios
  * @author Fabiano Faria
  */
+
 class AdminUsuarios extends AdminControlador
 {
 
@@ -94,8 +95,7 @@ class AdminUsuarios extends AdminControlador
                     $this->mensagem->sucesso('Usuário atualizado com sucesso')->flash();
                     Helpers::redirecionar('admin/usuarios/listar');
                 } else {
-                    $this->mensagem->erro($usuario->erro())->flash();
-                    Helpers::redirecionar('admin/usuarios/cadastrar');
+                    $usuario->mensagem->flash();
                 }
             }
         }
@@ -124,9 +124,9 @@ class AdminUsuarios extends AdminControlador
             $this->mensagem->alerta('Informe um e-mail válido!')->flash();
             return false;
         }
-        
-        if(!empty($dados['senha'])){
-            if(!Helpers::validarSenha($dados['senha'])){
+
+        if (!empty($dados['senha'])) {
+            if (!Helpers::validarSenha($dados['senha'])) {
                 $this->mensagem->alerta('A senha deve ter entre 6 e 50 caracteres!')->flash();
                 return false;
             }

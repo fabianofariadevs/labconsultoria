@@ -2,40 +2,40 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="{{ url() }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                 <img src="{{ url('templates/site/assets/img/LAB_MARCA.png') }}" alt="lablogo" height="72" width="150">
+                <img src="{{ url('templates/site/assets/img/LAB_MARCA.png') }}" alt="lablogo" height="72" width="10">
             </a>
 
             <ul class="navbar navbar-dark bg-dark col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li>
                     <a href="{{ url() }}" class="nav-link px-2" tooltip="tooltip" title="Página Inicial">Página Inical</a>
                 </li>
-             ////teste  cat menu
-             <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Categorias
-          </a>
-          <ul class="dropdown-menu">
-              {% for categoria in categorias %}
-            <li>
-                <a class="dropdown-item" href="{{url('categoria/'~categoria.slug)}}" tooltip="tooltip" title="{{categoria.titulo}}">
-                    {{categoria.titulo}}
-                </a>
-            </li>
-            {% endfor %}
-          </ul>
-            </li>    
-                        
+                ////teste  cat menu
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categorias
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for categoria in categorias %}
+                        <li>
+                            <a class="dropdown-item" href="{{url('categoria/'~categoria.slug)}}" tooltip="tooltip" title="{{categoria.titulo}}">
+                                {{categoria.titulo}}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>    
+
                 <li>
                     <a href="{{ url('sobre') }}" class="nav-link px-2" tooltip="tooltip" title="Sobre Nós">Sobre nós</a>
                 </li>
-                
+
                 <li>
                     <a href="{{ url('contatos') }}" class="nav-link px-2" tooltip="tooltip" title="Contatos">Contatos</a>
                 </li>
             </ul>
 
-                 
-<form data-url-busca="{{ url('buscar') }}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+
+            <form data-url-busca="{{ url('buscar') }}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" name="busca" id="busca" class="form-control form-control-dark text-bg-dark" placeholder="Buscar..." aria-label="Search">
             </form>            
 

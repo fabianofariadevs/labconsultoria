@@ -9,9 +9,10 @@ use sistema\Controlador\UsuarioControlador;
 //atributo twig
 //Classe tamplate...
 class Template
+{
 
-{ 
     private \Twig\Environment $twig;
+
 //vai receber um diretorio
     public function __construct(string $diretorio)
     {
@@ -19,15 +20,17 @@ class Template
         $this->twig = new \Twig\Environment($loader);
 
         $lexer = new Lexer($this->twig, array(
-           $this->helpers()
+            $this->helpers()
         ));
         $this->twig->setLexer($lexer);
     }
-     /* Metodo responsavel por realizar a renderização das views
+
+    /* Metodo responsavel por realizar a renderização das views
      * @param string $view
      * @param array $dados
      * @return string
      */
+
     public function renderizar(string $view, array $dados)
     {
         try {
@@ -36,10 +39,12 @@ class Template
             echo 'Erro:: ' . $ex->getMessage();
         }
     }
-     /* Metodo responsavel por chamar funções da classe Helpers
+
+    /* Metodo responsavel por chamar funções da classe Helpers
      * @return void
-    // aula 56 metodo helpers
+      // aula 56 metodo helpers
      */
+
     private function helpers(): void
     {
         array(
@@ -88,5 +93,5 @@ class Template
             ),
         );
     }
-}
 
+}
