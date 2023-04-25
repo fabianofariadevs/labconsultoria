@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block corpo %}
 
 {% include 'menu.html' %}
@@ -22,7 +22,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Posts</h6>
+                                            <h6 class="fw-bold text-secondary">Posts/Receitas/Produção</h6>
                                         </div>
 
                                         <div class="col-auto text-secondary">
@@ -53,7 +53,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Categorias</h6>
+                                            <h6 class="fw-bold text-secondary">Categorias/Clientes</h6>
                                         </div>
 
                                         <div class="col-auto text-secondary">
@@ -143,7 +143,7 @@
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center mt-2">
                         <div>
                             <h6 class="fw-bold text-secondary">
-                                Últimos Posts
+                                Últimas Receitas Cadastradas
                             </h6>                          
                         </div>
                         <a href="{{url('admin/posts/cadastrar')}}" class="fs-5" tooltip="tooltip" title="Cadastrar Post">
@@ -156,7 +156,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Título</th>
+                                        <th>Receitas</th>
                                         <th class="text-center">Visitas</th>
                                         <th class="text-center">Ação</th>
                                     </tr>
@@ -180,7 +180,7 @@
                                                 Escrito por {{post.usuario.nome}} {{ contarTempo(post.cadastrado_em) }} {{post.categoria.titulo}}
                                             </small>
                                         </th>
-                                        <td class="text-center">{{formatarNumero(post.visitas)}}</td>
+                                        <td class="text-center">{{post.visitas}}</td>
                                         <td class="text-center">
 
                                             <a href="{{ url('admin/posts/editar/'~post.id) }}" tooltip="tooltip" title="Editar">
@@ -210,7 +210,7 @@
                 <div class="card border-0 shadow-sm  h-100">
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center mt-2">
                         <h6 class="fw-bold text-secondary">
-                            Últimas Categorias
+                            Últimas Clientes utilizaram
                         </h6> 
 
                         <a href="{{url('admin/categorias/cadastrar')}}" class="fs-5" tooltip="tooltip" title="Cadastrar Categoria">
@@ -244,7 +244,7 @@
                                             {{categoria.titulo}}
                                         </td>
                                         <td class="text-center">
-                                            {{formatarNumero(categoria.visitas)}}
+                                            {{categoria.visitas}}
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ url('admin/categorias/editar/'~categoria.id) }}" tooltip="tooltip" title="Editar">
@@ -303,7 +303,7 @@
                 <div class="card border-0 shadow-sm  h-100">
                     <div class="card-header bg-white border-0 mt-2">
                         <h6 class="fw-bold text-secondary">
-                            Em desenvolvimento
+                            Em desenvolvimento......<br>SUGESTÕES???
                         </h6> 
                     </div>                   
                     <div class="card-body">

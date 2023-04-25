@@ -9,27 +9,23 @@
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Relação de Compras / Pedidos
+            Inventário / Estoque
         </li>
     </ol>
 </nav>
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
-         <div>
+        <div>
             <span class="badge rounded text-bg-secondary">{{total.receitas}} total</span> 
-            <span class="badge rounded text-bg-success">{{total.receitasAtivo}} ativo</span> 
-            <span class="badge rounded text-bg-danger">{{total.receitasInativo}} inativo</span> 
         </div>
+
         
-        <a href="{{url('admin/estoqueMp/cadastrar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Inventario">
-            Inventário
-        </a>
-        
-        <a href="{{url('admin/estoqueMp/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar Pedido">
-            Cadastrar Pedido
+
+        <a href="{{url('admin/estoqueMp/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar">
+            Cadastrar 
         </a>
     </div>
-    
+
     <div class="card-body">
         <div class="table-responsive">
             <table class="table">
@@ -37,10 +33,6 @@
                     <tr>
                         <th scope="col">id</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">descrição</th>
-                        <th scope="col">Modo de preparo</th>
-                        <th scope="col">Qtde Prevista</th>
-                        <th scope="col">Validade</th>
                         <th scope="col">Observação</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Ação</th>
@@ -78,8 +70,8 @@
                 </tbody>
             </table>
         </div>     
-        
-        
+
+
     </div>
 </div>
 {% endblock %}

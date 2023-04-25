@@ -20,11 +20,7 @@ class Template
         $this->twig = new \Twig\Environment($loader);
 
         $lexer = new Lexer($this->twig, array(
-<<<<<<< HEAD
             $this->helpers()
-=======
-           $this->helpers()
->>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
         ));
         $this->twig->setLexer($lexer);
     }

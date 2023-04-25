@@ -5,16 +5,17 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                Home
+                Dashboard
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Posts teste
+            Posts
         </li>
     </ol>
 </nav>
 
 {{ flash() }}
+
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
         <div>
@@ -32,7 +33,6 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Capa</th>
                         <th>Título</th>
                         <th class="text-center">Categoria</th>
                         <th class="text-center">Visitas</th>
@@ -44,26 +44,11 @@
                     {% for post in posts %}
                     <tr>
                         <th>{{post.id}}</th>
-                        <th>
-                            {% if post.capa %}
-                            <div class="float-xl-start float-lg-none capa mx-auto">
-                                <div class="card border-0">
-                                    <a data-fancybox data-caption="{{post.titulo}}" class="overflow zoom " href="{{url('uploads/imagens/'~post.capa)}}">
-                                        <img src="{{url('uploads/imagens/'~post.capa)}}" />
-                                    </a>
-                                </div>
-                            </div>
-                            {% else %}
-                            <img src="{{url('templates/admin/assets/img/semcapa.png')}}" class="capa" />
-                            {% endif %} 
-                        </th>
                         <td class="fw-bold">
                             {{post.titulo}}
                         </td>
                         <td class="text-center"> {{post.categoria.titulo}}</td>
-                        <td class="text-center">
-                            {{formatarNumero(post.visitas)}}
-                        </td>
+                        <td class="text-center">{{post.visitas}}</td>
                         <td class="text-center">
                             {% if post.status == 1 %}
                             <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
@@ -73,7 +58,7 @@
                         </td>
                         <td class="text-center">
                             <a href="#info{{post.id}}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
-                                <i class="fa-solid fa-chart-simple"></i>
+                                <i class="fa-solid fa-arrow-trend-up"></i>
                             </a>
 
                             <a href="{{ url('admin/posts/editar/'~post.id) }}" tooltip="tooltip" title="Editar">
@@ -92,21 +77,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
-                        {% if post.capa %}
-                        <a data-fancybox data-caption="{{post.titulo}}" class="overflow zoom " href="{{url('uploads/imagens/'~post.capa)}}">
-                            <img src="{{url('uploads/imagens/'~post.capa)}}" />
-                        </a>
-                        {% endif %}
-
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 Cadastrado em: {{ post.cadastrado_em|date("d/m/Y H:i:s") }}
                             </li>
                             <li class="list-group-item">
-                                Atualizado em: {%if post.atualizado_em %}{{post.atualizado_em|date("d/m/Y H:i:s")}}{%else%}Nunca{%endif%}
+                                Atualizado em: {{post.atualizado_em|date("d/m/Y H:i:s")}}
                             </li>
                             <li class="list-group-item">
-                                Última visita em: {%if post.ultima_visita_em %}{{post.ultima_visita_em|date("d/m/Y H:i:s")}}{%else%}Nunca{%endif%}
+                                Última visita em: {{post.ultima_visita_em|date("d/m/Y H:i:s")}}
                             </li>
                             <li class="list-group-item">
                                 Cadastrado por: <b>{{post.usuario.nome}}</b>

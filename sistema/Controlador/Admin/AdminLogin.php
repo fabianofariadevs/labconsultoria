@@ -45,11 +45,8 @@ class AdminLogin extends Controlador
 
 }
 
-<<<<<<< HEAD
      
-=======
 //      var_dump($dados);
->>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
         
    
 

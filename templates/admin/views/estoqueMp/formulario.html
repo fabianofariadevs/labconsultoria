@@ -16,7 +16,7 @@
 
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if receita.id %}{{url('admin/receita/editar/'~receita.id)}}{%else%}{{url('admin/receitas/cadastrar')}}{%endif%}" method="post">
+        <form action="{% if receita.id %}{{url('admin/estoqueMp/editar/'~receita.id)}}{%else%}{{url('admin/estoqueMp/cadastrar')}}{%endif%}" method="post">
             <div class="mb-3">
                 <label for="nomeReceita" class="form-label">Nome da Receita</label>
                 <input type="text" name="nomeReceita" id="nomeReceita" class="form-control"></input>             

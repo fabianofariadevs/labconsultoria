@@ -1,6 +1,6 @@
 {% extends "dashboard.html" %}
 
-{% block conteudo %}  
+{% block conteudo %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -18,7 +18,9 @@
         </li>
     </ol>
 </nav>
+
 {{ flash() }}
+
 <div class="card border-0 shadow-sm">
     <div class="card-body">
         <form action="{% if usuario.id %}{{url('admin/usuarios/editar/'~usuario.id)}}{%else%}{{url('admin/usuarios/cadastrar')}}{%endif%}" method="post">
@@ -67,5 +69,6 @@
             </div>
         </form>
     </div>    
+</div>
 </div>
 {% endblock %}

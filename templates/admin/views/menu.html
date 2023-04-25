@@ -1,13 +1,13 @@
-<input type="checkbox" id="menu"><!-- Menu Painel Adm -->
+<input type="checkbox" id="menu">
 <div class="sidebar">
     <div class="sidebarLogo">
         <a href="{{url('admin/dashboard')}}" data-bs-toggle="tooltip" title="Pagina Inicial">
             <div class="logo">
-                <img src="https://i.postimg.cc/k54vbtBF/userlmn-ebfdb7b90b9b59a3c0ece37c1d46cf20-removebg-preview.png" alt="{{constant('SITE_NOME')}}"/>
+                <img src="https://i.postimg.cc/k54vbtBF/userlmn-ebfdb7b90b9b59a3c0ece37c1d46cf20-removebg-preview.png" alt="{{constant('SITE_NOME')}}" />
             </div>
         </a>
     </div>
-    
+
     <div class="sidebarMenu">
         <ul>
             <li class="sidebarTitulo">
@@ -18,16 +18,16 @@
                     <i class="fa-solid fa-file-pen"></i>
                     <span>Posts</span>
                 </a>
-            </li>
+            </li>  
             <li>
-                <a href="{{url('admin/categorias/listar')}}" tooltip="tooltip" title="Administração Categorias">
+                <a href="{{url('admin/categorias/listar')}}" tooltip="tooltip" title="Administração de Categorias">
                     <i class="fa-solid fa-list"></i>
                     <span>Categorias</span>
                 </a>
-            </li>
+            </li> 
             <li>
-                <a href="{{url('admin/usuarios/listar')}}" tooltip="tooltip" title="Administração Usuários">
-                    <i class="fas fa-users"></i>
+                <a href="{{url('admin/usuarios/listar')}}" tooltip="tooltip" title="Administração de Usuários">
+                    <i class="fas fa-users"></i> 
                     <span>Usuários</span>
                 </a>
             </li>
@@ -61,18 +61,14 @@
                     <span>PLANEJAMENTO de Produção</span>
                 </a>
             </li>
+            
             <li>
-                <a href="{{url('admin/compras/listar')}}" tooltip="tooltip" title="Administração Compras Pedido Produção">
+                <a href="{{url('admin/estoqueMp/listar')}}" tooltip="tooltip" title="Controle de Estoques/Gerenciador de Compras">
                     <i class="fa-solid fa-list"></i>
-                    <span>Compras / Pedidos</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{url('admin/estoqueMp/listar')}}" tooltip="tooltip" title="Administração Planejamento Produção">
-                    <i class="fa-solid fa-list"></i>
-                    <span>Estoque / Matéria Prima</span>
+                    <span>Gerenciador e Controle<br> <pre>     Estoques e Compras </pre> </span>
                 </a>
             </li>
         </ul>
     </div>
+
 </div>

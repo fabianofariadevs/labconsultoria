@@ -6,9 +6,10 @@ use Exception;
 use sistema\Nucleo\Sessao;
 
 /**
- * Classe Helpers - Classe auxiliar responsável por prover métodos estáticos para manipular e validar dados no sistema.
+ * Classe Helper - Classe auxiliar responsável por prover métodos estáticos para manipular e validar dados no sistema.
  *
- * @author Fabiano Faria
+ * @author Ronaldo Aires <ceo@unset.com.br>
+ * @copyright 2022 UnSet
  */
 class Helpers
 {
@@ -47,6 +48,7 @@ class Helpers
     {
         return password_verify($senha, $hash);
     }
+
     /**
      * Instancia e retorna as mensagens flash por sessão
      * @return string|null
@@ -60,10 +62,7 @@ class Helpers
         }
         return null;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     /**
      * Redireciona para a url informada
      * @param string $url
@@ -80,17 +79,10 @@ class Helpers
     }
 
     /**
-<<<<<<< HEAD
      * Válida um número de CPF
      * @param string $cpf
      * @return bool
      */
-=======
-    * Válida um número de CPF
-    * @param string $cpf
-    * @return bool
-    */
->>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     public static function validarCpf(string $cpf): bool
     {
         $cpf = self::limparNumero($cpf);
@@ -109,7 +101,6 @@ class Helpers
         }
         return true;
     }
-<<<<<<< HEAD
 
     /**
      * Limpa todos os caracteres não numéricos
@@ -130,28 +121,8 @@ class Helpers
     {
         $mapa['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?¨|;:.,\\\'<>°ºª  ';
 
-=======
-    /**
-     * Limpa todos os caracteres não numéricos
-     * @param string $numero
-     * @return string
-     */
-    public static function limparNumero(string $numero): string
-    {
-        return preg_replace('/[^0-9]/', '', $numero);
-    }
-    /**
-     * Gera url amigável
-     * @param string $string
-     * @return string slug
-     */
-    public static function slug(string $string): string
-    {
-        $mapa['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?¨|;:.,\\\'<>°ºª  ';
-
->>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
         $mapa['b'] = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
-        $slug = \strtr(utf8_decode($string), utf8_decode($mapa['a']), $mapa['b']);
+        $slug = strtr(utf8_decode($string), utf8_decode($mapa['a']), $mapa['b']);
         $slug = strip_tags(trim($slug));
         $slug = str_replace(' ', '-', $slug);
         $slug = str_replace(['-----', '----', '---', '--', '-'], '-', $slug);
@@ -191,7 +162,6 @@ class Helpers
 
         return $dataFormatada;
     }
-<<<<<<< HEAD
 
     /**
      * Monta url de acordo com o ambiente
@@ -209,27 +179,6 @@ class Helpers
         return $ambiente . '/' . $url;
     }
 
-    ####
-
-=======
-    /**
-    * Monta url de acordo com o ambiente
-    * @param string $url parte da url ex. admin
-    * @return string url completa
-    */
-    public static function url(string $url = null) : string
-    {
-        $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
-        $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
-        
-        if (str_starts_with($url, '/'))
-        {
-            return $ambiente . $url;
-        }
-        return $ambiente .'/'.$url;
-    }
-    ####
->>>>>>> c06ed5afea1f1727b48a16770333bffac6744e2f
     /**
      * Checa se o servidor é localhost
      * @return bool
@@ -343,10 +292,10 @@ class Helpers
         $hora = date('H');
 
         $saudacao = match (true) {
-            $hora >= 0 and $hora <= 5 => 'boa madrugada',
-            $hora >= 6 and $hora <= 12 => 'bom dia',
-            $hora >= 13 and $hora <= 18 => 'boa tarde',
-            default => 'boa noite'
+            $hora >= 0 and $hora <= 5 => 'Boa madrugada',
+            $hora >= 6 and $hora <= 12 => 'Bom dia',
+            $hora >= 13 and $hora <= 18 => 'Boa tarde',
+            default => 'Boa noite'
         };
 
         return $saudacao;
