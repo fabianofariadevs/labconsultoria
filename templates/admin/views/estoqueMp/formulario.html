@@ -9,46 +9,56 @@
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Receitas
+            Matéria Prima
         </li>
     </ol>
 </nav>
+{{ flash() }}
 
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if receita.id %}{{url('admin/estoqueMp/editar/'~receita.id)}}{%else%}{{url('admin/estoqueMp/cadastrar')}}{%endif%}" method="post">
+        <form action="{% if mp.id_mp %}{{url('admin/estoqueMp/editar/'~id_mp)}}{%else%}{{url('admin/estoqueMp/cadastrar')}}{%endif%}" method="post">
             <div class="mb-3">
-                <label for="nomeReceita" class="form-label">Nome da Receita</label>
-                <input type="text" name="nomeReceita" id="nomeReceita" class="form-control"></input>             
+                <label for="produto_mp" class="form-label">Nome do Produto</label>
+                <input type="text" name="produto_mp" id="produto_mp" class="form-control"></input>             
             </div>
             <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <input type="text" name="descricao" id="descricao" class="form-control"></input>
+                <label for="descricao_mp" class="form-label">Descrição</label>
+                <textarea name="descricao_mp" id="descricao_mp" class="form-control" rows="3"></textarea>
             </div>
-            
-            <div class="mb-3">
-                <label for="preparo" class="form-label">Modo de preparo</label>
-                <textarea name="preparo" id="preparo" class="form-control" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="qtde" class="form-label">Qtde prevista da receita</label>
-                <textarea name="qtde" id="qtde" class="form-control" rows="1"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="validade" class="form-label">Validade</label>
-                <textarea name="validade" id="validade" class="form-control" rows="1"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="obs" class="form-label">Observação</label>
-                <textarea name="obs" id="obs" class="form-control" rows="3"></textarea>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="compra_unid_kg" class="form-label">Compra_unid_kg</label>
+                        <textarea name="compra_unid_kg" id="compra_unid_kg" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="peso_pcte" class="form-label">Peso_pcte</label>
+                        <textarea name="peso_pcte" id="peso_pcte" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="custo_ultima_compra" class="form-label">Custo_Ultima_Compra</label>
+                        <textarea name="custo_ultima_compra" id="custo_ultima_compra" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="valor_kg" class="form-label">Valor_KG</label>
+                        <textarea name="valor_kg" id="valor_kg" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="cliente_id" class="form-label">Cliente</label>
-                        <select class="form-select" name="cliente_id" id="cliente.id_tbl_cliente">
-                            {% for cliente in clientes %}
-                            <option value="{{cliente.id_tbl_cliente}}">{{cliente.nome_cliente}}</option>
+                        <label for="tbl_fornecedor_id_fornecedor" class="form-label">Fornecedor</label>
+                        <select class="form-select" name="id_mp" id="mp.id_mp">
+                            {% for mp in rel_forn_pert_m_prima %}
+                            <option value="{{mp.tbl_fornecedor_id_fornecedor}}">{{mp.tbl_fornecedor_id_fornecedor}}</option>
                             {%endfor%}
                         </select>
                     </div>
@@ -64,7 +74,7 @@
                 </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Cadastrar">
-                
+
         </form>   
     </div>
 </div>

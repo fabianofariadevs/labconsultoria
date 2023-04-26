@@ -78,11 +78,12 @@ try {
         SimpleRouter::get(URL_ADMIN . 'mixProdutos/deletar/{id}', 'AdminmixProdutos@deletar');
 
 //ADMIN ESTOQUE M.PRIMA
-        SimpleRouter::get(URL_ADMIN . 'estoqueMp/listar', 'AdminestoqueMp@listar');
-        SimpleRouter::get(URL_ADMIN . 'estoqueMp/inventario', 'AdminestoqueMp@inventario');
-        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'estoqueMp/cadastrar', 'AdminestoqueMp@cadastrar');
-        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'estoqueMp/editar/{id}', 'AdminestoqueMp@editar');
-        SimpleRouter::get(URL_ADMIN . 'estoqueMp/deletar/{id}', 'AdminestoqueMp@deletar');
+        SimpleRouter::get(URL_ADMIN . 'estoqueMp/listar', 'AdminEstoqueMp@listar');
+        SimpleRouter::get(URL_ADMIN . 'estoqueMp/inventario', 'AdminEstoqueMp@inventario');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'estoqueMp/cadastrar', 'AdminEstoqueMp@cadastrar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'estoqueMp/editar/{id}', 'AdminEstoqueMp@editar');
+        SimpleRouter::get(URL_ADMIN . 'estoqueMp/consultar', 'AdminEstoqueMp@consultar');
+        SimpleRouter::get(URL_ADMIN . 'estoqueMp/deletar/{id}', 'AdminEstoqueMp@deletar');
             
         
     });

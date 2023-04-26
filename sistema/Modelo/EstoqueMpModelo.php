@@ -14,17 +14,17 @@ class EstoqueMpModelo extends Modelo
 
     public function __construct()
     {
-        parent::__construct('posts');
+        parent::__construct('tbl_materia_prima');
     }
 
     /**
-     * Busca a categoria pelo ID
-     * @return CategoriaModelo|null
+     * Busca a MATERIA PRIMA pelo ID
+     * @return EstoqueMpModelo|null
      */
-    public function categoria(): ?CategoriaModelo
+    public function MPrima(): ?EstoqueMpModelo
     {
-        if ($this->categoria_id) {
-            return (new CategoriaModelo())->buscaPorId($this->categoria_id);
+        if ($this->id_mp) {
+            return (new EstoqueMpModelo())->buscaPorId($this->id_mp);
         }
         return null;
     }

@@ -14,8 +14,6 @@
         </li>
     </ol>
 </nav>
-
-
 {{ flash() }}
 
 <div class="shadow-sm">
@@ -32,10 +30,10 @@
                                         <h6 class="fw-bold text-secondary">INVENTÁRIO<BR>ESTOQUE</h6>
                                     </div>
                                     <div class="col-auto text-secondary">
-                                        <a href="{{url('admin/posts/cadastrar')}}" tooltip="tooltip" title="Cadastrar Inventário">
+                                        <a href="{{url('admin/estoqueMp/inventario')}}" tooltip="tooltip" title="Cadastrar Inventário">
                                             <i class="fa-solid fa-file-pen"></i>
                                         </a>
-                                        <a href="{{url('admin/posts/cadastrar')}}" tooltip="tooltip" title="Consultar Inventário">
+                                        <a href="{{url('admin/estoqueMp/consultar')}}" tooltip="tooltip" title="Consultar Inventário">
                                             <i class="fa-solid fa-list"></i>
                                         </a>
                                     </div>
@@ -56,10 +54,10 @@
                                         <h6 class="fw-bold text-secondary">MATÉRIA PRIMA</h6>
                                     </div>
                                     <div class="col-auto text-secondary">
-                                        <a href="{{url('admin/posts/cadastrar')}}" tooltip="tooltip" title="Cadastrar Matéria Prima">
+                                        <a href="{{url('admin/estoqueMp/cadastrar')}}" tooltip="tooltip" title="Cadastrar Matéria Prima">
                                             <i class="fa-solid fa-file-pen"></i>
                                         </a>
-                                        <a href="{{url('admin/posts/cadastrar')}}" tooltip="tooltip" title="Consultar Matéria Prima">
+                                        <a href="{{url('admin/estoqueMp/consultar')}}" tooltip="tooltip" title="Consultar Matéria Prima">
                                             <i class="fa-solid fa-list"></i>
                                         </a>
                                     </div>
@@ -81,13 +79,13 @@
                                         <h6 class="fw-bold text-secondary">COMPRAS<BR>MATÉRIA PRIMA</h6>
                                     </div>
                                     <div class="col-auto text-secondary">
-                                        <a href="{{url('admin/posts/cadastrar')}}" tooltip="tooltip" title="Cadastrar Pedido de Compra">
+                                        <a href="{{url('admin/compras/cadastrar')}}" tooltip="tooltip" title="Cadastrar Pedido de Compra">
                                             <i class="fa-solid fa-file-pen"></i>
                                         </a>
-                                        <a href="{{url('admin/posts/cadastrar')}}" tooltip="tooltip" title="Consultar Compras">
+                                        <a href="{{url('admin/compras/consultar')}}" tooltip="tooltip" title="Consultar Compras">
                                             <i class="fa-solid fa-list"></i>
                                         </a>
-                                        <a href="{{url('admin/posts/cadastrar')}}" tooltip="tooltip" title="Histórico de Compras">
+                                        <a href="{{url('admin/compras/historico')}}" tooltip="tooltip" title="Histórico de Compras">
                                             <i class="fa-solid fa-list"></i>
                                         </a>
                                     </div>
@@ -130,7 +128,7 @@
                             Últimos Pedidos de Compras
                         </h6>                          
                     </div>
-                    <a href="{{url('admin/posts/cadastrar')}}" class="fs-5" tooltip="tooltip" title="Cadastrar Pedido de Compra">
+                    <a href="{{url('admin/estoqueMp/cadastrar')}}" class="fs-5" tooltip="tooltip" title="Cadastrar Pedido de Compra">
                         <i class="fa-solid fa-circle-plus"></i>
                     </a>
                 </div>
@@ -167,10 +165,10 @@
                                     <td class="text-center">{{post.visitas}}</td>
                                     <td class="text-center">
 
-                                        <a href="{{ url('admin/posts/editar/'~post.id) }}" tooltip="tooltip" title="Editar">
+                                        <a href="{{ url('admin/estoqueMp/editar/'~post.id) }}" tooltip="tooltip" title="Editar">
                                             <i class="fa-solid fa-pen m-1"></i>
                                         </a>
-                                        <a href="{{ url('admin/posts/deletar/'~post.id) }}" tooltip="tooltip" title="Deletar">
+                                        <a href="{{ url('admin/estoqueMp/deletar/'~post.id) }}" tooltip="tooltip" title="Deletar">
                                             <i class="fa-solid fa-trash m-1"></i>
                                         </a>
 

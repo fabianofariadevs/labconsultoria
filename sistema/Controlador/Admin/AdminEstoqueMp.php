@@ -23,12 +23,14 @@ class AdminEstoqueMp extends AdminControlador
         $post = new EstoqueMpModelo();
 
         echo $this->template->renderizar('estoqueMp/listar.html', [
-            'posts' => $post->busca()->ordem('status ASC, id DESC')->resultado(true),
-            'total' => [
-                'posts' => $post->total(),
-                'postsAtivo' => $post->busca('status = 1')->total(),
-                'postsInativo' => $post->busca('status = 0')->total()
-            ]
+        ]);
+    }
+
+    public function consultar(): void
+    {
+        $post = new EstoqueMpModelo();
+
+        echo $this->template->renderizar('estoqueMp/listar.html', [
         ]);
     }
 
@@ -42,27 +44,26 @@ class AdminEstoqueMp extends AdminControlador
         if (isset($dados)) {
 
             if ($this->validarDados($dados)) {
-                $post = new PostModelo();
+                $post = new EstoqueMpModelo();
 
                 $post->usuario_id = $this->usuario->id;
-                $post->categoria_id = $dados['categoria_id'];
-                $post->slug = Helpers::slug($dados['titulo']);
+                $post->id_mp = $dados['id_categoria'];
                 $post->titulo = $dados['titulo'];
                 $post->texto = $dados['texto'];
                 $post->status = $dados['status'];
 
                 if ($post->salvar()) {
-                    $this->mensagem->sucesso('Post cadastrado com sucesso')->flash();
-                    Helpers::redirecionar('admin/posts/listar');
+                    $this->mensagem->sucesso('Produto cadastrado com sucesso')->flash();
+                    Helpers::redirecionar('admin/EstoqueMp/listar');
                 } else {
                     $this->mensagem->erro($post->erro())->flash();
-                    Helpers::redirecionar('admin/posts/listar');
+                    Helpers::redirecionar('admin/EstoqueMp/listar');
                 }
             }
         }
 
-        echo $this->template->renderizar('posts/formulario.html', [
-            'categorias' => (new CategoriaModelo())->busca()->resultado(true),
+        echo $this->template->renderizar('estoqueMp/formulario.html', [
+            'categorias' => (new EstoqueMpModelo())->busca()->resultado(true),
             'post' => $dados
         ]);
     }

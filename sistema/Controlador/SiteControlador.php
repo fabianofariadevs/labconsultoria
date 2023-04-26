@@ -146,17 +146,37 @@ class SiteControlador extends Controlador
     }
 
     /**
-     * MixProdutos
+     * Fornecedor
      * @return array
      */
-    public function mixProdutos(): array
+    public function rnecedor(): array
     {
-        return (new MixProdutosModelo())->busca();
+        return (new FornecedorModelo())->busca();
     }
 
-    public function mixProduto(int $id): void
+    public function rnecedores(int $id): void
     {
-        $posts = (new MixProdutosModelo())->posts($id);
+        $posts = (new FornecedorModelo())->posts($id);
+
+        echo $this->template->renderizar('listar.html', [
+            'fornecedor' => $posts,
+            'categorias' => $this->fornecedor(),
+        ]);
+    }
+
+    
+    /**
+     * ESTOQUE MATERIA PRIMA
+     * @return array
+     */
+    public function materiaPrimas(): array
+    {
+        return (new EstoqueMpModelo())->busca();
+    }
+
+    public function materiaPrima(int $id): void
+    {
+        $posts = (new EstoqueMpModelo())->posts($id);
 
         echo $this->template->renderizar('listar.html', [
             'mixProdutos' => $posts,
