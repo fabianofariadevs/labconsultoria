@@ -5,11 +5,11 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                CONSULTAS
+                CONSULTAR
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            MATÉRIA PRIMA
+            Compras
         </li>
     </ol>
 </nav>
@@ -99,17 +99,22 @@
                 </tbody>
 
             </table>
-            <a href="{{url('admin/estoqueMp/consultar')}}" class="btn btn-primary" tooltip="tooltip" title="Consultar Matéria Prima">Consultar</a>
+            <form data-url-busca="{{ url('buscar') }}" class="col-12 col-lg-auto mb-4 mb-lg-3 me-lg-3" role="search">
+                <input type="search" name="busca" id="busca" class="form-control form-control-dark text-bg-dark" placeholder="Pesquisar..." aria-label="Search">
+            </form>
+            <a href="{{url('admin/compras/buscar')}}" class="btn btn-primary" tooltip="tooltip" title="Pesquisar Pedido de Compra">Pesquisar</a>
 
-            <a href="{{url('admin/estoqueMp/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar Produto">
+            <a href="{{url('admin/compras/cadastrar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Cadastrar Pedido de Compras">
                 Cadastrar
             </a>
-            <a href="{{url('admin/estoqueMp/listar')}}" class="btn btn-dark" tooltip="tooltip" title="Voltar ao Menu">
+            <a href="{{url('admin/compras/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">
                 Voltar
             </a>
         </div>     
 
 
+
     </div>
+
 </div>
 {% endblock %}

@@ -3,7 +3,6 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\EstoqueMpModelo;
-use sistema\Modelo\CategoriaModelo;
 use sistema\Nucleo\Helpers;
 
 /**
@@ -15,7 +14,8 @@ class AdminEstoqueMp extends AdminControlador
 {
 
     /**
-     * Lista posts
+     * Lista EstoqueMp
+     * @autor Fabiano Faria
      * @return void
      */
     public function listar(): void
@@ -23,6 +23,12 @@ class AdminEstoqueMp extends AdminControlador
         $post = new EstoqueMpModelo();
 
         echo $this->template->renderizar('estoqueMp/listar.html', [
+            'tbl_materia_prima' => $post->busca()->ordem('status ASC, id DESC')->resultado(true),
+            'total' => [
+                'tbl_materia_prima' => $post->total(),
+                'tbl_materia_prima' => $post->busca('status = 1')->total(),
+                'tbl_materia_prima' => $post->busca('status = 0')->total()
+            ]
         ]);
     }
 
@@ -30,7 +36,7 @@ class AdminEstoqueMp extends AdminControlador
     {
         $post = new EstoqueMpModelo();
 
-        echo $this->template->renderizar('estoqueMp/listar.html', [
+        echo $this->template->renderizar('estoqueMp/consultar.html', [
         ]);
     }
 
@@ -47,9 +53,14 @@ class AdminEstoqueMp extends AdminControlador
                 $post = new EstoqueMpModelo();
 
                 $post->usuario_id = $this->usuario->id;
-                $post->id_mp = $dados['id_categoria'];
-                $post->titulo = $dados['titulo'];
-                $post->texto = $dados['texto'];
+                $post->id_mp = $dados['id_mp'];
+                $post->produto_mp = $dados['produto_mp'];
+                $post->descricao_mp = $dados['descricao_mp'];
+                $post->fornecedor_id = $dados['fornecedor_id'];
+                $post->compra_unid_kg = $dados['compra_unid_kg'];
+                $post->peso_pcte = $dados['peso_pcte'];
+                $post->custo_ultima_compra = $dados['custo_ultima_compra'];
+                $post->valor_kg = $dados['valor_kg'];
                 $post->status = $dados['status'];
 
                 if ($post->salvar()) {
@@ -63,47 +74,50 @@ class AdminEstoqueMp extends AdminControlador
         }
 
         echo $this->template->renderizar('estoqueMp/formulario.html', [
-            'categorias' => (new EstoqueMpModelo())->busca()->resultado(true),
-            'post' => $dados
+            'tbl_materia_prima' => (new EstoqueMpModelo())->busca()->resultado(true),
+            'tbl_fornecedor' => $dados
         ]);
     }
 
     /**
-     * Edita post pelo ID
+     * Edita EstoqueMp pelo ID
      * @param int $id
      * @return void
      */
     public function editar(int $id): void
     {
-        $post = (new PostModelo())->buscaPorId($id);
+        $post = (new EstoqueMpModelo())->buscaPorId($id);
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
 
             if ($this->validarDados($dados)) {
-                $post = (new PostModelo())->buscaPorId($id);
+                $post = (new EstoqueMpModelo())->buscaPorId($id);
 
                 $post->usuario_id = $this->usuario->id;
-                $post->categoria_id = $dados['categoria_id'];
-                $post->slug = Helpers::slug($dados['titulo']);
-                $post->titulo = $dados['titulo'];
-                $post->texto = $dados['texto'];
+                $post->id_mp = $dados['id_mp'];
+                $post->produto_mp = $dados['produto_mp'];
+                $post->descricao_mp = $dados['descricao_mp'];
+                $post->fornecedor_id = $dados['fornecedor_id'];
+                $post->compra_unid_kg = $dados['compra_unid_kg'];
+                $post->peso_pcte = $dados['peso_pcte'];
+                $post->custo_ultima_compra = $dados['custo_ultima_compra'];
+                $post->valor_kg = $dados['valor_kg'];
                 $post->status = $dados['status'];
-                $post->atualizado_em = date('Y-m-d H:i:s');
-
+                
                 if ($post->salvar()) {
-                    $this->mensagem->sucesso('Post atualizado com sucesso')->flash();
-                    Helpers::redirecionar('admin/posts/listar');
+                    $this->mensagem->sucesso('Produto atualizado com sucesso')->flash();
+                    Helpers::redirecionar('admin/estoqueMp/listar');
                 } else {
                     $this->mensagem->erro($post->erro())->flash();
-                    Helpers::redirecionar('admin/posts/listar');
+                    Helpers::redirecionar('admin/estoqueMp/listar');
                 }
             }
         }
 
-        echo $this->template->renderizar('posts/formulario.html', [
-            'post' => $post,
-            'categorias' => (new CategoriaModelo())->busca()->resultado(true)
+        echo $this->template->renderizar('estoqueMp/formulario.html', [
+            'tbl_materia_prima' => $post,
+            'tbl_fornecedor' => (new FornecedorModelo())->busca()->resultado(true)
         ]);
     }
 
@@ -114,12 +128,28 @@ class AdminEstoqueMp extends AdminControlador
      */
     public function validarDados(array $dados): bool
     {
-        if (empty($dados['titulo'])) {
-            $this->mensagem->alerta('Escreva um título para o Post!')->flash();
+        if (empty($dados['produto_mp'])) {
+            $this->mensagem->alerta('Escreva o nome do produto!')->flash();
             return false;
         }
-        if (empty($dados['texto'])) {
-            $this->mensagem->alerta('Escreva um texto para o Post!')->flash();
+        if (empty($dados['descricao_mp'])) {
+            $this->mensagem->alerta('Escreva descrição do produto!')->flash();
+            return false;
+        }
+        if (empty($dados['compra_unid_kg'])) {
+            $this->mensagem->alerta('Escreva qual unidade de compra do produto!')->flash();
+            return false;
+        }
+        if (empty($dados['peso_pcte'])) {
+            $this->mensagem->alerta('Escreva o peso do produto!')->flash();
+            return false;
+        }
+        if (empty($dados['custo_ultima_compra'])) {
+            $this->mensagem->alerta('Qual custo da Ultima Compra desse produto?')->flash();
+            return false;
+        }
+        if (empty($dados['valor_kg'])) {
+            $this->mensagem->alerta('Escreva o valor KG do produto!')->flash();
             return false;
         }
 
@@ -134,17 +164,17 @@ class AdminEstoqueMp extends AdminControlador
     public function deletar(int $id): void
     {
         if (is_int($id)) {
-            $post = (new PostModelo())->buscaPorId($id);
+            $post = (new EstoqueMpModelo())->buscaPorId($id);
             if (!$post) {
-                $this->mensagem->alerta('O post que você está tentando deletar não existe!')->flash();
-                Helpers::redirecionar('admin/posts/listar');
+                $this->mensagem->alerta('O Produto que você está tentando deletar não existe!')->flash();
+                Helpers::redirecionar('admin/estoqueMp/listar');
             } else {
                 if ($post->deletar()) {
-                    $this->mensagem->sucesso('Post deletado com sucesso!')->flash();
-                    Helpers::redirecionar('admin/posts/listar');
+                    $this->mensagem->sucesso('Produto deletado com sucesso!')->flash();
+                    Helpers::redirecionar('admin/estoqueMp/listar');
                 } else {
                     $this->mensagem->erro($post->erro())->flash();
-                    Helpers::redirecionar('admin/posts/listar');
+                    Helpers::redirecionar('admin/estoqueMp/listar');
                 }
             }
         }

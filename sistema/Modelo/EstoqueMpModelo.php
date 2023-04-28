@@ -18,10 +18,22 @@ class EstoqueMpModelo extends Modelo
     }
 
     /**
+     * Busca o FORNECEDOR pelo ID
+     * @return FornecedorModelo|null
+     */
+    public function fornecedor(): ?FornecedorModelo
+    {
+        if ($this->fornecedor_id) {
+            return (new FornecedorModelo())->buscaPorId($this->fornecedor_id);
+        }
+        return null;
+    }
+
+    /**
      * Busca a MATERIA PRIMA pelo ID
      * @return EstoqueMpModelo|null
      */
-    public function MPrima(): ?EstoqueMpModelo
+    public function consultar(): ?EstoqueMpModelo
     {
         if ($this->id_mp) {
             return (new EstoqueMpModelo())->buscaPorId($this->id_mp);

@@ -3,30 +3,43 @@
 namespace sistema\Modelo;
 
 use sistema\Nucleo\Modelo;
- /**
+
+/**
  * Classe CompraModelo
  *
  * @author Fabiano Faria
  */
 class CompraModelo extends Modelo
 {
- public function __construct()
+
+    public function __construct()
     {
-        parent::__construct('tbl_pedido_compra');
+        parent::__construct('tbl_materia_prima');
     }
 
     /**
-     * Busca a compra pelo ID
-     * @return CompraModelo|null
+     * Busca o FORNECEDOR pelo ID
+     * @return FornecedorModelo|null
      */
-    public function compra(): ?CompraModelo
+    public function fornecedor(): ?FornecedorModelo
     {
-        if ($this->categoria_id) {
-            return (new CategoriaModelo())->buscaPorId($this->categoria_id);
+        if ($this->fornecedor_id) {
+            return (new FornecedorModelo())->buscaPorId($this->fornecedor_id);
         }
         return null;
     }
 
+    /**
+     * Busca COMPRAS pelo ID
+     * @return CompraModelo|null
+     */
+    public function consultar(): ?CompraModelo
+    {
+        if ($this->id_mp) {
+            return (new CompraModelo())->buscaPorId($this->id_mp);
+        }
+        return null;
+    }
     /**
      * Busca o usuário pelo ID
      * @return UsuarioModelo|null
@@ -38,7 +51,7 @@ class CompraModelo extends Modelo
         }
         return null;
     }
-    
+
     /**
      * Salva o post com slug
      * @return bool
@@ -50,5 +63,3 @@ class CompraModelo extends Modelo
     }
 
 }
-
-

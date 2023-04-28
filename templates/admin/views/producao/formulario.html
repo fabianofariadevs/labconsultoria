@@ -5,11 +5,11 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                Home
+                ADMIN&Usuários
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Posts
+            Cadastrar Novo Pedido de Produção
         </li>
     </ol>
 </nav>
@@ -18,41 +18,74 @@
 
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-       <form action="{% if post.id %}{{url('admin/posts/editar/'~post.id)}}{%else%}{{url('admin/posts/cadastrar')}}{%endif%}" method="post">
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" name="titulo" id="titulo" value="{{post.titulo}}" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="texto" class="form-label">Texto</label>
-                <textarea name="texto" id="texto" class="form-control" rows="3">{{post.texto}}</textarea>
-            </div>
+        <form action="{% if prod.id_pedido_producao %}{{url('admin/producao/editar/'~prod.id_pedido_producao)}}{%else%}{{url('admin/producao/cadastrar')}}{%endif%}" method="post">
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="mb-3">
-                        <label for="categoria_id" class="form-label">Categoria</label>
-                        <select class="form-select" name="categoria_id" id="categoria_id">
-                            {% for categoria in categorias %}
-                            <option value="{{categoria.id}}" {% if post.categoria_id == categoria.id %}selected{%endif%}>{{categoria.titulo}}</option>
+                        <label for="data_pedido_prod" class="form-label">Data Pedido</label>
+                        <input type="date" name="data_pedido_prod" id="data_pedido_prod" class="form-control">             
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="tbl_loja_pdv_id_tbl_loja_pdv" class="form-label">Loja_Filial</label>
+                        <textarea name="tbl_loja_pdv_id_tbl_loja_pdv" id="tbl_loja_pdv_id_tbl_loja_pdv" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="id_cliente_fabrica" class="form-label">Cliente Fábrica</label>
+                        <select class="form-select" name="id_cliente_fabrica" id="id_cliente_fabrica">
+                            {% for fabrica in tbl_cliente_fabrica %}
+                            <option value="{{fabrica.id_tbl_cliente_fabrica}}" {% if prod.id_cliente_fabrica == fabrica.id_tbl_cliente_fabrica %}selected{%endif%}>{{fabrica.nome_cliente}}</option>
                             {%endfor%}
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+
+            </div>
+            <div class="col-md-9">
+                <div class="mb-4">
+                    <label for="descricao_pedido" class="form-label">Descrição do Pedido .(OBS.: Adicionar detalhes caso necessite).</label>
+                    <textarea name="descricao_pedido" id="descricao_pedido" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="qtde_pedido" class="form-label">Qtde Pedido</label>
+                        <input type="number" name="qtde_pedido" id="qtde_pedido" class="form-control" rows="1">
+                        <!-- ver tipo input....para numero???? -->
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="data_entrega_pedido" class="form-label">Entrega Pedido</label>
+                        <input type="date" name="data_entrega_pedido" id="data_entrega_pedido" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" name="status">
-                           <option value="1" {% if post.status == '1' %}selected{%endif%}>Ativo</option>
-                <option value="0" {% if post.status == '0' %}selected{%endif%}>Inativo</option>
+                            <option value="1" {% if prod.status == '1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if prod.status == '0' %}selected{%endif%}>Inativo</option>
                         </select>
                     </div>
                 </div>
-            </div>
+            </div>  
+            <input type="submit" class="btn btn-primary" value="{% if prod.id_pedido_producao %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
 
-             <input type="submit" class="btn btn-primary" value="{% if post.id %}Atualizar{%else%}Cadastrar{%endif%}">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <a href="{{url('admin/producao/consultar')}}" class="btn btn-dark" tooltip="tooltip" title="Consultar Pedidos">Consultar Pedidos</a>
+                        <a href="{{url('admin/producao/listar')}}" class="btn btn-dark" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+                    </div>
+                </div>
+            </div>
         </form>
-    </div>    
-</div>
+    </div> 
 </div>
 {% endblock %}

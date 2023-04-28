@@ -4,7 +4,7 @@ use Pecee\SimpleRouter\SimpleRouter;
 use sistema\Nucleo\Helpers;
 
 try {
-    //ROTAS SITE
+//ROTAS SITE
     SimpleRouter::setDefaultNamespace('sistema\Controlador');
 
     SimpleRouter::get(URL_SITE, 'SiteControlador@index');
@@ -18,35 +18,35 @@ try {
     SimpleRouter::post(URL_SITE . 'buscar', 'SiteControlador@buscar');
     SimpleRouter::get(URL_SITE . '404', 'SiteControlador@erro404');
 
-    //ROTAS ADMIN
+//ROTAS ADMIN
     SimpleRouter::group(['namespace' => 'Admin'], function () {
 
-        //ADMIN LOGIN
+//ADMIN LOGIN
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'login', 'AdminLogin@login');
 
-        //DASHBOAD
+//DASHBOAD
         SimpleRouter::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
         SimpleRouter::get(URL_ADMIN . 'sair', 'AdminDashboard@sair');
 
-        //ADMIN USUARIOS
+//ADMIN USUARIOS
         SimpleRouter::get(URL_ADMIN . 'usuarios/listar', 'AdminUsuarios@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'usuarios/cadastrar', 'AdminUsuarios@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'usuarios/editar/{id}', 'AdminUsuarios@editar');
         SimpleRouter::get(URL_ADMIN . 'usuarios/deletar/{id}', 'AdminUsuarios@deletar');
 
-        //ADMIN POSTS
+//ADMIN POSTS
         SimpleRouter::get(URL_ADMIN . 'posts/listar', 'AdminPosts@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/cadastrar', 'AdminPosts@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'posts/editar/{id}', 'AdminPosts@editar');
         SimpleRouter::get(URL_ADMIN . 'posts/deletar/{id}', 'AdminPosts@deletar');
 
-        //ADMIN CATEGORIAS
+//ADMIN CATEGORIAS
         SimpleRouter::get(URL_ADMIN . 'categorias/listar', 'AdminCategorias@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/editar/{id}', 'AdminCategorias@editar');
         SimpleRouter::get(URL_ADMIN . 'categorias/deletar/{id}', 'AdminCategorias@deletar');
 
-        //ADMIN CLIENTES
+//ADMIN CLIENTES
         SimpleRouter::get(URL_ADMIN . 'clientes/listar', 'AdminClientes@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'clientes/cadastrar', 'AdminClientes@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'clientes/editar/{id}', 'AdminClientes@editar');
@@ -63,13 +63,13 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'producao/cadastrar', 'AdminProducao@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'producao/editar/{id}', 'AdminProducao@editar');
         SimpleRouter::get(URL_ADMIN . 'producao/deletar/{id}', 'AdminProducao@deletar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'producao/consultar', 'AdminProducao@consultar');
 
 //ADMIN FORNECEDORES
         SimpleRouter::get(URL_ADMIN . 'fornecedor/listar', 'AdminFornecedor@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'fornecedor/cadastrar', 'AdminFornecedor@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'fornecedor/editar/{id}', 'AdminFornecedor@editar');
         SimpleRouter::get(URL_ADMIN . 'fornecedor/deletar/{id}', 'AdminFornecedor@deletar');
-
 
 //ADMIN MIX PRODUTOS
         SimpleRouter::get(URL_ADMIN . 'mixProdutos/listar', 'AdminmixProdutos@listar');
@@ -84,8 +84,15 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'estoqueMp/editar/{id}', 'AdminEstoqueMp@editar');
         SimpleRouter::get(URL_ADMIN . 'estoqueMp/consultar', 'AdminEstoqueMp@consultar');
         SimpleRouter::get(URL_ADMIN . 'estoqueMp/deletar/{id}', 'AdminEstoqueMp@deletar');
-            
-        
+
+//ADMIN COMPRAS
+        SimpleRouter::get(URL_ADMIN . 'compras/listar', 'AdminCompras@listar');
+        SimpleRouter::get(URL_ADMIN . 'compras/historico', 'AdminCompras@historico');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'compras/cadastrar', 'AdminCompras@cadastrar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'compras/editar/{id}', 'AdminCompras@editar');
+        SimpleRouter::get(URL_ADMIN . 'compras/consultar', 'AdminCompras@consultar');
+        SimpleRouter::get(URL_ADMIN . 'compras/deletar/{id}', 'AdminCompras@deletar');
+        SimpleRouter::get(URL_ADMIN . 'compras/buscar', 'AdminCompras@buscar');
     });
 
     SimpleRouter::start();

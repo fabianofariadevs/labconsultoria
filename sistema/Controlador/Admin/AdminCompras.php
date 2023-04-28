@@ -2,7 +2,7 @@
 
 namespace sistema\Controlador\Admin;
 
-use sistema\Modelo\CategoriaModelo;
+use sistema\Modelo\CompraModelo;
 use sistema\Nucleo\Helpers;
 
 /**
@@ -29,6 +29,33 @@ class AdminCompras extends AdminControlador
             ]
         ]);
     }
+    
+    /**
+     * Listar histórico de compras
+     * @return void
+     */
+    public function historico(): void
+    {
+        $compras = new CompraModelo();
+
+        echo $this->template->renderizar('compras/historico.html', [
+            'compras' => $compras->busca(),
+            'total' => [
+                'compras' => $compras->total(),
+                'comprasAtiva' => $compras->total('status = 1'),
+                'comprasInativa' => $compras->total('status = 0')
+            ]
+        ]);
+    }
+    
+    public function consultar(): void
+    {
+        $post = new CompraModelo();
+
+        echo $this->template->renderizar('compras/consultar.html', [
+        ]);
+    }
+
     /**
      * Cadastra uma compra
      * @return void
@@ -38,15 +65,15 @@ class AdminCompras extends AdminControlador
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             if ($this->validarDados($dados)) {
-            $categoria = new CompraModelo();
+            $compras = new CompraModelo();
 
-                $categoria->usuario_id = $this->usuario->id;
-                $categoria->slug = Helpers::slug($dados['titulo']);
-                $categoria->titulo = $dados['titulo'];
-                $categoria->texto = $dados['texto'];
-                $categoria->status = $dados['status'];
+                $compras->usuario_id = $this->usuario->id;
+                $compras->slug = Helpers::slug($dados['titulo']);
+                $compras->titulo = $dados['titulo'];
+                $compras->texto = $dados['texto'];
+                $compras->status = $dados['status'];
 
-                if ($categoria->salvar()) {
+                if ($compras->salvar()) {
                     $this->mensagem->sucesso('pedido de compra cadastrado com sucesso')->flash();
                     Helpers::redirecionar('admin/compras/listar');
                 } else {
@@ -67,7 +94,7 @@ class AdminCompras extends AdminControlador
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             if ($this->validarDados($dados)) {
-                $compras = (new CategoriaModelo())->buscaPorId($compras->id);
+                $compras = (new CompraModelo())->buscaPorId($compras->id);
 
                 $compras->usuario_id = $this->usuario->id;
                 $compras->slug = Helpers::slug($dados['titulo']);
@@ -111,24 +138,42 @@ class AdminCompras extends AdminControlador
     public function deletar(int $id): void
     {
         if (is_int($id)) {
-            $categoria = (new CategoriaModelo())->buscaPorId($id);
+            $compras = (new CompraModelo())->buscaPorId($id);
 
-            if (!$categoria) {
-                $this->mensagem->alerta('O categoria que você está tentando deletar não existe!')->flash();
-                Helpers::redirecionar('admin/categorias/listar');
-            } elseif ($categoria->posts($categoria->id)) {
-                $this->mensagem->alerta("A categoria {$categoria->titulo} tem posts cadastrados, delete ou altere os posts antes de deletar!")->flash();
-                Helpers::redirecionar('admin/categorias/listar');
+            if (!$compras) {
+                $this->mensagem->alerta('A compra que você está tentando deletar não existe!')->flash();
+                Helpers::redirecionar('admin/compras/listar');
+            } elseif ($compras->posts($compras->id)) {
+                $this->mensagem->alerta("A compra {$compras->titulo} tem posts cadastrados, delete ou altere os posts antes de deletar!")->flash();
+                Helpers::redirecionar('admin/compras/listar');
             } else {
-                if ($categoria->deletar()) {
-                    $this->mensagem->sucesso('Categoria deletada com sucesso!')->flash();
-                    Helpers::redirecionar('admin/categorias/listar');
+                if ($compras->deletar()) {
+                    $this->mensagem->sucesso('Compra deletada com sucesso!')->flash();
+                    Helpers::redirecionar('admin/compras/listar');
                 } else {
-                    $this->mensagem->erro($categoria->erro())->flash();
-                    Helpers::redirecionar('admin/categorias/listar');
+                    $this->mensagem->erro($compras->erro())->flash();
+                    Helpers::redirecionar('admin/compras/listar');
                 }
             }
         }
     }
+        /**
+     * Busca Pedidos de Compras 
+     * @return void
+     */
+    public function buscar(): void
+    {
+        $busca = filter_input(INPUT_POST, 'busca', FILTER_DEFAULT);
+        if (isset($busca)) {
+            $compras = (new CompraModelo())->busca("status = 1 AND produto_mp LIKE '%{$busca}%'")->resultado(true);
+            if ($compras) {
+                foreach ($compras as $compra) {
+                    echo "<li class='list-group-item fw-bold'><a href=" . Helpers::url('compra/') . $compra->id . ">$compra->produto_mp</a></li>";
+                }
+            }
+        }
+    }
+
+
 
 }

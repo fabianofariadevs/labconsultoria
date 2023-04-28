@@ -1,0 +1,43 @@
+{% extends '"dashboard.html"' %}
+{% block conteudo %}
+
+<div class="container my-5">
+
+    <div class="row">
+        <div class="col-lg-9 col-md-12">
+
+            {%if compras %}
+
+            <div class="row">
+                {% for compra in compras %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <a href="{{url('compra/'~compra.id_mp)}}" tooltip="tooltip" title="{{compra.produto_mp}}">
+                                <h4 class="card-title">{{compra.produto_mp}}</h4>
+                                <p class="card-text">{{resumirTexto(compra.descricao_mp, 150)}}</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>    
+                {%endfor %}
+            </div>
+
+            {% else %}
+            <div class="alert alert-warning" role="alert">
+                Sua busca não retornou nenhum resultado! tente buscar com uma palavra diferente!
+            </div>
+            {% endif %}
+
+
+        </div>
+
+        <div class="col-lg-3">
+            {% include'sidebar.html '%}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
