@@ -13,12 +13,13 @@
         </li>
     </ol>
 </nav>
+{{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
         <div>
             <span class="badge rounded text-bg-secondary">{{total.receitas}} total</span> 
-            <span class="badge rounded text-bg-success">{{total.receitasAtivo}} ativo</span> 
-            <span class="badge rounded text-bg-danger">{{total.receitasInativo}} inativo</span> 
+            <span class="badge rounded text-bg-success">{{total.receitasAtiva}} ativo</span> 
+            <span class="badge rounded text-bg-danger">{{total.receitasInativa}} inativo</span> 
         </div>
     </div>
     <div class="card-body">
@@ -27,26 +28,26 @@
                 <thead>
                     <tr>
                         <th scope="col">id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">descrição</th>
-                        <th scope="col">Modo de preparo</th>
-                        <th scope="col">Qtde Prevista</th>
-                        <th scope="col">Validade</th>
-                        <th scope="col">Observação</th>
+                        <th class="text-center">Nome</th>
+                        <th class="text-center">descrição</th>
+                        <th class="text-center">Modo de preparo</th>
+                        <th class="text-center">Qtde Prevista</th>
+                        <th class="text-center">Validade</th>
+                        <th class="text-center">Observação</th>
                         <th class="text-center">Status</th>
-                        <th class="text-center">Ação</th>
+                        <th class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for receita in receitas %}
                     <tr>
                         <th>{{receita.id_tbl_Receita}}</th>
-                        <td>{{receita.nome_receita}}</td>
-                        <td>{{receita.descricao_receita}}</td>
-                        <td>{{receita.modo_preparo}}</td>
-                        <td>{{receita.qtde_prevista_receita}}</td>
-                        <td>{{receita.validade_receita}}</td>
-                        <td>{{receita.observacao_receita}}</td>
+                        <td class="fw-bold">{{receita.nome_receita}}</td>
+                        <td class="text-center">{{receita.descricao_receita}}</td>
+                        <td class="text-center">{{receita.modo_preparo}}</td>
+                        <td class="text-center">{{receita.qtde_prevista_receita}}</td>
+                        <td class="text-center">{{receita.validade_receita}}</td>
+                        <td class="text-center">{{receita.observacao_receita}}</td>
                         <td class="text-center">
                             {% if receita.status == 1 %}
                             <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
@@ -55,6 +56,9 @@
                             {% endif %}
                         </td>
                         <td class="text-center">
+                            <a href="#info{{receita.id_tbl_Receita}}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                            </a>
 
                             <a href="{{ url('admin/receitas/editar/'~receita.id_tbl_Receita) }}" tooltip="tooltip" title="Editar">
                                 <i class="fa-solid fa-pen m-1"></i>
@@ -83,6 +87,9 @@
                             </li>
                             <li class="list-group-item">
                                 Ultima visita em: <b>{{receita.ultima_visita_em}}</b>
+                            </li>
+                            <li class="list-group-item">
+                                Cliente_Usuário_ID: <b>{{receita.usuario_id}}</b>
                             </li>
                         </ul>
                     </div>

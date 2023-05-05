@@ -74,8 +74,15 @@
                 <label for="obs" class="form-label">Observação</label>
                 <textarea name="obs" id="obs" class="form-control" rows="3"></textarea>
             </div>
-            <input type="submit" class="btn btn-primary" value="Cadastrar">
-            <a href="{{url('admin/receitas/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+            <input type="submit" class="btn btn-primary" value="Cadastrar"><hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <a href="{{url('admin/receitas/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Receitas">Consultar Receitas</a>
+                        <a href="{{url('admin/receitas/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+                    </div>
+                </div>
+            </div>
         </form> 
 
     </div>

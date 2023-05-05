@@ -21,16 +21,7 @@
             <span class="badge rounded text-bg-success">{{total.comprasAtivo}} ativo</span> 
             <span class="badge rounded text-bg-danger">{{total.comprasInativo}} inativo</span> 
         </div>
-
-        <a href="{{url('admin/compras/historico')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Histórico de Compras">
-            Histórico de Compras
-        </a>
-
-        <a href="{{url('admin/compras/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar Pedido de Compras">
-            Cadastrar Pedido
-        </a>
     </div>
-
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover">
@@ -113,8 +104,17 @@
                 {%endfor%}
                 </tbody>
             </table>
-            <a href="{{url('admin/compras/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Compras">Consultar</a>
-            <a href="{{url('admin/estoqueMp/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <a href="{{url('admin/compras/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Compras">Consultar Pedido</a>
+                        <a href="{{url('admin/compras/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Pedido de Compras">
+                            Cadastrar Pedido de Compras</a><hr>
+                        <a href="{{url('admin/compras/historico')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Histórico de Compras">Histórico de Compras</a>
+                        <a href="{{url('admin/estoqueMp/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+                    </div>
+                </div>
+            </div>
         </div>     
     </div>
 </div>

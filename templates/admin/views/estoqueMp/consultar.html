@@ -99,17 +99,16 @@
                 </tbody>
 
             </table>
-            <a href="{{url('admin/estoqueMp/consultar')}}" class="btn btn-primary" tooltip="tooltip" title="Consultar Matéria Prima">Consultar</a>
-
-            <a href="{{url('admin/estoqueMp/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar Produto">
-                Cadastrar
-            </a>
-            <a href="{{url('admin/estoqueMp/listar')}}" class="btn btn-dark" tooltip="tooltip" title="Voltar ao Menu">
-                Voltar
-            </a>
-        </div>     
-
-
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <a href="{{url('admin/estoqueMp/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Produto">Cadastrar</a><hr>
+                        <a href="{{url('admin/estoqueMp/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Matéria Prima">Consultar Matéria Prima</a>
+                        <a href="{{url('admin/estoqueMp/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
