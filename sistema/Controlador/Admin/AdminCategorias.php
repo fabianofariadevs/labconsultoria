@@ -12,23 +12,25 @@ use sistema\Nucleo\Helpers;
  */
 class AdminCategorias extends AdminControlador
 {
+
     /**
      * Lista categorias
      * @return void
      */
     public function listar(): void
     {
-        $categorias = new CategoriaModelo();
+        $categoria = new CategoriaModelo();
 
         echo $this->template->renderizar('categorias/listar.html', [
-            'categorias' => $categorias->busca(),
+            'categorias' => $categoria->busca()->ordem('titulo ASC')->resultado(true),
             'total' => [
-                'categorias' => $categorias->total(),
-                'categoriasAtiva' => $categorias->total('status = 1'),
-                'categoriasInativa' => $categorias->total('status = 0')
+                'categorias' => $categoria->total(),
+                'categoriasAtiva' => $categoria->busca('status = 1')->total(),
+                'categoriasInativa' => $categoria->busca('status = 0')->total(),
             ]
         ]);
     }
+
     /**
      * Cadastra uma categoria
      * @return void
@@ -38,7 +40,7 @@ class AdminCategorias extends AdminControlador
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             if ($this->validarDados($dados)) {
-            $categoria = new CategoriaModelo();
+                $categoria = new CategoriaModelo();
 
                 $categoria->usuario_id = $this->usuario->id;
                 $categoria->slug = Helpers::slug($dados['titulo']);
@@ -89,6 +91,7 @@ class AdminCategorias extends AdminControlador
             'categoria' => $categoria
         ]);
     }
+
     /**
      * Valida os dados do formulário
      * @param array $dados

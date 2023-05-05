@@ -21,7 +21,7 @@
                 <div class="col-md-5">
                     <div class="mb-3">
                         <label for="nomeReceita" class="form-label">Nome da Receita</label>
-                        <input type="text" name="nomeReceita" id="nomeReceita" class="form-control"></input>             
+                        <input type="text" name="nomeReceita" id="nomeReceita" class="form-control">            
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -34,8 +34,8 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" name="status">
-                            <option value="1">Ativo</option>
-                            <option value="0">Inativo</option>
+                            <option value="1" {% if receita.status == '1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if receita.status == '0' %}selected{%endif%}>Inativo</option>
                         </select>
                     </div>
                 </div>
@@ -74,6 +74,9 @@
                 <label for="obs" class="form-label">Observação</label>
                 <textarea name="obs" id="obs" class="form-control" rows="3"></textarea>
             </div>
+            
+            <input type="submit" class="btn btn-primary" value="{% if receita.id_tbl_Receita %}Atualizar{%else%}Cadastrar{%endif%}">
+
             <input type="submit" class="btn btn-primary" value="Cadastrar"><hr>
             <div class="row">
                 <div class="col-md-4">

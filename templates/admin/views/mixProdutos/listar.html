@@ -69,7 +69,7 @@
                             </a>
                         </td>
                     </tr>
-                    <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{mix.id_tbl_produto_mix}}">
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{mix.id_tbl_produto_mix}}">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{mix.produto_mix}}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -91,7 +91,7 @@
                         </ul>
                     </div>
                 </div>
-                    {%endfor%}
+                {%endfor%}
                 </tbody>
             </table>
             <a href="{{url('admin/mixProdutos/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Mix">Cadastrar</a>
