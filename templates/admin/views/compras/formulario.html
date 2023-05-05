@@ -5,7 +5,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                Admin&Usuários
+                Admin & Usuários
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
@@ -16,55 +16,90 @@
 {{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if compra.id_mp %}{{url('admin/compras/editar/'~compra.id_mp)}}{%else%}{{url('admin/compras/cadastrar')}}{%endif%}" method="post">
-            <div class="mb-3">
-                <div class="mb-3">
-                <label for="produto_mp" class="form-label">Nome do Produto</label>
-                <input type="text" name="produto_mp" id="produto_mp" class="form-control"></input>             
-            </div>
-            <div class="mb-3">
-                <label for="descricao_mp" class="form-label">Descrição</label>
-                <input type="text" name="descricao_mp" id="descricao_mp" class="form-control" rows="3"></input>
-            </div>
+        <form action="{% if compras.id %}{{url('admin/compras/editar/'~compras.id)}}{%else%}{{url('admin/compras/cadastrar')}}{%endif%}" method="post">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="mb-3">
-                        <label for="compra_unid_kg" class="form-label">Compra_unid_kg</label>
-                        <textarea name="compra_unid_kg" id="compra_unid_kg" class="form-control" rows="1"></textarea>
+                        <label for="data_pedido" class="form-label">Data Pedido</label>
+                        <input type="date" name="data_pedido" id="data_pedido" class="form-control">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="peso_pcte" class="form-label">Peso_pcte</label>
-                        <textarea name="peso_pcte" id="peso_pcte" class="form-control" rows="1"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="custo_ultima_compra" class="form-label">Custo_Ultima_Compra</label>
-                        <textarea name="custo_ultima_compra" id="custo_ultima_compra" class="form-control" rows="1"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="valor_kg" class="form-label">Valor_KG</label>
-                        <textarea name="valor_kg" id="valor_kg" class="form-control" rows="1"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label for="fornecedor_id" class="form-label">Fornecedor</label>
-                        <select class="form-select" name="fornecedor_id" id="fornecedor_id">
-                            {% for compra in compras %}
-                            <option value="{{compra.fornecedor_id}}">{{compra.produto_mp}}</option>
+                        <label for="produto" class="form-label">Nome do Produto</label>
+                        <input type="text" name="produto" id="produto" class="form-control">             
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="fornecedor" class="form-label">Fornecedor</label>
+                        <select class="form-select" name="fornecedor" id="fornecedor">
+                            {% for fornec in fornecedor %}
+                            <option value="{{fornec.nome_fornec}}">{{fornec.produto}}</option>
                             {%endfor%}
                         </select>
                     </div>
                 </div>
-            
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="pedido" class="form-label">Qtde.Pedido</label>
+                        <input type="text" name="pedido" id="pedido" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="departamento" class="form-label">Departamento</label>
+                        <input type="text" name="departamento" id="departamento" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="compra_minima_kg" class="form-label">Compra_Min_kg</label>
+                        <textarea name="compra_minima_kg" id="compra_minima_kg" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="indicador_compra" class="form-label">Indicador_Compra</label>
+                        <textarea name="indicador_compra" id="indicador_compra" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="consumo_medio_semanal" class="form-label">Consumo_Medio_Semanal</label>
+                        <textarea name="consumo_medio_semanal" id="consumo_medio_semanal" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="unid_compra" class="form-label">Unid.Compra</label>
+                        <textarea name="unid_compra" id="unid_compra" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="necessidade_compra" class="form-label">Necessidade_compra</label>
+                        <textarea name="necessidade_compra" id="necessidade_compra" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="custo_unidade" class="form-label">Custo_Unid.</label>
+                        <textarea name="custo_unidade" id="custo_unidade" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="valor_pedido" class="form-label">Valor_Pedido</label>
+                        <textarea name="valor_pedido" id="valor_pedido" class="form-control" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" name="status">
@@ -73,6 +108,13 @@
                         </select>
                     </div>
                 </div>
+            </div>
+
+
+            <div class="row">
+
+
+
             </div>
             <input type="submit" class="btn btn-primary" value="Cadastrar">
             <a href="{{url('admin/compras/consultar')}}" class="btn btn-dark" tooltip="tooltip" title="Consultar Compras">Consultar</a>

@@ -15,16 +15,12 @@
 </nav>
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
-         <div>
+        <div>
             <span class="badge rounded text-bg-secondary">{{total.receitas}} total</span> 
             <span class="badge rounded text-bg-success">{{total.receitasAtivo}} ativo</span> 
             <span class="badge rounded text-bg-danger">{{total.receitasInativo}} inativo</span> 
         </div>
-        <a href="{{url('admin/receitas/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar">
-            Cadastrar
-        </a>
     </div>
-    
     <div class="card-body">
         <div class="table-responsive">
             <table class="table">
@@ -42,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for receita in tbl_receita %}
+                    {% for receita in receitas %}
                     <tr>
                         <th>{{receita.id_tbl_Receita}}</th>
                         <td>{{receita.nome_receita}}</td>
@@ -69,12 +65,34 @@
 
                         </td>
                     </tr>
-                    {%endfor%}
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{receita.id_tbl_Receita}}">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{receita.nome_receita}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                Validade Receita: {{receita.validade_receita}}
+                            </li>
+                            <li class="list-group-item">
+                                Cadastrado em: <b>{{receita.cadastrado_em}}</b>
+                            </li>
+                            <li class="list-group-item">
+                                Atualizado em: {{receita.atualizado_em}}
+                            </li>
+                            <li class="list-group-item">
+                                Ultima visita em: <b>{{receita.ultima_visita_em}}</b>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {%endfor%}
                 </tbody>
             </table>
-        </div>     
-        
-        
+            <a href="{{url('admin/receitas/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Mix">Cadastrar</a>
+            <a href="{{url('admin/receitas/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Mix">Consultar</a>     
+        </div>        
     </div>
 </div>
 {% endblock %}

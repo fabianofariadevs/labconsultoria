@@ -66,6 +66,8 @@
 
             <div class="d-grid gap-2">
                 <input type="submit" class="btn btn-dark" value="{% if usuario.id %}Atualizar{%else%}Cadastrar{%endif%}">
+                <a href="{{url('admin/usuarios/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+       
             </div>
         </form>
     </div>    

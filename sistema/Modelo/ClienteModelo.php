@@ -16,13 +16,13 @@ class ClienteModelo extends Modelo
     }
 
     /**
-     * Busca a categoria pelo ID
+     * Busca a CLIENTE/FABRICA pelo ID
      * @return CategoriaModelo|null
      */
-    public function categoria(): ?CategoriaModelo
+    public function cliente(): ?ClienteModelo
     {
-        if ($this->categoria_id) {
-            return (new CategoriaModelo())->buscaPorId($this->categoria_id);
+        if ($this->id_tbl_cliente_fabrica) {
+            return (new ClienteModelo())->buscaPorId($this->id_tbl_cliente_fabrica);
         }
         return null;
     }

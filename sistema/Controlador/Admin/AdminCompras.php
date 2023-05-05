@@ -12,6 +12,7 @@ use sistema\Nucleo\Helpers;
  */
 class AdminCompras extends AdminControlador
 {
+
     /**
      * Lista compras
      * @return void
@@ -29,7 +30,7 @@ class AdminCompras extends AdminControlador
             ]
         ]);
     }
-    
+
     /**
      * Listar histórico de compras
      * @return void
@@ -47,12 +48,13 @@ class AdminCompras extends AdminControlador
             ]
         ]);
     }
-    
+
     public function consultar(): void
     {
-        $post = new CompraModelo();
+        $compras = new CompraModelo();
 
         echo $this->template->renderizar('compras/consultar.html', [
+            'compras' => $compras->busca()
         ]);
     }
 
@@ -65,12 +67,21 @@ class AdminCompras extends AdminControlador
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             if ($this->validarDados($dados)) {
-            $compras = new CompraModelo();
+                $compras = new CompraModelo();
 
                 $compras->usuario_id = $this->usuario->id;
-                $compras->slug = Helpers::slug($dados['titulo']);
-                $compras->titulo = $dados['titulo'];
-                $compras->texto = $dados['texto'];
+                $compras->produto = Helpers::slug($dados['produto']);
+                $compras->consumo_medio_semanal = $dados['consumo_medio_semanal'];
+                $compras->necessidade_compra = $dados['necessidade_compra'];
+                $compras->indicador_compra = $dados['indicador_compra'];
+                $compras->compra_minima_kg = $dados['compra_minima_kg'];
+                $compras->pedido = $dados['pedido'];
+                $compras->unid_compra = $dados['unid_compra'];
+                $compras->fornecedor = $dados['fornecedor'];
+                $compras->custo_unid = $dados['custo_unid'];
+                $compras->valor_pedido = $dados['valor_pedido'];
+                $compras->departamento = $dados['departamento'];
+                $compras->data_pedido = $dados['data_pedido'];
                 $compras->status = $dados['status'];
 
                 if ($compras->salvar()) {
@@ -97,11 +108,19 @@ class AdminCompras extends AdminControlador
                 $compras = (new CompraModelo())->buscaPorId($compras->id);
 
                 $compras->usuario_id = $this->usuario->id;
-                $compras->slug = Helpers::slug($dados['titulo']);
-                $compras->titulo = $dados['titulo'];
-                $compras->texto = $dados['texto'];
+                $compras->produto = Helpers::slug($dados['produto']);
+                $compras->consumo_medio_semanal = $dados['consumo_medio_semanal'];
+                $compras->necessidade_compra = $dados['necessidade_compra'];
+                $compras->indicador_compra = $dados['indicador_compra'];
+                $compras->compra_minima_kg = $dados['compra_minima_kg'];
+                $compras->pedido = $dados['pedido'];
+                $compras->unid_compra = $dados['unid_compra'];
+                $compras->fornecedor = $dados['fornecedor'];
+                $compras->custo_unid = $dados['custo_unid'];
+                $compras->valor_pedido = $dados['valor_pedido'];
+                $compras->departamento = $dados['departamento'];
+                $compras->data_pedido = $dados['data_pedido'];
                 $compras->status = $dados['status'];
-                $compras->atualizado_em = date('Y-m-d H:i:s');
 
                 if ($compras->salvar()) {
                     $this->mensagem->sucesso('Compras atualizada com sucesso')->flash();
@@ -116,6 +135,7 @@ class AdminCompras extends AdminControlador
             'compras' => $compras
         ]);
     }
+
     /**
      * Valida os dados do formulário
      * @param array $dados
@@ -123,15 +143,15 @@ class AdminCompras extends AdminControlador
      */
     private function validarDados(array $dados): bool
     {
-        if (empty($dados['titulo'])) {
-            $this->mensagem->alerta('Escreva um título para a Categoria!')->flash();
+        if (empty($dados['produto'])) {
+            $this->mensagem->alerta('Escreva um produto para a Categoria!')->flash();
             return false;
         }
         return true;
     }
 
     /**
-     * Deleta uma categoria pelo ID
+     * Deleta uma compra pelo ID
      * @param int $id
      * @return void
      */
@@ -143,8 +163,8 @@ class AdminCompras extends AdminControlador
             if (!$compras) {
                 $this->mensagem->alerta('A compra que você está tentando deletar não existe!')->flash();
                 Helpers::redirecionar('admin/compras/listar');
-            } elseif ($compras->posts($compras->id)) {
-                $this->mensagem->alerta("A compra {$compras->titulo} tem posts cadastrados, delete ou altere os posts antes de deletar!")->flash();
+            } elseif ($compras->compras($compras->id)) {
+                $this->mensagem->alerta("A compra {$compras->produto} tem posts cadastrados, delete ou altere os posts antes de deletar!")->flash();
                 Helpers::redirecionar('admin/compras/listar');
             } else {
                 if ($compras->deletar()) {
@@ -157,7 +177,8 @@ class AdminCompras extends AdminControlador
             }
         }
     }
-        /**
+
+    /**
      * Busca Pedidos de Compras 
      * @return void
      */
@@ -165,15 +186,13 @@ class AdminCompras extends AdminControlador
     {
         $busca = filter_input(INPUT_POST, 'busca', FILTER_DEFAULT);
         if (isset($busca)) {
-            $compras = (new CompraModelo())->busca("status = 1 AND produto_mp LIKE '%{$busca}%'")->resultado(true);
+            $compras = (new CompraModelo())->busca("status = 1 AND produto LIKE '%{$busca}%'")->resultado(true);
             if ($compras) {
                 foreach ($compras as $compra) {
-                    echo "<li class='list-group-item fw-bold'><a href=" . Helpers::url('compra/') . $compra->id . ">$compra->produto_mp</a></li>";
+                    echo "<li class='list-group-item fw-bold'><a href=" . Helpers::url('compra/') . $compra->id . ">$compra->produto</a></li>";
                 }
             }
         }
     }
-
-
 
 }

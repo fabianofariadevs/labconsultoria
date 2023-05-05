@@ -9,51 +9,28 @@
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Receitas
+            Cadastrar Receitas
         </li>
     </ol>
 </nav>
-
+{{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if receita.id %}{{url('admin/receita/editar/'~receita.id)}}{%else%}{{url('admin/receitas/cadastrar')}}{%endif%}" method="post">
-            <div class="mb-3">
-                <label for="nomeReceita" class="form-label">Nome da Receita</label>
-                <input type="text" name="nomeReceita" id="nomeReceita" class="form-control"></input>             
-            </div>
-            <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <input type="text" name="descricao" id="descricao" class="form-control"></input>
-            </div>
-            
-            <div class="mb-3">
-                <label for="preparo" class="form-label">Modo de preparo</label>
-                <textarea name="preparo" id="preparo" class="form-control" rows="3"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="qtde" class="form-label">Qtde prevista da receita</label>
-                <textarea name="qtde" id="qtde" class="form-control" rows="1"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="validade" class="form-label">Validade</label>
-                <textarea name="validade" id="validade" class="form-control" rows="1"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="obs" class="form-label">Observação</label>
-                <textarea name="obs" id="obs" class="form-control" rows="3"></textarea>
-            </div>
+        <form action="{% if receita.id_tbl_Receita %}{{url('admin/receitas/editar/'~receita.id_tbl_Receita)}}{%else%}{{url('admin/receitas/cadastrar')}}{%endif%}" method="post">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="mb-3">
-                        <label for="cliente_id" class="form-label">Cliente</label>
-                        <select class="form-select" name="cliente_id" id="cliente.id_tbl_cliente">
-                            {% for cliente in clientes %}
-                            <option value="{{cliente.id_tbl_cliente}}">{{cliente.nome_cliente}}</option>
-                            {%endfor%}
-                        </select>
+                        <label for="nomeReceita" class="form-label">Nome da Receita</label>
+                        <input type="text" name="nomeReceita" id="nomeReceita" class="form-control"></input>             
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <input type="text" name="descricao" id="descricao" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-2">
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" name="status">
@@ -63,9 +40,44 @@
                     </div>
                 </div>
             </div>
+
+            <div class="mb-3">
+                <label for="preparo" class="form-label">Modo de preparo</label>
+                <textarea name="preparo" id="preparo" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="qtde" class="form-label">Qtde prevista da receita</label>
+                        <input type="text" name="qtde" id="qtde" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <label for="validade" class="form-label">Validade</label>
+                        <input type="date" name="validade" id="validade" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="mb-3">
+                        <label for="cliente_id" class="form-label">Cliente Fábrica</label>
+                        <select class="form-select" name="cliente_id" id="cliente.id_tbl_cliente">
+                            {% for cliente in clientes %}
+                            <option value="{{cliente.id_tbl_cliente}}">{{cliente.nome_cliente}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mb-3">
+                <label for="obs" class="form-label">Observação</label>
+                <textarea name="obs" id="obs" class="form-control" rows="3"></textarea>
+            </div>
             <input type="submit" class="btn btn-primary" value="Cadastrar">
-                
-        </form>   
+            <a href="{{url('admin/receitas/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+        </form> 
+
     </div>
 </div>
 {% endblock %}

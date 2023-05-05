@@ -5,7 +5,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                Admin
+                Admin & Usuários
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
@@ -13,17 +13,15 @@
         </li>
     </ol>
 </nav>
-
+{{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
-         <div>
-            <span class="badge rounded text-bg-secondary">{{total.posts}} posts</span> 
-            <span class="badge rounded text-bg-success">{{total.postsAtivo}} ativo</span> 
-            <span class="badge rounded text-bg-danger">{{total.postsInativo}} inativo</span> 
+        <div>
+            <span class="badge rounded text-bg-secondary">{{total.fornecedor}} Fornecedor</span> 
+            <span class="badge rounded text-bg-success">{{total.fornecedorAtivo}} ativo</span> 
+            <span class="badge rounded text-bg-danger">{{total.fornecedorInativo}} inativo</span> 
         </div>
-        <a href="{{url('admin/fornecedor/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar Post">
-            Cadastrar
-        </a>
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -40,15 +38,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                        {% for fornecedor in fornecedores %}
+                    {% for fornec in fornecedor %}
                     <tr>
-                        <th>{{fornecedor.id_fornecedor}}</th>
-                        <td>{{fornecedor.nome_fornec}}</td>
-                        <td>{{fornecedor.endereco_fornec}}</td>
-                        <td>{{fornecedor.contato_whatsapp}}</td>
-                        <td>{{fornecedor.email_fornec}}</td>
+                        <th>{{fornec.id_fornecedor}}</th>
+                        <td>{{fornec.nome_fornec}}</td>
+                        <td>{{fornec.endereco_fornec}}</td>
+                        <td>{{fornec.contato_whatsapp}}</td>
+                        <td>{{fornec.email_fornec}}</td>
                         <td class="text-center">
-                            {% if fornecedor.status == 1 %}
+                            {% if fornec.status == 1 %}
                             <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
                             {% else %}
                             <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
@@ -56,10 +54,10 @@
                         </td>
                         <td class="text-center">
 
-                            <a href="{{ url('admin/fornecedor/editar/'~fornecedor.id_fornecedor) }}" tooltip="tooltip" title="Editar">
+                            <a href="{{ url('admin/fornecedor/editar/'~fornec.id_fornecedor) }}" tooltip="tooltip" title="Editar">
                                 <i class="fa-solid fa-pen m-1"></i>
                             </a>
-                            <a href="{{ url('admin/fornecedor/deletar/'~fornecedor.id_fornecedor) }}" tooltip="tooltip" title="Deletar">
+                            <a href="{{ url('admin/fornecedor/deletar/'~fornec.id_fornecedor) }}" tooltip="tooltip" title="Deletar">
                                 <i class="fa-solid fa-trash m-1"></i>
                             </a>
 
@@ -68,9 +66,9 @@
                     {%endfor%}
                 </tbody>
             </table>
+            <a href="{{url('admin/fornecedor/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Fornecedor">Cadastrar</a>
+            <a href="{{url('admin/fornecedor/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Fornecedor">Consultar</a>        
         </div>     
-        
-        
     </div>
 </div>
 {% endblock %}

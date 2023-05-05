@@ -2,36 +2,53 @@
 
 namespace sistema\Modelo;
 
-use sistema\Nucleo\Conexao;
- /**
+use sistema\Nucleo\Modelo;
+
+/**
  * Classe FornecedorModelo
  *
  * @author Fabiano Faria
  */
-class FornecedorModelo
+class FornecedorModelo extends Modelo
 {
-    public function busca(): array
-    {
-        //aqui escolhemos quais as colunas ou id selecionar
-        //ex: SELECT * FROM table WHERE id = 1 AND id = 2;
-        //COM LIMIT, OFFSET, OU OPERADORES
-        $query = "SELECT * FROM tbl_fornecedor ";
-        $stmt = Conexao::getInstancia()->query($query);        
-        $resultado = $stmt->fetchAll();
-        //var_dump($resultado);
-        return $resultado;
 
-    }
-    
-    public function buscaporId(int$id): bool | object
+    public function __construct()
     {
-        //aqui buscar por ID
-        $query = "SELECT * FROM 'tbl_fornecedor' WHERE id_fornecedor - 1 ORDER BY id DESC";
-        $stmt = Conexao::getInstancia()->query($query);        
-        $resultado = $stmt->fetch();
-        return $resultado;
+        parent::__construct('tbl_fornecedor');
     }
 
+    /**
+     * Busca a fornecedor pelo ID
+     * @return FornecedorModelo|null
+     */
+    public function fornecedor(): ?FornecedorModelo
+    {
+        if ($this->id_fornecedor) {
+            return (new FornecedorModelo())->buscaPorId($this->id_fornecedor);
+        }
+        return null;
+    }
+
+    /**
+     * Busca o usuário pelo ID
+     * @return UsuarioModelo|null
+     */
+    public function usuario(): ?UsuarioModelo
+    {
+        if ($this->usuario_id) {
+            return (new UsuarioModelo())->buscaPorId($this->usuario_id);
+        }
+        return null;
+    }
+
+    /**
+     * Salva o fornecedor com slug
+     * @return bool
+     */
+    public function salvar(): bool
+    {
+        $this->slug();
+        return parent::salvar();
+    }
 
 }
-

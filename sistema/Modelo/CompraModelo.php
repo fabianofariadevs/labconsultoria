@@ -14,7 +14,7 @@ class CompraModelo extends Modelo
 
     public function __construct()
     {
-        parent::__construct('tbl_materia_prima');
+        parent::__construct('tbl_pedido_compra');
     }
 
     /**
@@ -35,8 +35,8 @@ class CompraModelo extends Modelo
      */
     public function consultar(): ?CompraModelo
     {
-        if ($this->id_mp) {
-            return (new CompraModelo())->buscaPorId($this->id_mp);
+        if ($this->id) {
+            return (new CompraModelo())->buscaPorId($this->id);
         }
         return null;
     }
@@ -53,7 +53,7 @@ class CompraModelo extends Modelo
     }
 
     /**
-     * Salva o post com slug
+     * Salva a compra com slug
      * @return bool
      */
     public function salvar(): bool

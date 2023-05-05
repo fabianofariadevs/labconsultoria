@@ -114,7 +114,7 @@ class SiteControlador extends Controlador
      public function contatos(): void
     {
         echo $this->template->renderizar('contatos.html', [
-            'titulo' => 'contato Izabel fabiano',
+            'titulo' => 'Izabel fabiano',
             'subtitulo' => 'teste CONTATO de subtitulo'
         ]);
     }

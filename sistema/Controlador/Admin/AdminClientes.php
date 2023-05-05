@@ -3,85 +3,90 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\ClienteModelo;
-use sistema\Nucleo\helpers;
+use sistema\Nucleo\Helpers;
+
 /* Classe AdminClientes
  *
  * @author Fabiano Faria
  */
+
 class AdminClientes extends AdminControlador
 {
+
     public function listar(): void
     {
-        $post = new ClienteModelo();
+        $clientes = new ClienteModelo();
         echo $this->template->renderizar('clientes/listar.html', [
-            'clientes' => $post->busca()->ordem('status ASC, id_tbl_cliente_fabrica DESC')->resultado(true),
+            'clientes' => $clientes->busca()->ordem('nome_cliente ASC')->resultado(true),
             'total' => [
-                'clientes' => $post->total(),
-                'clientesAtivo' => $post->busca('status = 1')->total(),
-                'clientesInativo' => $post->busca('status = 0')->total()
-            ]]);
+                'clientes' => $clientes->total(),
+                'clientesAtivo' => $clientes->busca('status = 1')->total(),
+                'clientesInativo' => $clientes->busca('status = 0')->total()
+        ]]);
     }
-    
+
     public function cadastrar(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
 
-            $post = new ClienteModelo();
+            if ($this->validarDados($dados)) {
+                $clientes = new ClienteModelo();
 
-            $post->nome_cliente = $dados['nome_cliente'];
-            $post->endereco_cliente = $dados['endereco_cliente'];
-            $post->bairro_cli = $dados['bairro_cli'];
-            $post->cidade_cli = $dados['cidade_cli'];
-            $post->estado_cli = $dados['estado_cli'];
-            $post->telefone_cli = $dados['telefone_cli'];
-            $post->email_cli = $dados['email_cli'];
-            $post->responsavel_empresa = $dados['responsavel_empresa'];
-            $post->whatsapp = $dados['whatsapp'];
-            $post->cnpj_fabrica = $dados['cnpj_fabrica'];
-            $post->status = $dados['status'];
+                $clientes->nome_cliente = $dados['nome_cliente'];
+                $clientes->endereco_cliente = $dados['endereco_cliente'];
+                $clientes->bairro_cli = $dados['bairro_cli'];
+                $clientes->cidade_cli = $dados['cidade_cli'];
+                $clientes->estado_cli = $dados['estado_cli'];
+                $clientes->telefone_cli = $dados['telefone_cli'];
+                $clientes->email_cli = $dados['email_cli'];
+                $clientes->responsavel_empresa = $dados['responsavel_empresa'];
+                $clientes->whatsapp = $dados['whatsapp'];
+                $clientes->cnpj_fabrica = $dados['cnpj_fabrica'];
+                $clientes->status = $dados['status'];
 
-            if ($post->salvar()) {
-                $this->mensagem->sucesso('Cliente cadastrado com sucesso')->flash();
-                Helpers::redirecionar('admin/clientes/listar');
+                if ($clientes->salvar()) {
+                    $this->mensagem->sucesso('Cliente cadastrado com sucesso')->flash();
+                    Helpers::redirecionar('admin/clientes/listar');
+                }
             }
         }
 
         echo $this->template->renderizar('clientes/formulario.html', [
-  ///***ver qual classe cliente????          
-            'tbl_cliente_fabrica' => $dados]);
+            ///***ver qual classe cliente????          
+            'clientes' => $dados]);
     }
 
     public function editar(int $id): void
     {
-        $post = (new ClienteModelo())->buscaPorId($id);
+        $clientes = (new ClienteModelo())->buscaPorId($id);
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
 
-            $post = (new ClienteModelo())->buscaPorId($id);
+            $clientes = (new ClienteModelo())->buscaPorId($id);
 
-            $post->nome_cliente = $dados['nome_cliente'];
-            $post->endereco_cliente = $dados['endereco_cliente'];
-            $post->bairro_cli = $dados['bairro_cli'];
-            $post->cidade_cli = $dados['cidade_cli'];
-            $post->estado_cli = $dados['estado_cli'];
-            $post->telefone_cli = $dados['telefone_cli'];
-            $post->email_cli = $dados['email_cli'];
-            $post->responsavel_empresa = $dados['responsavel_empresa'];
-            $post->whatsapp = $dados['whatsapp'];
-            $post->cnpj_fabrica = $dados['cnpj_fabrica'];
-            $post->status = $dados['status'];
+            $clientes->nome_cliente = $dados['nome_cliente'];
+            $clientes->endereco_cliente = $dados['endereco_cliente'];
+            $clientes->bairro_cli = $dados['bairro_cli'];
+            $clientes->cidade_cli = $dados['cidade_cli'];
+            $clientes->estado_cli = $dados['estado_cli'];
+            $clientes->telefone_cli = $dados['telefone_cli'];
+            $clientes->email_cli = $dados['email_cli'];
+            $clientes->responsavel_empresa = $dados['responsavel_empresa'];
+            $clientes->whatsapp = $dados['whatsapp'];
+            $clientes->cnpj_fabrica = $dados['cnpj_fabrica'];
+            $clientes->status = $dados['status'];
 
-            if ($post->salvar()) {
+            if ($clientes->salvar()) {
                 $this->mensagem->sucesso('Cliente atualizado com sucesso')->flash();
                 Helpers::redirecionar('admin/clientes/listar');
             }
         }
 
         echo $this->template->renderizar('clientes/formulario.html', [
- ////**VER AQUI TAMBEM           
-            'post' => $post,
+            ////**VER AQUI TAMBEM           
+            'clientes' => $clientes,
             'categorias' => (new CategoriaModelo())->busca()
         ]);
     }
@@ -90,20 +95,18 @@ class AdminClientes extends AdminControlador
     {
 //        $id = filter_var($id, FILTER_VALIDATE_INT);
         if (is_int($id)) {
-            $post = (new ClienteModelo())->buscaPorId($id);
-            if (!$post) {
+            $clientes = (new ClienteModelo())->buscaPorId($id);
+            if (!$clientes) {
                 $this->mensagem->alerta('O Cliente que você está tentando deletar não existe!')->flash();
                 Helpers::redirecionar('admin/clientes/listar');
             } else {
-                if($post->deletar()){
+                if ($clientes->deletar()) {
                     $this->mensagem->sucesso('Cliente deletado com sucesso!')->flash();
-                Helpers::redirecionar('admin/clientes/listar');
-                }else {
-                    $this->mensagem->erro($post->erro())->flash();
-                Helpers::redirecionar('admin/clientes/listar');
+                    Helpers::redirecionar('admin/clientes/listar');
+                } else {
+                    $this->mensagem->erro($clientes->erro())->flash();
+                    Helpers::redirecionar('admin/clientes/listar');
                 }
-                
-                
             }
         }
     }

@@ -99,11 +99,12 @@
                 </tbody>
 
             </table>
-            <form data-url-busca="{{ url('buscar') }}" class="col-12 col-lg-auto mb-4 mb-lg-3 me-lg-3" role="search">
-                <input type="search" name="busca" id="busca" class="form-control form-control-dark text-bg-dark" placeholder="Pesquisar..." aria-label="Search">
+            <form data-url-busca="{{ url('buscar') }}" class="col-12 col-lg-auto mb-3 mb-lg-3 me-lg-3" role="search">
+                <input type="search" name="busca" id="busca" class="form-control" placeholder=" Digite sua pesquisa de compras" aria-label="Search">
             </form>
+            <!-- ver botao pesquisar???? 
             <a href="{{url('admin/compras/buscar')}}" class="btn btn-primary" tooltip="tooltip" title="Pesquisar Pedido de Compra">Pesquisar</a>
-
+            -->
             <a href="{{url('admin/compras/cadastrar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Cadastrar Pedido de Compras">
                 Cadastrar
             </a>

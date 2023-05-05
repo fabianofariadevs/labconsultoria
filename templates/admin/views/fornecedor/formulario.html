@@ -5,18 +5,18 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                ADMIN & Usuários
+                Admin & Usuários
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Cadastrar Novo Mix de Produto
+            Cadastrar Fornecedor
         </li>
     </ol>
 </nav>
 {{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if mix.id_tbl_produto_mix %}{{url('admin/fornecedor/editar/'~id_tbl_produto_mix)}}{%else%}{{url('admin/fornecedor/cadastrar')}}{%endif%}" method="post">
+        <form action="{% if fornecedor.id_fornecedor %}{{url('admin/fornecedor/editar/'~id_fornecedor)}}{%else%}{{url('admin/fornecedor/cadastrar')}}{%endif%}" method="post">
             <div class="row">
 
                 <div class="col-md-6">
@@ -66,8 +66,15 @@
                 </div>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Cadastrar">
-            <a href="{{url('admin/mixProdutos/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar Menu">Voltar</a>
+            <input type="submit" class="btn btn-primary" value="Cadastrar"><hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <a href="{{url('admin/fornecedor/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Fornecedor">Consultar Fornecedor</a>
+                        <a href="{{url('admin/fornecedor/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+                    </div>
+                </div>
+            </div>
         </form>   
     </div>
 </div>
