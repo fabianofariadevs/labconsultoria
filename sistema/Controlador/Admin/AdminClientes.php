@@ -43,6 +43,7 @@ class AdminClientes extends AdminControlador
                 $clientes->responsavel_empresa = $dados['responsavel_empresa'];
                 $clientes->whatsapp = $dados['whatsapp'];
                 $clientes->cnpj_fabrica = $dados['cnpj_fabrica'];
+                $clientes->slug = Helpers::slug($dados['nome_cliente']);
                 $clientes->status = $dados['status'];
 
                 if ($clientes->salvar()) {
@@ -86,7 +87,7 @@ class AdminClientes extends AdminControlador
 
         echo $this->template->renderizar('clientes/formulario.html', [
             ////**VER AQUI TAMBEM           
-            'clientes' => $clientes,
+            'clientes' => $dados,
             'categorias' => (new CategoriaModelo())->busca()
         ]);
     }

@@ -18,14 +18,24 @@
 
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-       <form action="{% if post.id %}{{url('admin/posts/editar/'~post.id)}}{%else%}{{url('admin/posts/cadastrar')}}{%endif%}" method="post">
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" name="titulo" id="titulo" value="{{post.titulo}}" class="form-control">
+        <form action="{% if post.id %}{{url('admin/posts/editar/'~post.id)}}{%else%}{{url('admin/posts/cadastrar')}}{%endif%}" method="post">
+            <div class="mb-3">/////???
+                <label for="mix_produto" class="form-label">Mix Produto</label>
+                <input type="text" name="mix_produto" id="mix_produto" value="{{post.mix_produto}}" class="form-control">
             </div>
             <div class="mb-3">
-                <label for="texto" class="form-label">Texto</label>
-                <textarea name="texto" id="texto" class="form-control" rows="3">{{post.texto}}</textarea>
+                <label for="descricao" class="form-label">Descrição</label>
+                <textarea name="descricao" id="descricao" class="form-control" rows="3">{{post.descricao}}</textarea>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">///configurar
+                    <label for="categoria_id" class="form-label">Produto_Mix</label>
+                    <select class="form-select" name="categoria_id" id="categoria_id">
+                        {% for mix in mixprodutos %}
+                        <option value="{{mix.id}}" {% if post.categoria_id == categoria.id %}selected{%endif%}>{{categoria.titulo}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
             </div>
 
             <div class="row">
@@ -43,14 +53,15 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" name="status">
-                           <option value="1" {% if post.status == '1' %}selected{%endif%}>Ativo</option>
-                <option value="0" {% if post.status == '0' %}selected{%endif%}>Inativo</option>
+                            <option value="1" {% if post.status == '1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if post.status == '0' %}selected{%endif%}>Inativo</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-             <input type="submit" class="btn btn-primary" value="{% if post.id %}Atualizar{%else%}Cadastrar{%endif%}">
+            <input type="submit" class="btn btn-primary" value="{% if post.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
+            <a href="{{url('admin/posts/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>     
         </form>
     </div>    
 </div>

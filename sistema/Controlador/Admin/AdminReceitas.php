@@ -3,6 +3,8 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\ReceitaModelo;
+use sistema\Modelo\FornecedorModelo;
+use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\Helpers;
 
 /**
@@ -20,6 +22,8 @@ class AdminReceitas extends AdminControlador
     public function listar(): void
     {
         $receita = new ReceitaModelo();
+        $fornecedor = new FornecedorModelo();
+        $cliente = new ClienteModelo();
 
         echo $this->template->renderizar('receitas/listar.html', [
             'receitas' => $receita->busca()->ordem('nome_receita ASC')->resultado(true),
@@ -27,6 +31,13 @@ class AdminReceitas extends AdminControlador
                 'receitas' => $receita->total(),
                 'receitasAtiva' => $receita->busca('status = 1')->total(),
                 'receitasInativa' => $receita->busca('status = 0')->total(),
+            ],
+            //listar dados tbl_cliente_fabrica
+            'clientes' => $cliente->busca()->ordem('nome_cliente ASC')->resultado(true),
+            'total' => [
+                'clientes' => $cliente->total(),
+                'clientesAtiva' => $cliente->busca('status = 1')->total(),
+                'clientesInativa' => $cliente->busca('status = 0')->total(),
             ]
         ]);
     }

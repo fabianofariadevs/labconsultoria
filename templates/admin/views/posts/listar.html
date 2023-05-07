@@ -5,11 +5,11 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                Dashboard
+                Admin & Usuários
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Posts
+            Relação dos Posts de Matéria Prima para Blog
         </li>
     </ol>
 </nav>
@@ -23,9 +23,7 @@
             <span class="badge rounded text-bg-success">{{total.postsAtivo}} ativo</span> 
             <span class="badge rounded text-bg-danger">{{total.postsInativo}} inativo</span> 
         </div>
-        <a href="{{url('admin/posts/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar Post">
-            Cadastrar
-        </a>
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -33,7 +31,7 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Título</th>
+                        <th>Mix Produto</th>
                         <th class="text-center">Categoria</th>
                         <th class="text-center">Visitas</th>
                         <th class="text-center">Status</th>
@@ -45,7 +43,7 @@
                     <tr>
                         <th>{{post.id}}</th>
                         <td class="fw-bold">
-                            {{post.titulo}}
+                            {{post.mix_produto}}
                         </td>
                         <td class="text-center"> {{post.categoria.titulo}}</td>
                         <td class="text-center">{{post.visitas}}</td>
@@ -73,7 +71,7 @@
 
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{post.id}}">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{post.titulo}}</h5>
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{post.mix_produto}}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
@@ -97,6 +95,8 @@
                 {%endfor%}
                 </tbody>
             </table>
+            <a href="{{url('admin/posts/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Post">Cadastrar</a><hr>
+            <a href="{{url('admin/posts/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Posts Produtos">Consultar Produtos</a>
         </div>     
 
 

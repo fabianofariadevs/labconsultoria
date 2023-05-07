@@ -5,11 +5,11 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                Admin
+                Admin & Usuários
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Categorias
+            Relação de Categorias Mix_Produtos para Blog
         </li>
     </ol>
 </nav>
@@ -21,10 +21,6 @@
             <span class="badge rounded text-bg-success">{{total.categoriasAtiva}} ativa</span> 
             <span class="badge rounded text-bg-danger">{{total.categoriasInativa}} inativa</span> 
         </div>
-
-        <a href="{{url('admin/categorias/cadastrar')}}" class="btn btn-dark" tooltip="tooltip" title="Cadastrar Categoria">
-            Cadastrar
-        </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -32,7 +28,8 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Título</th>
+                        <th>Categoria_Mix_Fábrica</th>
+                        <th class="fw-bold text-center">Cliente/Fábrica</th>
                         <th class="text-center">Visitas</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Ação</th>
@@ -43,6 +40,7 @@
                     <tr>
                         <th>{{categoria.id}}</th>
                         <td class="fw-bold">{{categoria.titulo}}</td>
+                        <td class="text-center"> </td>
                         <td class="text-center">{{categoria.visitas}}</td>
                         <td class="text-center">
                             {% if categoria.status == 1 %}
@@ -63,6 +61,9 @@
                     {%endfor%}
                 </tbody>
             </table>
+            <a href="{{url('admin/categorias/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Categoria">Cadastrar</a><hr>
+            <a href="{{url('admin/categorias/consultar/'~categoria.id)}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Categorias Mix">Consultar Categoria/Mix_Fábrica</a>
+
         </div>     
 
 

@@ -46,9 +46,9 @@ class AdminPosts extends AdminControlador
 
                 $post->usuario_id = $this->usuario->id;
                 $post->categoria_id = $dados['categoria_id'];
-                $post->slug = Helpers::slug($dados['titulo']);
-                $post->titulo = $dados['titulo'];                
-                $post->texto = $dados['texto'];
+                $post->slug = Helpers::slug($dados['mix_produto']);
+                $post->mix_produto = $dados['mix_produto'];                
+                $post->descricao = $dados['descricao'];
                 $post->status = $dados['status'];
 
                 if ($post->salvar()) {
@@ -84,9 +84,9 @@ class AdminPosts extends AdminControlador
 
                 $post->usuario_id = $this->usuario->id;
                 $post->categoria_id = $dados['categoria_id'];
-                $post->slug = Helpers::slug($dados['titulo']);
-                $post->titulo = $dados['titulo'];                
-                $post->texto = $dados['texto'];
+                $post->slug = Helpers::slug($dados['mix_produto']);
+                $post->mix_produto = $dados['mix_produto'];                
+                $post->descricao = $dados['descricao'];
                 $post->status = $dados['status'];
                 $post->atualizado_em = date('Y-m-d H:i:s');
 
@@ -113,12 +113,12 @@ class AdminPosts extends AdminControlador
      */
     public function validarDados(array $dados): bool
     {
-        if (empty($dados['titulo'])) {
-            $this->mensagem->alerta('Escreva um título para o Post!')->flash();
+        if (empty($dados['mix_produto'])) {
+            $this->mensagem->alerta('Escreva um MixProduto para o Post!')->flash();
             return false;
         }
-        if (empty($dados['texto'])) {
-            $this->mensagem->alerta('Escreva um texto para o Post!')->flash();
+        if (empty($dados['descricao'])) {
+            $this->mensagem->alerta('Escreva uma descrição para o Post!')->flash();
             return false;
         }
 

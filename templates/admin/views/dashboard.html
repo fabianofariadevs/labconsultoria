@@ -22,7 +22,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Posts/Receitas/Produção</h6>
+                                            <h6 class="fw-bold text-secondary">Posts Produtos Blog</h6>
                                         </div>
 
                                         <div class="col-auto text-secondary">
@@ -53,7 +53,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h6 class="fw-bold text-secondary">Categorias/Clientes</h6>
+                                            <h6 class="fw-bold text-secondary">Categorias Blog</h6>
                                         </div>
 
                                         <div class="col-auto text-secondary">
@@ -143,7 +143,7 @@
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center mt-2">
                         <div>
                             <h6 class="fw-bold text-secondary">
-                                Últimas Receitas Cadastradas
+                                Últimas Produtos Cadastrados Blog
                             </h6>                          
                         </div>
                         <a href="{{url('admin/posts/cadastrar')}}" class="fs-5" tooltip="tooltip" title="Cadastrar Post">
@@ -174,7 +174,7 @@
                                                     <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                                                     {% endif %}
                                                 </span>
-                                                {{resumirTexto(post.titulo, 100)}}
+                                                {{resumirTexto(post.mix_produto, 100)}}
                                             </div>
                                             <small class="text-muted fw-normal">
                                                 Escrito por {{post.usuario.nome}} {{ contarTempo(post.cadastrado_em) }} {{post.categoria.titulo}}
@@ -210,7 +210,7 @@
                 <div class="card border-0 shadow-sm  h-100">
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center mt-2">
                         <h6 class="fw-bold text-secondary">
-                            Últimas Clientes utilizaram
+                            Produtos Blog Vsitados
                         </h6> 
 
                         <a href="{{url('admin/categorias/cadastrar')}}" class="fs-5" tooltip="tooltip" title="Cadastrar Categoria">
@@ -241,7 +241,7 @@
                                                 <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                                                 {% endif %}
                                             </span>
-                                            {{categoria.titulo}}
+                                            {{categoria.mix_produtos}}
                                         </td>
                                         <td class="text-center">
                                             {{categoria.visitas}}

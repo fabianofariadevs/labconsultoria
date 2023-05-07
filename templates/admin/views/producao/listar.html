@@ -30,7 +30,7 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Data Pedido</th>
+                        <th class="fw-bold text-center">Data Pedido</th>
                         <th class="text-center">Descrição</th>
                         <th class="text-center">Qtde</th>
                         <th class="text-center">Data Entrega</th>
@@ -44,12 +44,12 @@
                     {% for prod in producao %}
                     <tr>
                         <th>{{prod.id_pedido_producao}}</th>
-                        <td class="fw-bold">
-                            {{prod.data_pedido_prod}}
+                        <td class="fw-bold text-center">
+                            {{prod.data_pedido_prod|date("d/m/Y H:i:s")}}
                         </td>
                         <td class="text-center"> {{prod.descricao_pedido}}</td>
                         <td class="text-center">{{prod.qtde_pedido}}</td>
-                        <td class="text-center"> {{prod.data_entrega_pedido}}</td>
+                        <td class="fw-bold text-center"> {{prod.data_entrega_pedido|date("d/m/Y H:i:s")}}</td>
                         <td class="text-center">{{prod.tbl_loja_pdv_id_tbl_loja_pdv}}</td>
                         <td class="text-center">{{prod.id_cliente_fabrica}}</td>
                         <td class="text-center">
@@ -96,9 +96,16 @@
                 {%endfor%}
                 </tbody>
             </table>
-            <a href="{{url('admin/producao/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Pedido Produção">Cadastrar</a>
-            <a href="{{url('admin/producao/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Pedidos">Consultar</a>     
-        </div> 
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <a href="{{url('admin/producao/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Pedido Produção">Cadastrar</a><hr>
+                        <a href="{{url('admin/producao/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Pedidos">Consultar Pedidos</a><hr>
+                        <a href="{{url('admin/producao/lib_entrega')}}" class="btn btn-primary" tooltip="tooltip" title="Enviar para Entrega">Liberar Pedidos para Entrega</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
