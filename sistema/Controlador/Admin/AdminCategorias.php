@@ -4,6 +4,7 @@ namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\CategoriaModelo;
 use sistema\Nucleo\Helpers;
+use sistema\Modelo\PostModelo;
 
 /**
  * Classe AdminCategorias
@@ -115,11 +116,12 @@ class AdminCategorias extends AdminControlador
     {
         if (is_int($id)) {
             $categoria = (new CategoriaModelo())->buscaPorId($id);
+            $posts = (new PostModelo())->busca("categoria_id = {$categoria->id}")->resultado(true);
 
             if (!$categoria) {
                 $this->mensagem->alerta('O categoria que você está tentando deletar não existe!')->flash();
                 Helpers::redirecionar('admin/categorias/listar');
-            } elseif ($categoria->posts($categoria->id)) {
+            } elseif ($posts) {
                 $this->mensagem->alerta("A categoria {$categoria->titulo} tem posts cadastrados, delete ou altere os posts antes de deletar!")->flash();
                 Helpers::redirecionar('admin/categorias/listar');
             } else {

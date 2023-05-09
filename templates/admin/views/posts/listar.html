@@ -17,20 +17,21 @@
 {{ flash() }}
 
 <div class="card border-0 shadow-sm">
-    <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+    <div class="card-header bg-white border-buttom d-flex justify-content-between align-items-center">
         <div>
-            <span class="badge rounded text-bg-secondary">{{total.posts}} posts</span> 
-            <span class="badge rounded text-bg-success">{{total.postsAtivo}} ativo</span> 
-            <span class="badge rounded text-bg-danger">{{total.postsInativo}} inativo</span> 
+            <span class="badge rounded text-bg-secondary">{{formatarNumero(total.posts)}} posts</span> 
+            <span class="badge rounded text-bg-success">{{formatarNumero(total.postsAtivo)}} ativo</span> 
+            <span class="badge rounded text-bg-danger">{{formatarNumero(total.postsInativo)}} inativo</span> 
         </div>
-
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table id="tabelaPosts" url="{{url()}}" class="table table-striped" style="width:100%">
+
                 <thead>
                     <tr>
                         <th>id</th>
+                        <th>Capa</th>
                         <th>Mix Produto</th>
                         <th class="text-center">Categoria</th>
                         <th class="text-center">Visitas</th>
@@ -42,9 +43,8 @@
                     {% for post in posts %}
                     <tr>
                         <th>{{post.id}}</th>
-                        <td class="fw-bold">
-                            {{post.mix_produto}}
-                        </td>
+                        <td>{{post.capa}}</td>
+                        <td class="fw-bold">{{post.mix_produto}}</td>
                         <td class="text-center"> {{post.categoria.titulo}}</td>
                         <td class="text-center">{{post.visitas}}</td>
                         <td class="text-center">
@@ -98,8 +98,6 @@
             <a href="{{url('admin/posts/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Post">Cadastrar</a><hr>
             <a href="{{url('admin/posts/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Posts Produtos">Consultar Produtos</a>
         </div>     
-
-
     </div>
 </div>
 {% endblock %}

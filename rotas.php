@@ -13,15 +13,17 @@ try {
     SimpleRouter::get(URL_SITE . 'contatos', 'SiteControlador@contatos');
     SimpleRouter::get(URL_SITE . 'servicos', 'SiteControlador@servicos');
 
-    SimpleRouter::get(URL_SITE . 'post/{slug}', 'SiteControlador@post');
-    SimpleRouter::get(URL_SITE . 'categoria/{slug}', 'SiteControlador@categoria');
+    SimpleRouter::get(URL_SITE . 'post/{categoria}/{slug}', 'SiteControlador@post');
+    SimpleRouter::get(URL_SITE . 'categoria/{slug}/{pagina?}', 'SiteControlador@categoria');
     SimpleRouter::post(URL_SITE . 'buscar', 'SiteControlador@buscar');
     SimpleRouter::get(URL_SITE . '404', 'SiteControlador@erro404');
+    SimpleRouter::match(['get', 'post'], URL_SITE . 'contato', 'SiteControlador@contato');
 
 //ROTAS ADMIN
     SimpleRouter::group(['namespace' => 'Admin'], function () {
 
 //ADMIN LOGIN
+        SimpleRouter::get(URL_ADMIN, 'AdminLogin@index');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'login', 'AdminLogin@login');
 
 //DASHBOAD
@@ -33,6 +35,7 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'usuarios/cadastrar', 'AdminUsuarios@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'usuarios/editar/{id}', 'AdminUsuarios@editar');
         SimpleRouter::get(URL_ADMIN . 'usuarios/deletar/{id}', 'AdminUsuarios@deletar');
+        SimpleRouter::post(URL_ADMIN . 'usuarios/datatable', 'AdminUsuarios@datatable');
 
 //ADMIN POSTS
         SimpleRouter::get(URL_ADMIN . 'posts/listar', 'AdminPosts@listar');

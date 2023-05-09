@@ -159,4 +159,62 @@ class AdminUsuarios extends AdminControlador
         }
     }
 
+    /**
+     * Método responsável por exibir os dados tabulados utilizando o plugin datatables
+     * @return void
+     */
+    public function datatable(): void
+    {
+        $datatable = $_REQUEST;
+        $datatable = filter_var_array($datatable, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $limite = $datatable['length'];
+        $offset = $datatable['start'];
+        $busca = $datatable['search']['value'];
+
+        $colunas = [
+            0 => 'id',
+            1 => 'nome',
+            2 => 'email',
+            3 => 'level',
+            4 => 'status',
+        ];
+
+        $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
+        $ordem .= " " . $datatable['order'][0]['dir'] . " ";
+
+        $usuarios = new UsuarioModelo();
+
+        if (empty($busca)) {
+            $usuarios->busca()->ordem($ordem)->limite($limite)->offset($offset);
+            $total = (new UsuarioModelo())->busca(null, 'COUNT(id)', 'id')->total();
+        } else {
+            $usuarios->busca("id LIKE '%{$busca}%' OR nome LIKE '%{$busca}%' OR email LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
+            $total = $usuarios->total();
+        }
+
+        $dados = [];
+
+        if ($usuarios->resultado(true)) {
+            foreach ($usuarios->resultado(true) as $usuario) {
+                $dados[] = [
+                    $usuario->id,
+                    $usuario->nome,
+                    $usuario->email,
+                    $usuario->level,
+                    $usuario->status
+                ];
+            }
+        }
+
+        $retorno = [
+            "draw" => $datatable['draw'],
+            "recordsTotal" => $total,
+            "recordsFiltered" => $total,
+            "data" => $dados
+        ];
+
+        echo json_encode($retorno);
+    }
+
 }

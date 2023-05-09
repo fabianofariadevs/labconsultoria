@@ -66,7 +66,7 @@ abstract class Modelo
      * Erros
      * @return \PDOException|null
      */
-    public function erro(): ?\PDOException
+    public function erro(): mixed
     {
         return $this->erro;
     }
@@ -166,7 +166,7 @@ abstract class Modelo
      * @param array $dados
      * @return int
      */
-    protected function cadastrar(array $dados): int
+    protected function cadastrar(array $dados): ?int
     {
         try {
             $colunas = implode(',', array_keys($dados));

@@ -1,6 +1,10 @@
 $(document).ready(function () {
     $('#tabela').DataTable({
-        "pageLength": 5,
-        "lengthMenu": [5, 10, 25, 50, 75, 100]
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/pt-BR.json'
+        },
+        processing: true,
+        serverSide: true,
+        ajax: 'http://localhost/labconsultoria/admin/posts/datatable'
     });
 });

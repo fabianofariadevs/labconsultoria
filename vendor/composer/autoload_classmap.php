@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Verot\\Upload\\Upload' => $vendorDir . '/verot/class.upload.php/src/class.upload.php',
 );

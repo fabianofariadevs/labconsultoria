@@ -15,21 +15,23 @@
 </nav>
 {{flash()}}
 <div class="card border-0 shadow-sm">
-    <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+
+    <div class="card-header bg-white border-buttom d-flex justify-content-between align-items-center">
         <div>
-            <span class="badge rounded text-bg-secondary">{{total.categorias}} categorias</span> 
-            <span class="badge rounded text-bg-success">{{total.categoriasAtiva}} ativa</span> 
-            <span class="badge rounded text-bg-danger">{{total.categoriasInativa}} inativa</span> 
+            <span class="badge rounded text-bg-secondary">{{formatarNumero(total.categorias)}} categorias</span> 
+            <span class="badge rounded text-bg-success">{{formatarNumero(total.categoriasAtiva)}} ativa</span> 
+            <span class="badge rounded text-bg-danger">{{formatarNumero(total.categoriasInativa)}} inativa</span> 
         </div>
     </div>
+
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover table-striped" id="tabelaCategorias">
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Categoria_Mix_Fábrica</th>
-                        <th class="fw-bold text-center">Cliente/Fábrica</th>
+                        <th>Título</th>
+                        <th class="text-center">Posts</th>
                         <th class="text-center">Visitas</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Ação</th>
@@ -40,7 +42,9 @@
                     <tr>
                         <th>{{categoria.id}}</th>
                         <td class="fw-bold">{{categoria.titulo}}</td>
-                        <td class="text-center"> </td>
+                        <td class="text-center">
+                            {{formatarNumero(categoria.totalPosts(categoria.id))}}
+                        </td>
                         <td class="text-center">{{categoria.visitas}}</td>
                         <td class="text-center">
                             {% if categoria.status == 1 %}
@@ -61,11 +65,11 @@
                     {%endfor%}
                 </tbody>
             </table>
-            <a href="{{url('admin/categorias/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Categoria">Cadastrar</a><hr>
-            <a href="{{url('admin/categorias/consultar/'~categoria.id)}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Categorias Mix">Consultar Categoria/Mix_Fábrica</a>
+
 
         </div>     
-
+        <a href="{{url('admin/categorias/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Categoria">Cadastrar</a><hr>
+        <a href="{{url('admin/categorias/consultar/'~categoria.id)}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Categorias Mix">Consultar Categoria/Mix_Fábrica</a>
 
     </div>
 </div>

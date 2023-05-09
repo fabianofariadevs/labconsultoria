@@ -5,11 +5,11 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a href="{{url('admin/dashboard')}}">
-                Home
+                Posts para Blog
             </a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Posts
+            {% if post.id %}Atualizar{%else%}Cadastrar{%endif%}
         </li>
     </ol>
 </nav>
@@ -18,15 +18,34 @@
 
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if post.id %}{{url('admin/posts/editar/'~post.id)}}{%else%}{{url('admin/posts/cadastrar')}}{%endif%}" method="post">
-            <div class="mb-3">/////???
-                <label for="mix_produto" class="form-label">Mix Produto</label>
+        <form action="{% if post.id %}{{url('admin/posts/editar/'~post.id)}}{%else%}{{url('admin/posts/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="mb-3">
+                        <label for="capa" class="form-label">Capa</label>
+                        <input class="form-control" type="file" id="capa" name="capa" accept=".png, .jpg, .jpeg">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="capa_ativa" class="form-label">Capa Ativa no Post</label>
+                        <select class="form-select" name="capa_ativa">
+                            <option value="1" {% if post.capa_ativa == '1' %}selected{%endif%}>Sim</option>
+                            <option value="0" {% if post.capa_ativa == '0' %}selected{%endif%}>Não</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">/////??? p expor no blog?? Vendas??
+                <label for="mix_produto" class="form-label">Produto_Blog</label>
                 <input type="text" name="mix_produto" id="mix_produto" value="{{post.mix_produto}}" class="form-control">
             </div>
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição</label>
-                <textarea name="descricao" id="descricao" class="form-control" rows="3">{{post.descricao}}</textarea>
+                <textarea name="descricao" class="form-control ckeditor" rows="3">{{post.descricao}}</textarea>
             </div>
+            <!-- 
             <div class="col-md-6">
                 <div class="mb-3">///configurar
                     <label for="categoria_id" class="form-label">Produto_Mix</label>
@@ -36,7 +55,7 @@
                         {%endfor%}
                     </select>
                 </div>
-            </div>
+            </div>???? -->
 
             <div class="row">
                 <div class="col-md-6">
@@ -59,9 +78,10 @@
                     </div>
                 </div>
             </div>
-
-            <input type="submit" class="btn btn-primary" value="{% if post.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
-            <a href="{{url('admin/posts/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>     
+            <div class="">
+                <input type="submit" class="btn btn-primary" value="{% if post.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
+                <a href="{{url('admin/posts/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>     
+            </div>
         </form>
     </div>    
 </div>

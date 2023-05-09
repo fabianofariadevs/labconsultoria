@@ -8,7 +8,7 @@ use sistema\Nucleo\Modelo;
  *
  * @author Fabiano Faria
  */
-class Postmodelo extends Modelo
+class PostModelo extends Modelo
 {
 
     public function __construct()

@@ -10,7 +10,7 @@ a:hover {
 }
 .texto {
     font-weight: 400;
-    font-size: 14pt;
+    font-size: 13pt;
     color: #555;
     line-height: 30px;
 }
@@ -51,4 +51,42 @@ a:hover {
   color: #fff;
   border: none
 }
+blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+blockquote p {
+    display: inline;
+}
+.hljs {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+.slide img {
+    aspect-ratio: 16 / 9;
+    height: 100%;
+    width: 100%;
+}
+iframe {
+    aspect-ratio: 16 / 9;
+    height: 100%;
+    width: 100%;
+}
+.iconeEmail {
+    font-size: 4em;
+    color: #999
+}
+
 

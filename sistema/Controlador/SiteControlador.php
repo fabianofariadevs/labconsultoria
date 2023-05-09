@@ -6,6 +6,8 @@ use sistema\Nucleo\Controlador;
 use sistema\Modelo\PostModelo;
 use sistema\Nucleo\Helpers;
 use sistema\Modelo\CategoriaModelo;
+use sistema\Biblioteca\Paginar;
+use sistema\Suporte\Email;
 
 class SiteControlador extends Controlador
 {
@@ -24,7 +26,12 @@ class SiteControlador extends Controlador
         $posts = (new PostModelo())->busca("status = 1");
 
         echo $this->template->renderizar('index.html', [
-            'posts' => $posts->resultado(true),
+            'posts' => [
+                'slides' => $posts->ordem('id DESC')->limite(3)->resultado(true),
+                'posts' => $posts->ordem('id DESC')->limite(10)->offset(3)->resultado(true),
+                'maisLidos' => (new PostModelo())->busca("status = s:",'s:=1','mix_produto,status,visitas')->ordem('visitas DESC')->limite(5)->resultado(true),
+           //mesma coisa, SELECT mix_produto, satatus, visitas FROM posts_fake WHERE status = 1
+            ],
             'categorias' => $this->categorias(),
         ]);
     }
@@ -37,11 +44,12 @@ class SiteControlador extends Controlador
     {
         $busca = filter_input(INPUT_POST, 'busca', FILTER_DEFAULT);
         if (isset($busca)) {
-            $posts = (new PostModelo())->busca("status = 1 AND titulo LIKE '%{$busca}%'")->resultado(true);
+            $posts = (new PostModelo())->busca("status = 1 AND mix_produto LIKE '%{$busca}%'")->resultado(true);
             if ($posts) {
                 foreach ($posts as $post) {
-                    echo "<li class='list-group-item fw-bold'><a href=" . Helpers::url('post/') . $post->id . ">$post->titulo</a></li>";
+                    echo "<li class='list-group-item fw-bold'><a href=" . Helpers::url('post/') . $post->categoria()->slug . '/' .$post->slug . ">$post->mix_produto</a></li>";
                 }
+                //???????? $post->id . ">$post->titulo</a></li>"
             }
         }
     }
@@ -51,7 +59,7 @@ class SiteControlador extends Controlador
      * @param string $slug
      * @return void
      */
-    public function post(string $slug): void
+    public function post(string $categoria, string $slug): void
     {
         $post = (new PostModelo())->buscaPorSlug($slug);
         if (!$post) {
@@ -70,7 +78,7 @@ class SiteControlador extends Controlador
      * Categorias
      * @return array
      */
-    public function categorias(): array
+    public function categorias(): ?array
     {
         return (new CategoriaModelo())->busca("status = 1")->resultado(true);
     }
@@ -80,17 +88,23 @@ class SiteControlador extends Controlador
      * @param string $slug
      * @return void
      */
-    public function categoria(string $slug): void
+    public function categoria(string $slug, int $pagina = null): void
     {
         $categoria = (new CategoriaModelo())->buscaPorSlug($slug);
         if (!$categoria) {
             Helpers::redirecionar('404');
         }
-
         $categoria->salvarVisitas();
 
+        $posts = (new PostModelo());
+        $total = $posts->busca('categoria_id = :c AND status = :s', "c={$categoria->id}&s=1 COUNT(id)", 'id')->total();
+
+        $paginar = new Paginar(Helpers::url('categoria/' . $slug), ($pagina ?? 1), 10, 3, $total);
+
         echo $this->template->renderizar('categoria.html', [
-            'posts' => (new CategoriaModelo())->posts($categoria->id),
+            'posts' => $posts->busca("categoria_id = {$categoria->id} AND status = 1")->limite($paginar->limite())->offset($paginar->offset())->resultado(true),
+            'paginacao' => $paginar->renderizar(),
+            'paginacaoInfo' => $paginar->info(),
             'categorias' => $this->categorias(),
         ]);
     }
@@ -107,14 +121,10 @@ class SiteControlador extends Controlador
         ]);
     }
 
-    
-    
-    
-    
-     public function contatos(): void
+    public function contatos(): void
     {
         echo $this->template->renderizar('contatos.html', [
-            'titulo' => 'Izabel fabiano',
+            'titulo' => 'Mª Izabel C.',
             'subtitulo' => 'teste CONTATO de subtitulo'
         ]);
     }
@@ -122,10 +132,11 @@ class SiteControlador extends Controlador
     public function servicos(): void
     {
         echo $this->template->renderizar('servicos.html', [
-            'titulo' => 'SERVIÇOS  TItulo',
-            'subtitulo' => 'SERVIÇOS  de subtitulo'
+            'titulo' => 'Nossos Serviços',
+            'subtitulo' => 'SERVIÇOS de subtitulo'
         ]);
     }
+
     /**
      * Fornecedor
      * @return array
@@ -164,7 +175,6 @@ class SiteControlador extends Controlador
         ]);
     }
 
-    
     /**
      * ESTOQUE MATERIA PRIMA
      * @return array
@@ -192,6 +202,63 @@ class SiteControlador extends Controlador
     {
         echo $this->template->renderizar('404.html', [
             'titulo' => 'Página não encontrada'
+        ]);
+    }
+
+    /** Contatos para email
+     * 
+     */
+    public function contato(): void
+    {
+        $dados = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        var_dump($dados);
+        if (isset($dados)) {
+            if (in_array('', $dados)) {
+                $this->mensagem->alerta('Preencha todos os campos')->flash();
+            } else {
+                try {
+                    $email = new Email();
+
+                    $view = $this->template->renderizar('emails/contato.html', [
+                        'dados' => $dados,
+                    ]);
+
+                    $email->criar(
+                            'Contato via Site - ' . SITE_NOME,
+                            $view,
+                            EMAIL_REMETENTE['email'],
+                            EMAIL_REMETENTE['nome'],
+                            $dados['email'],
+                            $dados['nome']
+                    );
+
+                    $anexos = $_FILES['anexos'];
+//                    var_dump($anexos);
+
+                    foreach ($anexos['tmp_name'] as $indice => $anexo) {
+                        if (!$anexo == UPLOAD_ERR_OK) {
+                            $email->anexar($anexo, $anexos['name'][$indice]);
+                        }
+                    }
+
+
+//                    if(!empty($_FILES['anexo'])){
+//                        $anexo = $_FILES['anexo'];
+//                        $email->anexar($anexo['tmp_name'], $anexo['name']);
+//                    }
+//                    
+                    $email->enviar(EMAIL_REMETENTE['email'], EMAIL_REMETENTE['nome']);
+
+                    $this->mensagem->sucesso('E-mail enviado com sucesso!')->flash();
+                    Helpers::redirecionar('/');
+                } catch (\PHPMailer\PHPMailer\Exception $ex) {
+                    $this->mensagem->alerta($ex->getMessage())->flash();
+                }
+            }
+        }
+
+        echo $this->template->renderizar('contato.html', [
+            'categorias' => $this->categorias(),
         ]);
     }
 
