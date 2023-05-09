@@ -279,6 +279,7 @@ abstract class Modelo
     public function deletar(): bool
     {
         if(empty($this->id)){
+            $this->erro = 'Erro de sistema ao tentar deletar!';
             return false;
         }
         

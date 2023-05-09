@@ -8,9 +8,14 @@
                 Posts para Blog
             </a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">
-            {% if post.id %}Atualizar{%else%}Cadastrar{%endif%}
+        <li class="breadcrumb-item">
+            <a href="{{url('admin/posts/listar')}}">
+                {% if post.id %}Atualizar{%else%}Cadastrar{%endif%}
+            </a>
         </li>
+        <!-- comment <li class="breadcrumb-item active" aria-current="page">
+            {% if post.id %}Atualizar{%else%}Cadastrar{%endif%}
+        </li>-->
     </ol>
 </nav>
 
@@ -22,13 +27,13 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="mb-3">
-                        <label for="capa" class="form-label">Capa</label>
+                        <label for="capa" class="form-label">Capa/Foto para Blog</label>
                         <input class="form-control" type="file" id="capa" name="capa" accept=".png, .jpg, .jpeg">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label for="capa_ativa" class="form-label">Capa Ativa no Post</label>
+                        <label for="capa_ativa" class="form-label">Capa Ativa no Post Blog</label>
                         <select class="form-select" name="capa_ativa">
                             <option value="1" {% if post.capa_ativa == '1' %}selected{%endif%}>Sim</option>
                             <option value="0" {% if post.capa_ativa == '0' %}selected{%endif%}>Não</option>
@@ -37,25 +42,14 @@
                 </div>
             </div>
 
-            <div class="mb-3">/////??? p expor no blog?? Vendas??
-                <label for="mix_produto" class="form-label">Produto_Blog</label>
-                <input type="text" name="mix_produto" id="mix_produto" value="{{post.mix_produto}}" class="form-control">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Descreva Produto Blog</label>
+                <input type="text" name="titulo" id="titulo" value="{{post.titulo}}" class="form-control">
             </div>
             <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <textarea name="descricao" class="form-control ckeditor" rows="3">{{post.descricao}}</textarea>
+                <label for="texto" class="form-label">Descreva as vantagens da Venda do Produto para o Blog</label>
+                <textarea name="texto" class="form-control ckeditor" rows="3">{{post.texto}}</textarea>
             </div>
-            <!-- 
-            <div class="col-md-6">
-                <div class="mb-3">///configurar
-                    <label for="categoria_id" class="form-label">Produto_Mix</label>
-                    <select class="form-select" name="categoria_id" id="categoria_id">
-                        {% for mix in mixprodutos %}
-                        <option value="{{mix.id}}" {% if post.categoria_id == categoria.id %}selected{%endif%}>{{categoria.titulo}}</option>
-                        {%endfor%}
-                    </select>
-                </div>
-            </div>???? -->
 
             <div class="row">
                 <div class="col-md-6">
@@ -78,12 +72,16 @@
                     </div>
                 </div>
             </div>
-            <div class="">
-                <input type="submit" class="btn btn-primary" value="{% if post.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
-                <a href="{{url('admin/posts/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>     
-            </div>
+
+            
+                <div class="col-md-4">
+
+                    <input type="submit" class="btn btn-primary" value="{% if post.id %}Atualizar{%else%}Cadastrar{%endif%}">
+                    <a href="{{url('admin/producao/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+                </div>
+           
+
         </form>
     </div>    
-</div>
 </div>
 {% endblock %}

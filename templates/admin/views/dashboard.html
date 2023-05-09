@@ -143,7 +143,7 @@
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center mt-2">
                         <div>
                             <h6 class="fw-bold text-secondary">
-                                Últimas Produtos Cadastrados Blog
+                                Últimos Cadastros para o Blog
                             </h6>                          
                         </div>
                         <a href="{{url('admin/posts/cadastrar')}}" class="fs-5" tooltip="tooltip" title="Cadastrar Post">
@@ -174,7 +174,7 @@
                                                     <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                                                     {% endif %}
                                                 </span>
-                                                {{resumirTexto(post.mix_produto, 100)}}
+                                                {{resumirTexto(post.titulo, 100)}}
                                             </div>
                                             <small class="text-muted fw-normal">
                                                 Escrito por {{post.usuario.nome}} {{ contarTempo(post.cadastrado_em) }} {{post.categoria.titulo}}
@@ -241,7 +241,7 @@
                                                 <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                                                 {% endif %}
                                             </span>
-                                            {{categoria.mix_produtos}}
+                                            {{categoria.titulo}}
                                         </td>
                                         <td class="text-center">
                                             {{categoria.visitas}}

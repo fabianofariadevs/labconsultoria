@@ -29,7 +29,7 @@ class SiteControlador extends Controlador
             'posts' => [
                 'slides' => $posts->ordem('id DESC')->limite(3)->resultado(true),
                 'posts' => $posts->ordem('id DESC')->limite(10)->offset(3)->resultado(true),
-                'maisLidos' => (new PostModelo())->busca("status = s:",'s:=1','mix_produto,status,visitas')->ordem('visitas DESC')->limite(5)->resultado(true),
+                'maisLidos' => (new PostModelo())->busca("status = s:",'s:=1','titulo,status,visitas')->ordem('visitas DESC')->limite(5)->resultado(true),
            //mesma coisa, SELECT mix_produto, satatus, visitas FROM posts_fake WHERE status = 1
             ],
             'categorias' => $this->categorias(),
@@ -44,10 +44,10 @@ class SiteControlador extends Controlador
     {
         $busca = filter_input(INPUT_POST, 'busca', FILTER_DEFAULT);
         if (isset($busca)) {
-            $posts = (new PostModelo())->busca("status = 1 AND mix_produto LIKE '%{$busca}%'")->resultado(true);
+            $posts = (new PostModelo())->busca("status = 1 AND titulo LIKE '%{$busca}%'")->resultado(true);
             if ($posts) {
                 foreach ($posts as $post) {
-                    echo "<li class='list-group-item fw-bold'><a href=" . Helpers::url('post/') . $post->categoria()->slug . '/' .$post->slug . ">$post->mix_produto</a></li>";
+                    echo "<li class='list-group-item fw-bold'><a href=" . Helpers::url('post/') . $post->categoria()->slug . '/' .$post->slug . ">$post->titulo</a></li>";
                 }
                 //???????? $post->id . ">$post->titulo</a></li>"
             }

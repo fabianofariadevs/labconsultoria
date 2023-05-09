@@ -10,9 +10,9 @@ a:hover {
 }
 .texto {
     font-weight: 400;
-    font-size: 13pt;
+    font-size: 11pt;
     color: #555;
-    line-height: 30px;
+    line-height: 20px;
 }
 .capaGrande {
     max-width: 540px
@@ -80,7 +80,7 @@ blockquote p {
     width: 100%;
 }
 iframe {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 14 / 9;
     height: 100%;
     width: 100%;
 }

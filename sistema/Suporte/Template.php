@@ -59,7 +59,7 @@ class Template
                             })
             ),
             $this->twig->addFunction(
-                    new \Twig\TwigFunction('resumirTexto', function (string $texto, string $limite) {
+                    new \Twig\TwigFunction('resumirTexto', function (string $texto, int $limite) {
                                 return Helpers::resumirTexto($texto, $limite);
                             })
             ),

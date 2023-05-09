@@ -32,7 +32,7 @@ class AdminPosts extends AdminControlador
 
         $colunas = [
             0 => 'id',
-            2 => 'mix_produto',
+            2 => 'titulo',
             3 => 'categoria_id',
             4 => 'visitas',
             5 => 'status',
@@ -58,8 +58,8 @@ class AdminPosts extends AdminControlador
                 $dados[] = [
                     $post->id,
                     $post->capa,
-                    $post->mix_produto,
-                    $post->categoria()->mix_produto ?? '-----',
+                    $post->titulo,
+                    $post->categoria()->titulo ?? '-----',
                     Helpers::formatarNumero($post->visitas),
                     $post->status
                 ];
@@ -108,12 +108,12 @@ class AdminPosts extends AdminControlador
 
                 $post->usuario_id = $this->usuario->id;
                 $post->categoria_id = $dados['categoria_id'];
-                $post->slug = Helpers::slug($dados['mix_produto']);
-                $post->mix_produto = $dados['mix_produto'];
-                $post->descricao = $dados['descricao'];
+                $post->slug = Helpers::slug($dados['titulo']);
+                $post->titulo = $dados['titulo'];
+                $post->texto = $dados['texto'];
                 $post->status = $dados['status'];
                 $post->capa = $this->capa ?? null;
-                // $post->capa_ativa = $dados['capa_ativa'];
+                $post->capa_ativa = $dados['capa_ativa'];
 
                 if ($post->salvar()) {
                     $this->mensagem->sucesso('Post cadastrado com sucesso')->flash();
@@ -157,12 +157,12 @@ class AdminPosts extends AdminControlador
 
                 $post->usuario_id = $this->usuario->id;
                 $post->categoria_id = $dados['categoria_id'];
-                $post->slug = Helpers::slug($dados['mix_produto']);
-                $post->mix_produto = $dados['mix_produto'];
-                $post->descricao = $dados['descricao'];
+                $post->slug = Helpers::slug($dados['titulo']);
+                $post->titulo = $dados['titulo'];
+                $post->texto = $dados['texto'];
                 $post->status = $dados['status'];
                 $post->atualizado_em = date('Y-m-d H:i:s');
-                //$post->capa_ativa = $dados['capa_ativa'];
+                $post->capa_ativa = $dados['capa_ativa'];
 
                 if ($post->salvar()) {
                     $this->mensagem->sucesso('Post atualizado com sucesso')->flash();
@@ -188,19 +188,19 @@ class AdminPosts extends AdminControlador
     public function validarDados(array $dados): bool
     {
 
-        if (empty($dados['mix_produto'])) {
-            $this->mensagem->alerta('Escreva um Produto para o Post!')->flash();
+        if (empty($dados['titulo'])) {
+            $this->mensagem->alerta('Escreva um título para o Post!')->flash();
             return false;
         }
-        if (empty($dados['descricao'])) {
-            $this->mensagem->alerta('Escreva um Descrição para o Post!')->flash();
+        if (empty($dados['texto'])) {
+            $this->mensagem->alerta('Escreva um texto para o Post!')->flash();
             return false;
         }
 
         if (!empty($_FILES['capa'])) {
             $upload = new Upload($_FILES['capa'], 'pt_BR');
             if ($upload->uploaded) {
-                $titulo = $upload->file_new_name_body = Helpers::slug($dados['mix_produto']);
+                $titulo = $upload->file_new_name_body = Helpers::slug($dados['titulo']);
                 $upload->jpeg_quality = 90;
                 $upload->image_convert = 'jpg';
                 $upload->process('uploads/imagens/');

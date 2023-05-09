@@ -17,6 +17,7 @@ final class Email
      * @var PHPMailer
      */
     private PHPMailer $mail;
+
     /**
      * Armazena anexos
      * @var array

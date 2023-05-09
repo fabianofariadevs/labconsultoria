@@ -3,7 +3,7 @@
 {% block conteudo %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item" style="font-size: 11px">
             <a href="{{url('admin/dashboard')}}">
                 Admin & Usuários
             </a>
@@ -22,6 +22,14 @@
             <span class="badge rounded text-bg-success">{{formatarNumero(total.categoriasAtiva)}} ativa</span> 
             <span class="badge rounded text-bg-danger">{{formatarNumero(total.categoriasInativa)}} inativa</span> 
         </div>
+        <div class="row">
+
+            <div class="mb-3">
+                <a href="{{url('admin/posts/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Post Blog">Cadastrar</a>
+            </div>
+
+        </div>      
+
     </div>
 
     <div class="card-body">
@@ -68,9 +76,6 @@
 
 
         </div>     
-        <a href="{{url('admin/categorias/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Categoria">Cadastrar</a><hr>
-        <a href="{{url('admin/categorias/consultar/'~categoria.id)}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Categorias Mix">Consultar Categoria/Mix_Fábrica</a>
-
     </div>
 </div>
 {% endblock %}
