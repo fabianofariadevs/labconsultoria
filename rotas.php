@@ -10,7 +10,7 @@ try {
     SimpleRouter::get(URL_SITE, 'SiteControlador@index');
     SimpleRouter::get(URL_SITE . 'index.php', 'SiteControlador@index');
     SimpleRouter::get(URL_SITE . 'sobre-nos', 'SiteControlador@sobre');
-    SimpleRouter::get(URL_SITE . 'contatos', 'SiteControlador@contatos');
+    SimpleRouter::get(URL_SITE . 'contato', 'SiteControlador@contato');
     SimpleRouter::get(URL_SITE . 'servicos', 'SiteControlador@servicos');
 
     SimpleRouter::get(URL_SITE . 'post/{categoria}/{slug}', 'SiteControlador@post');

@@ -3,7 +3,7 @@
 {% block conteudo %}  
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item" style="font-size: 11px">
             <a href="{{url('admin/dashboard')}}">
                 Admin & Usuários
             </a>
@@ -100,7 +100,6 @@
                 <div class="col-md-4">
                     <div class="mb-3">
                         <a href="{{url('admin/producao/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Pedido Produção">Cadastrar</a><hr>
-                        <a href="{{url('admin/producao/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Pedidos">Consultar Pedidos</a><hr>
                         <a href="{{url('admin/producao/lib_entrega')}}" class="btn btn-primary" tooltip="tooltip" title="Enviar para Entrega">Liberar Pedidos para Entrega</a>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ class AdminCategorias extends AdminControlador
      */
     public function cadastrar(): void
     {
-        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        $dados = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
         if (isset($dados)) {
             if ($this->validarDados($dados)) {
                 $categoria = new CategoriaModelo();

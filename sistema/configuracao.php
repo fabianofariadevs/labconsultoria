@@ -30,9 +30,9 @@ if (Helpers::localhost()) {
     //dados de acesso ao banco de dados na hospedagem
     define('DB_HOST', 'localhost');
     define('DB_PORTA', '3306');
-    define('DB_NOME', '');
-    define('DB_USUARIO', '');
-    define('DB_SENHA', '');
+    define('DB_NOME', 'u510286310_labct');
+    define('DB_USUARIO', 'u510286310_Fabiano');
+    define('DB_SENHA', 'Izabel2023');
 
     define('URL_SITE', '/');
     define('URL_ADMIN', '/admin/');

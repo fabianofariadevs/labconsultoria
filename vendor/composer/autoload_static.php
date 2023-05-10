@@ -30,6 +30,7 @@ class ComposerStaticInitdc5936b2d6cef82cf987e407ba3eb877
         'P' => 
         array (
             'Pecee\\' => 6,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
@@ -53,6 +54,10 @@ class ComposerStaticInitdc5936b2d6cef82cf987e407ba3eb877
         'Pecee\\' => 
         array (
             0 => __DIR__ . '/..' . '/pecee/simple-router/src/Pecee',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 

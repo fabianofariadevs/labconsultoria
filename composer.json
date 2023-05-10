@@ -25,7 +25,9 @@
         "pecee/simple-router": "dev-master",
         "twig/twig": "^3.0",
         "digitalnature/php-ref": "dev-master",
-        "verot/class.upload.php": "dev-master"
+        "verot/class.upload.php": "dev-master",
+        "phpmailer/phpmailer": "dev-master"
+       
         
     }
 }

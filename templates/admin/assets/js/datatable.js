@@ -62,6 +62,8 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     var html = '';
 
+                    html += ' <a href=" ' + url + 'admin/posts/status/' + row[0] + ' " tooltip="tooltip" title="Status"><i class="fa fa-child" aria-hidden="true"></i></a> ';
+
                     html += ' <a href=" ' + url + 'admin/posts/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
 
                     html += '<a href=" ' + url + 'admin/posts/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
@@ -126,7 +128,7 @@ $(document).ready(function () {
                 data: null,
                 render: function (data, type, row) {
                     var html = '';
-
+                   
                     html += ' <a href=" ' + url + 'admin/usuarios/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
 
                     html += '<a href=" ' + url + 'admin/usuarios/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';

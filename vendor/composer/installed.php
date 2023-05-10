@@ -3,7 +3,7 @@
         'name' => 'ceodevs/projetolab',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '5ed0059cda5766c328d04e31aefb9dca7922068c',
+        'reference' => '527128772c13c392639a1d1b22bcf6e440159480',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'ceodevs/projetolab' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '5ed0059cda5766c328d04e31aefb9dca7922068c',
+            'reference' => '527128772c13c392639a1d1b22bcf6e440159480',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -33,9 +33,20 @@
         'pecee/simple-router' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '97b61fb8bfeff9afb754c540dc8b065e1a9489c6',
+            'reference' => 'cd891d53349e878e1b577d720ae28d570110eb47',
             'type' => 'library',
             'install_path' => __DIR__ . '/../pecee/simple-router',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '0925c239c5d762205feae8e4ea4ba0585b36d0a9',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(
                 0 => '9999999-dev',
             ),

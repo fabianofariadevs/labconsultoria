@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/labconsultoria/.htaccess</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/assets/js/datatable.js</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/categorias/formulario.html</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/sistema/Nucleo/Helpers.php</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/clientes/listar.html</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/sistema/configuracao.php</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/templates/admin/views/clientes/formulario.html</file>
+            <file>file:/C:/xampp/htdocs/labconsultoria/rotas.php</file>
+        </group>
     </open-files>
 </project-private>

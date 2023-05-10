@@ -172,8 +172,10 @@ class Helpers
         $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
         $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
 
-        if (str_starts_with($url, '/')) {
-            return $ambiente . $url;
+        if (!empty($url)) {
+            if (str_starts_with($url, '/')) {
+                return $ambiente . $url;
+            }
         }
         return $ambiente . '/' . $url;
     }
