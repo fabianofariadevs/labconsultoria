@@ -3,14 +3,16 @@
 namespace sistema\Modelo;
 
 use sistema\Nucleo\Modelo;
- /**
+
+/**
  * Classe Mix_ProdutosModelo
  *
  * @author Fabiano Faria
  */
 class MixProdutosModelo extends Modelo
 {
-   public function __construct()
+
+    public function __construct()
     {
         parent::__construct('tbl_produto_mix');
     }
@@ -21,8 +23,8 @@ class MixProdutosModelo extends Modelo
      */
     public function mixproduto(): ?MixProdutosModelo
     {
-        if ($this->id_tbl_produto_mix) {
-            return (new MixProdutosModelo())->buscaPorId($this->id_tbl_produto_mix);
+        if ($this->id) {
+            return (new MixProdutosModelo())->buscaPorId($this->id);
         }
         return null;
     }
@@ -42,11 +44,11 @@ class MixProdutosModelo extends Modelo
     /**
      * Salva o post com slug
      * @return bool
-
-      public function salvar(): bool
-      {
-      $this->slug();
-      return parent::salvar();
-      }
      */
+    public function salvar(): bool
+    {
+        $this->slug();
+        return parent::salvar();
+    }
+
 }

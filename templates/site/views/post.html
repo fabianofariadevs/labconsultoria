@@ -6,7 +6,7 @@
         <div class="col-lg-9 col-md-12">
             <div class="card mb-4 border-0">
                 <div class="card-header bg-transparent d-flex justify-content-between">
-                    <h1>{{post.mix_produto}}</h1>
+                    <h1>{{post.titulo}}</h1>
                     <div>
                         {% if usuario().level == 3 %}
                         <div class="card-footer border-0 bg-transparent text-secondary text-end">
@@ -29,15 +29,15 @@
                     {% if post.capa and post.capa_ativa == 1 %}
                     <div class="float-xl-start float-lg-none capaGrande mx-auto">
                         <div class="card border-0 me-4">
-                            <a data-fancybox data-caption="{{post.mix_produto}}" class="overflow zoom " href="{{url('uploads/imagens/'~post.capa)}}">
-                                <img src="{{url('uploads/imagens/'~post.capa)}}" alt="{{post.mix_produto}}" title="{{post.mix_produto}}"/>
+                            <a data-fancybox data-caption="{{post.titulo}}" class="overflow zoom " href="{{url('uploads/imagens/'~post.capa)}}">
+                                <img src="{{url('uploads/imagens/'~post.capa)}}" alt="{{post.titulo}}" title="{{post.titulo}}"/>
                             </a>
                         </div>
                     </div>
                     {% endif %}            
 
                     <div class="texto">
-                        <p>{{post.descricao | raw}}</p>
+                        <p>{{post.texto | raw}}</p>
                     </div>
                 </div>
             </div>

@@ -46,7 +46,7 @@
                         <td class="text-center">{{receita.descricao_receita}}</td>
                         <td class="text-center">{{receita.modo_preparo}}</td>
                         <td class="text-center">{{receita.qtde_prevista_receita}}</td>
-                        <td class="text-center">{{receita.validade_receita}}</td>
+                        <td class="text-center">{{receita.validade_receita|date("d/m/Y")}}</td>
                         <td class="text-center">{{receita.observacao_receita}}</td>
                         <td class="text-center">
                             {% if receita.status == 1 %}
@@ -77,16 +77,16 @@
                     <div class="offcanvas-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                Validade Receita: {{receita.validade_receita}}
+                                Validade Receita: {{receita.validade_receita|date("d/m/Y")}}
                             </li>
                             <li class="list-group-item">
-                                Cadastrado em: <b>{{receita.cadastrado_em}}</b>
+                                Cadastrado em: <b>{{receita.cadastrado_em|date("d/m/Y H:i:s")}}</b>
                             </li>
                             <li class="list-group-item">
-                                Atualizado em: {{receita.atualizado_em}}
+                                Atualizado em: {{receita.atualizado_em|date("d/m/Y H:i:s")}}
                             </li>
                             <li class="list-group-item">
-                                Ultima visita em: <b>{{receita.ultima_visita_em}}</b>
+                                Ultima visita em: <b>{{receita.ultima_visita_em|date("d/m/Y H:i:s")}}</b>
                             </li>
                             <li class="list-group-item">
                                 Cliente_Usuário_ID: <b>{{receita.usuario_id}}</b>

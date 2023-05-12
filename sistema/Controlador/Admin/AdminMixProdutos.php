@@ -19,14 +19,14 @@ class AdminMixProdutos extends AdminControlador
      */
     public function listar(): void
     {
-        $mix = new MixProdutosModelo();
+        $mixproduto = new MixProdutosModelo();
 
         echo $this->template->renderizar('mixProdutos/listar.html', [
-            'mixproduto' => $mix->busca()->ordem('id_tbl_produto_mix ASC')->resultado(true),
+            'mixproduto' => $mixproduto->busca()->ordem('id ASC')->resultado(true),
             'total' => [
-                'mixproduto' => $mix->total(),
-                'mixprodutoAtiva' => $mix->busca('status = 1')->total(),
-                'mixprodutoInativa' => $mix->busca('status = 0')->total(),
+                'mixproduto' => $mixproduto->total(),
+                'mixprodutoAtiva' => $mixproduto->busca('status = 1')->total(),
+                'mixprodutoInativa' => $mixproduto->busca('status = 0')->total(),
             ]
         ]);
     }
@@ -41,31 +41,120 @@ class AdminMixProdutos extends AdminControlador
         if (isset($dados)) {
 
             if ($this->validarDados($dados)) {
-                $mix = new MixProdutosModelo();
-                $mix->usuario_id = $this->usuario->id;
-                $mix->slug = Helpers::slug($dados['produto_mix']);
-                $mix->cod_prod_mix = $dados['cod_prod_mix'];
-                $mix->produto_mix = $dados['produto_mix'];
-                $mix->departamento = $dados['departamento'];
-                $mix->rendimento_receita_kg = $dados['rendimento_receita_kg'];
-                $mix->rendimento_receita_unid = $dados['rendimento_receita_unid'];
-                $mix->validade_produto = $dados['validade_produto'];
-                $mix->categoria_produto = $dados['categoria_produto'];
-                $mix->status = $dados['status'];
+                $mixproduto = new MixProdutosModelo();
+                $mixproduto->usuario_id = $this->usuario->id;
+                $mixproduto->slug = Helpers::slug($dados['produto_mix']);
+                $mixproduto->cod_prod_mix = $dados['cod_prod_mix'];
+                $mixproduto->produto_mix = $dados['produto_mix'];
+                $mixproduto->departamento = $dados['departamento'];
+                $mixproduto->rendimento_receita_kg = $dados['rendimento_receita_kg'];
+                $mixproduto->rendimento_receita_unid = $dados['rendimento_receita_unid'];
+                $mixproduto->validade_produto = $dados['validade_produto'];
+                $mixproduto->categoria_produto = $dados['categoria_produto'];
+                $mixproduto->status = $dados['status'];
 
-                if ($mix->salvar()) {
+                if ($mixproduto->salvar()) {
                     $this->mensagem->sucesso('Mix de Produtos cadastrado com sucesso')->flash();
                     Helpers::redirecionar('admin/mixProdutos/listar');
                 } else {
-                    $this->mensagem->erro($mix->erro())->flash();
+                    $this->mensagem->erro($mixproduto->erro())->flash();
                     Helpers::redirecionar('admin/mixProdutos/listar');
                 }
             }
         }
 
         echo $this->template->renderizar('mixProdutos/formulario.html', [
-            'mixproduto' => (new MixProdutosModelo())->busca()
-        ]);
+            'mixproduto' => $dados]);
+    }
+
+    public function validarDados(array $dados): bool
+    {
+
+        if (empty($dados['cod_prod_mix'])) {
+            $this->mensagem->alerta('Escreva um Código para o Produto!')->flash();
+            return false;
+        }
+        if (empty($dados['produto_mix'])) {
+            $this->mensagem->alerta('Escreva um Nome para o Produto!')->flash();
+            return false;
+        }
+        if (empty($dados['departamento'])) {
+            $this->mensagem->alerta('Escreva um departamento para o Produto!')->flash();
+            return false;
+        }
+        if (empty($dados['rendimento_receita_kg'])) {
+            $this->mensagem->alerta('Define o rendimento da receita!')->flash();
+            return false;
+        }
+        if (empty($dados['rendimento_receita_unid'])) {
+            $this->mensagem->alerta('Define uma Validade para a receita!')->flash();
+            return false;
+        }
+        if (empty($dados['validade_produto'])) {
+            $this->mensagem->alerta('Define uma Validade para o Produto!')->flash();
+            return false;
+        }
+        if (empty($dados['categoria_produto'])) {
+            $this->mensagem->alerta('Define uma Categoria para o Produto!')->flash();
+            return false;
+        }
+        return true;
+    }
+
+    public function editar(int $id): void
+    {
+        $mixproduto = (new MixProdutosModelo())->buscaPorId($id);
+
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (isset($dados)) {
+            if ($this->validarDados($dados)) {
+                $mixproduto = (new MixProdutosModelo())->buscaPorId($id);
+
+                $mixproduto->usuario_id = $this->usuario->id;
+                $mixproduto->slug = Helpers::slug($dados['produto_mix']);
+                $mixproduto->cod_prod_mix = $dados['cod_prod_mix'];
+                $mixproduto->produto_mix = $dados['produto_mix'];
+                $mixproduto->departamento = $dados['departamento'];
+                $mixproduto->rendimento_receita_kg = $dados['rendimento_receita_kg'];
+                $mixproduto->rendimento_receita_unid = $dados['rendimento_receita_unid'];
+                $mixproduto->validade_produto = $dados['validade_produto'];
+                $mixproduto->categoria_produto = $dados['categoria_produto'];
+                $mixproduto->status = $dados['status'];
+
+                if ($mixproduto->salvar()) {
+                    $this->mensagem->sucesso('Mix_Produto atualizado com sucesso')->flash();
+                    Helpers::redirecionar('admin/mixProdutos/listar');
+                } else {
+                    $this->mensagem->erro($mixproduto->erro())->flash();
+                    Helpers::redirecionar('admin/mixProdutos/listar');
+                }
+            }
+        }
+
+        echo $this->template->renderizar('mixProdutos/formulario.html', [
+////**VER AQUI TAMBEM           
+            'mixproduto' => $mixproduto]);
+    }
+
+    public
+            function deletar(int $id): void
+    {
+//        $id = filter_var($id, FILTER_VALIDATE_INT);
+        if (is_int($id)) {
+            $mixproduto = (new MixProdutosModelo())->buscaPorId($id);
+            if (!$mixproduto) {
+                $this->mensagem->alerta('O Produto que você está tentando deletar não existe!')->flash();
+                Helpers::redirecionar('admin/mixProdutos/listar');
+            } else {
+                if ($mixproduto->deletar()) {
+                    $this->mensagem->sucesso('Mix_Produto deletado com sucesso!')->flash();
+                    Helpers::redirecionar('admin/mixProdutos/listar');
+                } else {
+                    $this->mensagem->erro($mixproduto->erro())->flash();
+                    Helpers::redirecionar('admin/mixProdutos/listar');
+                }
+            }
+        }
     }
 
 }

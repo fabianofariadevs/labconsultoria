@@ -21,8 +21,8 @@ class ClienteModelo extends Modelo
      */
     public function cliente(): ?ClienteModelo
     {
-        if ($this->id_tbl_cliente_fabrica) {
-            return (new ClienteModelo())->buscaPorId($this->id_tbl_cliente_fabrica);
+        if ($this->id) {
+            return (new ClienteModelo())->buscaPorId($this->id);
         }
         return null;
     }

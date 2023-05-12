@@ -23,8 +23,8 @@ class FornecedorModelo extends Modelo
      */
     public function fornecedor(): ?FornecedorModelo
     {
-        if ($this->id_fornecedor) {
-            return (new FornecedorModelo())->buscaPorId($this->id_fornecedor);
+        if ($this->id) {
+            return (new FornecedorModelo())->buscaPorId($this->id);
         }
         return null;
     }

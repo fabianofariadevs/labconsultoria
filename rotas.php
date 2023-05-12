@@ -75,10 +75,10 @@ try {
         SimpleRouter::get(URL_ADMIN . 'fornecedor/deletar/{id}', 'AdminFornecedor@deletar');
 
 //ADMIN MIX PRODUTOS
-        SimpleRouter::get(URL_ADMIN . 'mixProdutos/listar', 'AdminmixProdutos@listar');
-        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'mixProdutos/cadastrar', 'AdminmixProdutos@cadastrar');
-        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'mixProdutos/editar/{id}', 'AdminmixProdutos@editar');
-        SimpleRouter::get(URL_ADMIN . 'mixProdutos/deletar/{id}', 'AdminmixProdutos@deletar');
+        SimpleRouter::get(URL_ADMIN . 'mixProdutos/listar', 'AdminMixProdutos@listar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'mixProdutos/cadastrar', 'AdminMixProdutos@cadastrar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'mixProdutos/editar/{id}', 'AdminMixProdutos@editar');
+        SimpleRouter::get(URL_ADMIN . 'mixProdutos/deletar/{id}', 'AdminMixProdutos@deletar');
 
 //ADMIN ESTOQUE M.PRIMA
         SimpleRouter::get(URL_ADMIN . 'estoqueMp/listar', 'AdminEstoqueMp@listar');

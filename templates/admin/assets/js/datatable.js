@@ -128,7 +128,7 @@ $(document).ready(function () {
                 data: null,
                 render: function (data, type, row) {
                     var html = '';
-                   
+
                     html += ' <a href=" ' + url + 'admin/usuarios/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
 
                     html += '<a href=" ' + url + 'admin/usuarios/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
@@ -153,5 +153,139 @@ $(document).ready(function () {
 
         ]
     });
+
+    //TABELA CLIENTES
+    $('#tabelaClientes').DataTable({
+        order: [[0, 'desc']],
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: url + 'admin/clientes/datatable',
+            type: 'POST',
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        },
+
+        columns: [
+            null, null, null,
+            {
+                data: null,
+                render: function (data, type, row) {
+                    var html = '';
+
+                    html += ' <a href=" ' + url + 'admin/clientes/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
+
+                    html += '<a href=" ' + url + 'admin/clientes/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
+
+                    return html;
+                }
+            }
+        ],
+        columnDefs: [
+            {
+                className: 'dt-body-left',
+                targets: [1, 2]
+            },
+            {
+                className: 'dt-center',
+                targets: [3, 4, 5, 6, 7, 8, 9, 10, 11]
+            },
+            {
+                orderable: false,
+                targets: [-1]
+            }
+
+        ]
+    });
+//TABELA FORNECEDOR
+    $('#tabelaFornecedor').DataTable({
+        order: [[0, 'desc']],
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: url + 'admin/fornecedor/datatable',
+            type: 'POST',
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        },
+
+        columns: [
+            null, null, null,
+            {
+                data: null,
+                render: function (data, type, row) {
+                    var html = '';
+
+                    html += ' <a href=" ' + url + 'admin/fornecedor/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
+
+                    html += '<a href=" ' + url + 'admin/fornecedor/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
+
+                    return html;
+                }
+            }
+        ],
+        columnDefs: [
+            {
+                className: 'dt-body-left',
+                targets: [1, 2]
+            },
+            {
+                className: 'dt-center',
+                targets: [3, 4, 5, 6, 7]
+            },
+            {
+                orderable: false,
+                targets: [-1]
+            }
+
+        ]
+    });
+    //TABELA MIX_PRODUTO
+    $('#tabelamixProduto').DataTable({
+        order: [[0, 'desc']],
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: url + 'admin/mixProdutos/datatable',
+            type: 'POST',
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        },
+
+        columns: [
+            null, null, null,
+            {
+                data: null,
+                render: function (data, type, row) {
+                    var html = '';
+
+                    html += ' <a href=" ' + url + 'admin/mixProdutos/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
+
+                    html += '<a href=" ' + url + 'admin/mixProdutos/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
+
+                    return html;
+                }
+            }
+        ],
+        columnDefs: [
+            {
+                className: 'dt-body-left',
+                targets: [1, 2]
+            },
+            {
+                className: 'dt-center',
+                targets: [3, 4, 5, 6, 7, 8, 9, 10]
+            },
+            {
+                orderable: false,
+                targets: [-1]
+            }
+
+        ]
+    });
+
 
 });

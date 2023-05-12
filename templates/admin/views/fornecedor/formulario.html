@@ -16,19 +16,18 @@
 {{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if fornecedor.id_fornecedor %}{{url('admin/fornecedor/editar/'~id_fornecedor)}}{%else%}{{url('admin/fornecedor/cadastrar')}}{%endif%}" method="post">
+        <form action="{% if fornecedor.id %}{{url('admin/fornecedor/editar/'~fornecedor.id)}}{%else%}{{url('admin/fornecedor/cadastrar')}}{%endif%}" method="post">
             <div class="row">
-
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label for="nome_fornec" class="form-label">Nome do Fornecedor</label>
-                        <input type="text" name="nome_fornec" id="nome_fornec" class="form-control">             
+                        <input type="text" name="nome_fornec" id="nome_fornec" value="{{fornecedor.nome_fornec}}" class="form-control">             
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label for="cnpj_fornec" class="form-label">Cnpj</label>
-                        <input type="text" name="cnpj_fornec" id="cnpj_fornec" class="form-control">
+                        <label for="cnpj_forn" class="form-label">Cnpj</label>
+                        <input type="text" name="cnpj_forn" id="cnpj_forn" value="{{fornecedor.cnpj_forn}}" class="form-control">
                     </div>
                 </div>
             </div>
@@ -36,37 +35,34 @@
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="endereco_fornec" class="form-label">Endereço</label>
-                        <input type="text" name="endereco_fornec" id="endereco_fornec" class="form-control">
+                        <input type="text" name="endereco_fornec" id="endereco_fornec" value="{{fornecedor.endereco_fornec}}" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="contato_whatsapp" class="form-label">Contato_Whatsapp</label>
-                        <input type="text" name="contato_whatsapp" id="contato_whatsapp" class="form-control">
+                        <input type="text" name="contato_whatsapp" id="contato_whatsapp" value="{{fornecedor.contato_whatsapp}}" class="form-control">
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="email_fornec" class="form-label">Email</label>
-                        <input type="text" name="email_fornec" id="email_fornec" class="form-control" >
+                        <input type="text" name="email_fornec" id="email_fornec" value="{{fornecedor.email_fornec}}" class="form-control" >
                     </div>
                 </div>
-
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" name="status">
-                            <option value="1">Ativo</option>
-                            <option value="0">Inativo</option>
+                            <option value="1" {% if fornecedor.status == '1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if fornecedor.status == '0' %}selected{%endif%}>Inativo</option>
                         </select>
                     </div>
                 </div>
             </div>
-
-            <input type="submit" class="btn btn-primary" value="Cadastrar"><hr>
+            <input type="submit" class="btn btn-primary" value="{% if fornecedor.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
             <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3">

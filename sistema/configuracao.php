@@ -7,7 +7,7 @@ use sistema\Nucleo\Helpers;
 date_default_timezone_set('America/Sao_Paulo');
 
 //informações do Sistema
-define('SITE_NOME', 'LAB Consultoria e Treinamento');
+define('SITE_NOME', 'www.labct.com.br');
 define('SITE_DESCRICAO', 'LAB - Consultoria e Treinamentos');
 
 //urls do sistema
@@ -41,8 +41,8 @@ if (Helpers::localhost()) {
 //autenticação do servidor de emails
 define('EMAIL_HOST', 'smtp.hostinger.com');
 define('EMAIL_PORTA', '465');
-define('EMAIL_USUARIO', 'fabianofariadevs2022@gmail.com');
-define('EMAIL_SENHA', 'UPHLg4uG6Jnb*Du');
+define('EMAIL_USUARIO', 'izabel@labct.com.br');
+define('EMAIL_SENHA', 'Izabel2023@');
 define('EMAIL_REMETENTE', ['email' => EMAIL_USUARIO, 'nome' => SITE_NOME]);
 
 //painel PRODUÇÃO CONSTANTE Producao 

@@ -12,14 +12,14 @@
                 <div class="col-md-6 mb-4">
                     <div class="card border-0 h-100">
                         {% if post.capa %}
-                        <a class="overflow zoom" href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" tooltip="tooltip" title="{{post.mix_produto}}">
-                            <img src="{{url('uploads/imagens/thumbs/'~post.capa)}}" alt="{{post.mix_produto}}" title="{{post.mix_produto}}" class="capaGrande"/>           
+                        <a class="overflow zoom" href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" tooltip="tooltip" title="{{post.titulo}}">
+                            <img src="{{url('uploads/imagens/thumbs/'~post.capa)}}" alt="{{post.titulo}}" title="{{post.titulo}}" class="capaGrande"/>           
                         </a>
                         {% endif %}
                         <div class="card-body">
-                            <a href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" tooltip="tooltip" title="{{post.mix_produto}}">
+                            <a href="{{url('post/'~post.categoria.slug~'/'~post.slug)}}" tooltip="tooltip" title="{{post.titulo}}">
 
-                                <h4 class="card-title">{{post.mix_produto}}</h4>
+                                <h4 class="card-title">{{post.titulo}}</h4>
 
                                 <div class="d-flex justify-content-between my-3 text-muted">
                                     <small>{{post.categoria.titulo |upper}}</small>

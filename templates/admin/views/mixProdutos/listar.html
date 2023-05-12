@@ -3,13 +3,11 @@
 {% block conteudo %}  
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{url('admin/dashboard')}}">
-                Admin
-            </a>
+        <li class="breadcrumb-item" style="font-size: 11px">
+            ADMIN & Usuários
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Mix de Produtos Clientes
+            Relação de Mix Produtos Clientes
         </li>
     </ol>
 </nav>
@@ -24,17 +22,18 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-hover table-striped">
                 <thead>
                     <tr>
                         <th scope="col">id</th>
-                        <th scope="col">Cod_Prod_mix</th>
+                        <th scope="col">Cod.</th>
                         <th scope="col">Nome Produto</th>
                         <th scope="col">departamento</th>
                         <th scope="col">Rend_Kg</th>
                         <th scope="col">Rend_receita_Unid</th>
                         <th scope="col">Validade</th>
                         <th scope="col">Categoria</th>
+                        <th scope="col">Cliente</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Ações</th>
                     </tr>
@@ -42,14 +41,15 @@
                 <tbody>
                     {% for mix in mixproduto %}
                     <tr>
-                        <th>{{mix.id_tbl_produto_mix}}</th>
+                        <th>{{mix.id}}</th>
                         <td>{{mix.cod_prod_mix}}</td>
                         <td>{{mix.produto_mix}}</td>
                         <td>{{mix.departamento}}</td>
                         <td>{{mix.rendimento_receita_kg}}</td>
                         <td>{{mix.rendimento_receita_unid}}</td>
-                        <td>{{mix.validade_produto}}</td>
-                        <td>{{mix.categoria_produto}}</td>               
+                        <td>{{mix.validade_produto|date("d/m/Y")}}</td>
+                        <td>{{mix.categoria_produto}}</td>    
+                        <td></td>
                         <td class="text-center">
                             {% if mix.status == 1 %}
                             <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
@@ -57,19 +57,22 @@
                             <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                             {% endif %}
                         </td>
+
+
                         <td class="text-center">
-                            <a href="#info{{mix.id_tbl_produto_mix}}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
+                            <a href="#info{{mix.id}}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
                                 <i class="fa-solid fa-arrow-trend-up"></i>
                             </a>
-                            <a href="{{ url('admin/mixProdutos/editar/'~mix.id_tbl_produto_mix) }}" tooltip="tooltip" title="Editar">
+                            <a href="{{ url('admin/mixProdutos/editar/'~mix.id) }}" tooltip="tooltip" title="Editar">
                                 <i class="fa-solid fa-pen m-1"></i>
                             </a>
-                            <a href="{{ url('admin/mixProdutos/deletar/'~mix.id_tbl_produto_mix) }}" tooltip="tooltip" title="Deletar">
+                            <a href="{{ url('admin/mixProdutos/deletar/'~mix.id) }}" tooltip="tooltip" title="Deletar">
                                 <i class="fa-solid fa-trash m-1"></i>
                             </a>
                         </td>
+                        status
                     </tr>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{mix.id_tbl_produto_mix}}">
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{mix.id}}">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{mix.produto_mix}}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -77,7 +80,7 @@
                     <div class="offcanvas-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                Validade Produto: {{mix.validade.produto}}
+                                Validade Produto: {{mix.validade.produto|date("d/m/Y")}}
                             </li>
                             <li class="list-group-item">
                                 Fábricado por: {{mix.departamento}}
@@ -86,7 +89,7 @@
                                 Departamento: {{mix.departamento}}
                             </li>
                             <li class="list-group-item">
-                                Cadastrado em: <b>{{mix.cadastrado_em}}</b>
+                                Cadastrado em: <b>{{mix.cadastrado_em|date("d/m/Y H:i:s")}}</b>
                             </li>
                         </ul>
                     </div>
