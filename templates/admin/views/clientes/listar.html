@@ -32,9 +32,6 @@
                         <th scope="col">Bairro</th>
                         <th scope="col">Cidade</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">Whatsapp</th>
-                        <th scope="col">Email</th>
                         <th scope="col">Responsável</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Ação</th>
@@ -50,9 +47,6 @@
                         <td>{{cliente.bairro_cli}}</td>
                         <td>{{cliente.cidade_cli}}</td>
                         <td>{{cliente.estado_cli}}</td>
-                        <td>{{cliente.telefone_cli}}</td>
-                        <td>{{cliente.Whatsapp}}</td>
-                        <td>{{cliente.email_cli}}</td>
                         <td>{{cliente.responsavel_empresa}}</td>
                         <td class="text-center">
                             {% if cliente.status == 1 %}
@@ -62,6 +56,9 @@
                             {% endif %}
                         </td>
                         <td class="text-center">
+                            <a href="#info{{cliente.id}}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                            </a>
 
                             <a href="{{ url('admin/clientes/editar/'~cliente.id) }}" tooltip="tooltip" title="Editar">
                                 <i class="fa-solid fa-pen m-1"></i>
@@ -72,7 +69,38 @@
 
                         </td>
                     </tr>
-                    {%endfor%}
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{cliente.id}}">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{cliente.nome_cliente}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+
+                    <div class="offcanvas-body">
+                        <ul class="list-group list-group-flush">
+                            
+                            <li class="list-group-item">
+                                Responsável Nome: {{cliente.responsavel_empresa}}
+                            </li>
+                            <li class="list-group-item" >
+                                Whatsapp: {{cliente.Whatsapp}}
+                            </li>
+                            <li class="list-group-item">
+                                Email: {{cliente.email_cli}}
+                            </li>
+
+                            <li class="list-group-item">
+                                Cadastrado em: <b>{{cliente.cadastrado_em|date("d/m/Y")}}</b>
+                            </li>
+                            <li class="list-group-item">
+                                Atualizado em: <b>{{cliente.atualizado_em|date("d/m/Y H:i:s")}}</b>
+                            </li>
+                            <li class="list-group-item">
+                                Usuário: {{cliente.usuario_id}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {%endfor%}
                 </tbody>
             </table>
         </div>     

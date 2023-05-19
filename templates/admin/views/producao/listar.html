@@ -23,17 +23,19 @@
             <span class="badge rounded text-bg-success">{{total.producaoAtiva}} pendentes</span> 
             <span class="badge rounded text-bg-danger">{{total.producaoInativa}} realizados</span> 
         </div>
+        <a href="{{url('admin/producao/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Pedido Produção">Cadastrar</a>
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table id="tabelaProducao" url="{{url()}}" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>id</th>
                         <th class="fw-bold text-center">Data Pedido</th>
                         <th class="text-center">Descrição</th>
                         <th class="text-center">Qtde</th>
-                        <th class="text-center">Data Entrega</th>
+                        <th class="text-center">Data/Hora para Entrega</th>
                         <th class="text-center">Loja filial</th>
                         <th class="text-center">Cliente_Fábrica</th>
                         <th class="text-center">Status</th>
@@ -108,7 +110,6 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <a href="{{url('admin/producao/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Pedido Produção">Cadastrar</a><hr>
                         <a href="{{url('admin/producao/lib_entrega')}}" class="btn btn-primary" tooltip="tooltip" title="Enviar para Entrega">Liberar Pedidos para Entrega</a>
                     </div>
                 </div>

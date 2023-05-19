@@ -18,18 +18,18 @@
 
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if producao.id %}{{url('admin/producao/editar/'~producao.id)}}{%else%}{{url('admin/producao/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
+        <form action="{% if prod.id %}{{url('admin/producao/editar/'~prod.id)}}{%else%}{{url('admin/producao/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
 
             <div class="row">
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="data_pedido_prod" class="form-label">Data Pedido</label>
-                        <input type="date" name="data_pedido_prod" id="data_pedido_prod" value="{{producao.data_pedido_prod}}" class="form-control">                                 </div>
+                        <input type="date" name="data_pedido_prod" id="data_pedido_prod" value="{{prod.data_pedido_prod}}" class="form-control">                                 </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="tbl_loja_pdv_id_tbl_loja_pdv" class="form-label">Loja_Filial</label>
-                        <input type="text" name="tbl_loja_pdv_id_tbl_loja_pdv" id="tbl_loja_pdv_id_tbl_loja_pdv" value="{{producao.tbl_loja_pdv_id_tbl_loja_pdv}}" class="form-control">
+                        <input type="text" name="tbl_loja_pdv_id_tbl_loja_pdv" id="tbl_loja_pdv_id_tbl_loja_pdv" value="{{prod.tbl_loja_pdv_id_tbl_loja_pdv}}" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -47,34 +47,34 @@
             <div class="col-md-9">
                 <div class="mb-4">
                     <label for="descricao_pedido" class="form-label">Descrição do Pedido .(OBS.: Adicionar detalhes caso necessite).</label>
-                    <textarea name="descricao_pedido" id="descricao_pedido" class="form-control" value="{{producao.descricao_pedido}} rows="3"></textarea>
+                    <textarea name="descricao_pedido" id="descricao_pedido" class="form-control" value="{{prod.descricao_pedido}} rows="3"></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="qtde_pedido" class="form-label">Qtde Pedido</label>
-                        <input type="number" name="qtde_pedido" id="qtde_pedido" class="form-control" value="{{producao.qtde_pedido}}">
+                        <input type="number" name="qtde_pedido" id="qtde_pedido" class="form-control" value="{{prod.qtde_pedido}}">
                         <!-- ver tipo input....para numero???? -->
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="data_entrega_pedido" class="form-label">Entrega Pedido</label>
-                        <input type="date" name="data_entrega_pedido" id="data_entrega_pedido" class="form-control" value="{{producao.data_entrega_pedido}}">
+                        <input type="date" name="data_entrega_pedido" id="data_entrega_pedido" class="form-control" value="{{prod.data_entrega_pedido}}">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" name="status">
-                            <option value="1" {% if producao.status == '1' %}selected{%endif%}>Ativo</option>
-                            <option value="0" {% if producao.status == '0' %}selected{%endif%}>Inativo</option>
+                            <option value="1" {% if prod.status == '1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if prod.status == '0' %}selected{%endif%}>Inativo</option>
                         </select>
                     </div>
                 </div>
             </div>  
-            <input type="submit" class="btn btn-primary" value="{% if producao.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
+            <input type="submit" class="btn btn-primary" value="{% if prod.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
 
             <a href="{{url('admin/producao/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
         </form>

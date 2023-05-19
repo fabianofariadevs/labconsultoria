@@ -48,37 +48,44 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'categorias/editar/{id}', 'AdminCategorias@editar');
         SimpleRouter::get(URL_ADMIN . 'categorias/deletar/{id}', 'AdminCategorias@deletar');
+        SimpleRouter::post(URL_ADMIN . 'categorias/datatable', 'AdminCategorias@datatable');
 
 //ADMIN CLIENTES
         SimpleRouter::get(URL_ADMIN . 'clientes/listar', 'AdminClientes@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'clientes/cadastrar', 'AdminClientes@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'clientes/editar/{id}', 'AdminClientes@editar');
         SimpleRouter::get(URL_ADMIN . 'clientes/deletar/{id}', 'AdminClientes@deletar');
+        SimpleRouter::post(URL_ADMIN . 'clientes/datatable', 'AdminClientes@datatable');
 
 //ADMIN RECEITAS
         SimpleRouter::get(URL_ADMIN . 'receitas/listar', 'AdminReceitas@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'receitas/cadastrar', 'AdminReceitas@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'receitas/editar/{id}', 'AdminReceitas@editar');
         SimpleRouter::get(URL_ADMIN . 'receitas/deletar/{id}', 'AdminReceitas@deletar');
+        SimpleRouter::post(URL_ADMIN . 'receitas/datatable', 'AdminReceitas@datatable');
 
+        
 //ADMIN PLANEJAMENTO DE PRODUÇÃO
         SimpleRouter::get(URL_ADMIN . 'producao/listar', 'AdminProducao@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'producao/cadastrar', 'AdminProducao@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'producao/editar/{id}', 'AdminProducao@editar');
         SimpleRouter::get(URL_ADMIN . 'producao/deletar/{id}', 'AdminProducao@deletar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'producao/consultar', 'AdminProducao@consultar');
-
+        SimpleRouter::post(URL_ADMIN . 'producao/datatable', 'AdminProducao@datatable');
+        
 //ADMIN FORNECEDORES
         SimpleRouter::get(URL_ADMIN . 'fornecedor/listar', 'AdminFornecedor@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'fornecedor/cadastrar', 'AdminFornecedor@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'fornecedor/editar/{id}', 'AdminFornecedor@editar');
         SimpleRouter::get(URL_ADMIN . 'fornecedor/deletar/{id}', 'AdminFornecedor@deletar');
+        SimpleRouter::post(URL_ADMIN . 'fornecedor/datatable', 'AdminFornecedor@datatable');
 
 //ADMIN MIX PRODUTOS
         SimpleRouter::get(URL_ADMIN . 'mixProdutos/listar', 'AdminMixProdutos@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'mixProdutos/cadastrar', 'AdminMixProdutos@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'mixProdutos/editar/{id}', 'AdminMixProdutos@editar');
         SimpleRouter::get(URL_ADMIN . 'mixProdutos/deletar/{id}', 'AdminMixProdutos@deletar');
+        SimpleRouter::post(URL_ADMIN . 'mixProdutos/datatable', 'AdminMixProdutos@datatable');
 
 //ADMIN ESTOQUE M.PRIMA
         SimpleRouter::get(URL_ADMIN . 'estoqueMp/listar', 'AdminEstoqueMp@listar');

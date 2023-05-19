@@ -184,7 +184,7 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (data, type, row) {
-                    if (row[10] === 1) {
+                    if (row[7] === 1) {
                         return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
                     } else {
                         return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';
@@ -199,7 +199,7 @@ $(document).ready(function () {
             },
             {
                 className: 'dt-center',
-                targets: [3, 4, 5, 6, 7, 8, 9, 10, 11]
+                targets: [3, 4, 5, 6, 7, 8]
             },
             {
                 orderable: false,

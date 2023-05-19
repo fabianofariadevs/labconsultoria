@@ -4,6 +4,7 @@ namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\ProducaoModelo;
 use sistema\Modelo\ClienteModelo;
+use sistema\Modelo\FornecedorModelo;
 use sistema\Nucleo\Helpers;
 
 /**
@@ -29,15 +30,13 @@ class AdminProducao extends AdminControlador
 
         $colunas = [
             0 => 'id',
-            1 => 'cod_prod_mix',
-            2 => 'produto_mix',
-            3 => 'departamento',
-            4 => 'rendimento_receita_kg',
-            5 => 'rendimento_receita_unid',
-            6 => 'validade_produto',
-            7 => 'categoria_produto',
-            8 => 'id_cli_fabrica',
-            9 => 'status',
+            1 => 'data_pedido_prod',
+            2 => 'descricao_pedido',
+            3 => 'qtde_pedido',
+            4 => 'data_entrega_pedido',
+            5 => 'tbl_loja_pdv_id_tbl_loja_pdv',
+            6 => 'id_cliente_fabrica',
+            7 => 'status',
         ];
 
         $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
@@ -59,14 +58,12 @@ class AdminProducao extends AdminControlador
             foreach ($mixproduto->resultado(true) as $mix) {
                 $dados[] = [
                     $mix->id,
-                    $mix->cod_prod_mix,
-                    $mix->produto_mix,
-                    $mix->departamento,
-                    $mix->rendimento_receita_kg,
-                    $mix->rendimento_receita_unid,
-                    $mix->validade_produto,
-                    $mix->categoria_produto,
-                    $mix->cliente()->nome_cliente ?? '-----',
+                    $mix->data_pedido_prod,
+                    $mix->descricao_pedido,
+                    $mix->qtde_pedido,
+                    $mix->data_entrega_pedido,
+                    $mix->tbl_loja_pdv_id_tbl_loja_pdv,
+                    $mix->id_cliente_fabrica,
                     $mix->status
                 ];
             }
