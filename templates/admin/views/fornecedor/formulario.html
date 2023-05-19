@@ -16,7 +16,7 @@
 {{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if fornecedor.id %}{{url('admin/fornecedor/editar/'~fornecedor.id)}}{%else%}{{url('admin/fornecedor/cadastrar')}}{%endif%}" method="post">
+        <form action="{% if fornecedor.id %}{{url('admin/fornecedor/editar/'~fornecedor.id)}}{%else%}{{url('admin/fornecedor/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
@@ -63,14 +63,9 @@
                 </div>
             </div>
             <input type="submit" class="btn btn-primary" value="{% if fornecedor.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <a href="{{url('admin/fornecedor/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Fornecedor">Consultar Fornecedor</a>
-                        <a href="{{url('admin/fornecedor/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
-                    </div>
-                </div>
-            </div>
+
+            <a href="{{url('admin/fornecedor/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+
         </form>   
     </div>
 </div>

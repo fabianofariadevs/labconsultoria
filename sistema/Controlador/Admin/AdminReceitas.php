@@ -3,7 +3,6 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\ReceitaModelo;
-use sistema\Modelo\FornecedorModelo;
 use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\Helpers;
 
@@ -16,13 +15,77 @@ class AdminReceitas extends AdminControlador
 {
 
     /**
+     * Método responsável por exibir os dados tabulados utilizando o plugin datatables
+     * @return void
+     */
+    public function datatable(): void
+    {
+        $datatable = $_REQUEST;
+        $datatable = filter_var_array($datatable, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $limite = $datatable['length'];
+        $offset = $datatable['start'];
+        $busca = $datatable['search']['value'];
+
+        $colunas = [
+            0 => 'id',
+            1 => 'nome_receita',
+            2 => 'descricao_receita',
+            3 => 'modo_preparo',
+            4 => 'qtde_prevista_receita',
+            5 => 'validade_receita',
+            6 => 'id_tbl_cliente_fabrica',
+            7 => 'status',
+        ];
+
+        $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
+        $ordem .= " " . $datatable['order'][0]['dir'] . " ";
+
+        $receitas = new ReceitaModelo();
+
+        if (empty($busca)) {
+            $receitas->busca()->ordem($ordem)->limite($limite)->offset($offset);
+            $total = (new ReceitaModelo())->busca(null, 'COUNT(id)', 'id')->total();
+        } else {
+            $receitas->busca("id LIKE '%{$busca}%' OR nome_receita LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
+            $total = $receitas->total();
+        }
+
+        $dados = [];
+
+        if ($receitas->resultado(true)) {
+            foreach ($receitas->resultado(true) as $receita) {
+                $dados[] = [
+                    $receita->id,
+                    $receita->nome_receita,
+                    $receita->descricao_receita,
+                    $receita->modo_preparo,
+                    $receita->qtde_prevista_receita,
+                    $receita->validade_receita,
+                    $receita->cliente()->nome_cliente ?? '-----',
+                    $receita->status
+                ];
+            }
+        }
+
+
+        $retorno = [
+            "draw" => $datatable['draw'],
+            "recordsTotal" => $total,
+            "recordsFiltered" => $total,
+            "data" => $dados
+        ];
+
+        echo json_encode($retorno);
+    }
+
+    /**
      * Lista Receitas
      * @return void
      */
     public function listar(): void
     {
         $receita = new ReceitaModelo();
-        $fornecedor = new FornecedorModelo();
         $cliente = new ClienteModelo();
 
         echo $this->template->renderizar('receitas/listar.html', [
@@ -52,7 +115,43 @@ class AdminReceitas extends AdminControlador
         if (isset($dados)) {
 
             if ($this->validarDados($dados)) {
-                $receita = new ReceitaModelo();
+                $receitas = new ReceitaModelo();
+
+                $receitas->usuario_id = $this->usuario->id;
+                $receitas->nome_receita = $dados['nome_receita'];
+                $receitas->descricao_receita = $dados['descricao_receita'];
+                $receitas->modo_preparo = $dados['modo_preparo'];
+                $receitas->qtde_prevista_receita = $dados['qtde_prevista_receita'];
+                $receitas->validade_receita = $dados['validade_receita'];
+                $receitas->observacao_receita = $dados['observacao_receita'];
+                $receitas->id_tbl_cliente_fabrica = $dados['id_tbl_cliente_fabrica'];
+                $receitas->status = $dados['status'];
+                $receitas->slug = Helpers::slug($dados['nome_receita']);
+
+                if ($receitas->salvar()) {
+                    $this->mensagem->sucesso('Receita cadastrada com sucesso')->flash();
+                    Helpers::redirecionar('admin/receitas/listar');
+                } else {
+                    $this->mensagem->erro($receitas->erro())->flash();
+                    Helpers::redirecionar('admin/receitas/listar');
+                }
+            }
+        }
+
+        echo $this->template->renderizar('receitas/formulario.html', [
+            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true),
+            'receitas' => $dados
+        ]);
+    }
+
+    public function editar(int $id): void
+    {
+        $receita = (new ReceitaModelo())->buscaPorId($id);
+
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (isset($dados)) {
+            if ($this->validarDados($dados)) {
+                $receita = (new ReceitaModelo())->buscaPorId($id);
 
                 $receita->usuario_id = $this->usuario->id;
                 $receita->nome_receita = $dados['nome_receita'];
@@ -61,14 +160,12 @@ class AdminReceitas extends AdminControlador
                 $receita->qtde_prevista_receita = $dados['qtde_prevista_receita'];
                 $receita->validade_receita = $dados['validade_receita'];
                 $receita->observacao_receita = $dados['observacao_receita'];
-                $receita->status = $dados['status'];
                 $receita->id_tbl_cliente_fabrica = $dados['id_tbl_cliente_fabrica'];
-                $receita->tbl_produto_mix_id_tbl_produto_mix = $dados['tbl_produto_mix_id_tbl_produto_mix'];
-                $receita->tbl_produto_mix_cod_prod_mix = $dados['tbl_produto_mix_cod_prod_mix'];
+                $receita->status = $dados['status'];
                 $receita->slug = Helpers::slug($dados['nome_receita']);
 
                 if ($receita->salvar()) {
-                    $this->mensagem->sucesso('Receita cadastrada com sucesso')->flash();
+                    $this->mensagem->sucesso('Receita atualizada com sucesso')->flash();
                     Helpers::redirecionar('admin/receitas/listar');
                 } else {
                     $this->mensagem->erro($receita->erro())->flash();
@@ -78,8 +175,31 @@ class AdminReceitas extends AdminControlador
         }
 
         echo $this->template->renderizar('receitas/formulario.html', [
-            'receitas' => (new ReceitaModelo())->busca()
+////**VER AQUI TAMBEM           
+            'cliente' => (new ClienteModelo())->busca('status = 1')->resultado(true),
+            'receitas' => $receita
         ]);
+    }
+
+    public
+            function deletar(int $id): void
+    {
+//        $id = filter_var($id, FILTER_VALIDATE_INT);
+        if (is_int($id)) {
+            $receita = (new ReceitaModelo())->buscaPorId($id);
+            if (!$receita) {
+                $this->mensagem->alerta('A Receita que você está tentando deletar não existe!')->flash();
+                Helpers::redirecionar('admin/receitas/listar');
+            } else {
+                if ($receita->deletar()) {
+                    $this->mensagem->sucesso('Receita deletada com sucesso!')->flash();
+                    Helpers::redirecionar('admin/receitas/listar');
+                } else {
+                    $this->mensagem->erro($receita->erro())->flash();
+                    Helpers::redirecionar('admin/receitas/listar');
+                }
+            }
+        }
     }
 
 }

@@ -15,12 +15,6 @@ class ReceitaModelo extends Modelo
     {
         parent::__construct('tbl_receita');
     }
-//modelo para outra busca ex_categoriamodelo com posts
-    public function posts(int $id): ?array
-    {
-        $busca = (new PostModelo())->busca("categoria_id = {$id} AND status = 1");
-        return $busca->resultado(true);
-    }
     
     /**
      * Busca a Receita pelo ID
@@ -28,8 +22,8 @@ class ReceitaModelo extends Modelo
      */
     public function receita(): ?ReceitaModelo
     {
-        if ($this->id_tbl_Receita) {
-            return (new ReceitaModelo())->buscaPorId($this->id_tbl_Receita);
+        if ($this->id) {
+            return (new ReceitaModelo())->buscaPorId($this->id);
         }
         return null;
     }

@@ -3,6 +3,7 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\MixProdutosModelo;
+use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\Helpers;
 
 /**
@@ -12,6 +13,77 @@ use sistema\Nucleo\Helpers;
  */
 class AdminMixProdutos extends AdminControlador
 {
+
+    private string $capa;
+
+    /**
+     * Método responsável por exibir os dados tabulados utilizando o plugin datatables
+     * @return void
+     */
+    public function datatable(): void
+    {
+        $datatable = $_REQUEST;
+        $datatable = filter_var_array($datatable, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $limite = $datatable['length'];
+        $offset = $datatable['start'];
+        $busca = $datatable['search']['value'];
+
+        $colunas = [
+            0 => 'id',
+            1 => 'cod_prod_mix',
+            2 => 'produto_mix',
+            3 => 'departamento',
+            4 => 'rendimento_receita_kg',
+            5 => 'rendimento_receita_unid',
+            6 => 'validade_produto',
+            7 => 'categoria_produto',
+            8 => 'id_cli_fabrica',
+            9 => 'status',
+        ];
+
+        $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
+        $ordem .= " " . $datatable['order'][0]['dir'] . " ";
+
+        $mixproduto = new MixProdutosModelo();
+
+        if (empty($busca)) {
+            $mixproduto->busca()->ordem($ordem)->limite($limite)->offset($offset);
+            $mixproduto = (new MixProdutosModelo())->busca(null, 'COUNT(id)', 'id')->total();
+        } else {
+            $mixproduto->busca("id LIKE '%{$busca}%' OR produto_mix LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
+            $total = $mixproduto->total();
+        }
+
+        $dados = [];
+
+        if ($mixproduto->resultado(true)) {
+            foreach ($mixproduto->resultado(true) as $mix) {
+                $dados[] = [
+                    $mix->id,
+                    $mix->cod_prod_mix,
+                    $mix->produto_mix,
+                    $mix->departamento,
+                    $mix->rendimento_receita_kg,
+                    $mix->rendimento_receita_unid,
+                    $mix->validade_produto,
+                    $mix->categoria_produto,
+                    $mix->cliente()->nome_cliente ?? '-----',
+                    $mix->status
+                ];
+            }
+        }
+
+
+        $retorno = [
+            "draw" => $datatable['draw'],
+            "recordsTotal" => $total,
+            "recordsFiltered" => $total,
+            "data" => $dados
+        ];
+
+        echo json_encode($retorno);
+    }
 
     /**
      * Lista MIX Produtos
@@ -42,6 +114,7 @@ class AdminMixProdutos extends AdminControlador
 
             if ($this->validarDados($dados)) {
                 $mixproduto = new MixProdutosModelo();
+
                 $mixproduto->usuario_id = $this->usuario->id;
                 $mixproduto->slug = Helpers::slug($dados['produto_mix']);
                 $mixproduto->cod_prod_mix = $dados['cod_prod_mix'];
@@ -51,6 +124,7 @@ class AdminMixProdutos extends AdminControlador
                 $mixproduto->rendimento_receita_unid = $dados['rendimento_receita_unid'];
                 $mixproduto->validade_produto = $dados['validade_produto'];
                 $mixproduto->categoria_produto = $dados['categoria_produto'];
+                $mixproduto->id_cli_fabrica = $dados['id_cli_fabrica'];
                 $mixproduto->status = $dados['status'];
 
                 if ($mixproduto->salvar()) {
@@ -64,7 +138,9 @@ class AdminMixProdutos extends AdminControlador
         }
 
         echo $this->template->renderizar('mixProdutos/formulario.html', [
-            'mixproduto' => $dados]);
+            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true),
+            'mixproduto' => $dados
+        ]);
     }
 
     public function validarDados(array $dados): bool
@@ -119,6 +195,8 @@ class AdminMixProdutos extends AdminControlador
                 $mixproduto->rendimento_receita_unid = $dados['rendimento_receita_unid'];
                 $mixproduto->validade_produto = $dados['validade_produto'];
                 $mixproduto->categoria_produto = $dados['categoria_produto'];
+                $mixproduto->id_cli_fabrica = $dados['id_cli_fabrica'];
+                $mixproduto->atualizado_em = date('Y-m-d H:i:s');
                 $mixproduto->status = $dados['status'];
 
                 if ($mixproduto->salvar()) {
@@ -133,7 +211,9 @@ class AdminMixProdutos extends AdminControlador
 
         echo $this->template->renderizar('mixProdutos/formulario.html', [
 ////**VER AQUI TAMBEM           
-            'mixproduto' => $mixproduto]);
+            'mixproduto' => $mixproduto,
+            'cliente' => (new ClienteModelo())->busca('status = 1')->resultado(true)
+        ]);
     }
 
     public

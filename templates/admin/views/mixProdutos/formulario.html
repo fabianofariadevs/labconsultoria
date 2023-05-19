@@ -7,82 +7,91 @@
             ADMIN & Usuários
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Cadastrar Novo Mix de Produto
+            Cadastrar Novo Mix de Produto 
+            {% if mix.id %}Atualizar{%else%}Cadastrar{%endif%}
         </li>
     </ol>
 </nav>
 {{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if mixproduto.id %}{{url('admin/mixProdutos/editar/'~mixproduto.id)}}{%else%}{{url('admin/mixProdutos/cadastrar')}}{%endif%}" method="post">
-            //
-            
-            <div class="mb-3">
-                <label for="cod_prod_mix" class="form-label">Cod.prod</label>
-                <input type="text" name="cod_prod_mix" id="cod_prod_mix" value="{{mixproduto.cod_prod_mix}}" class="form-control">
+        <form action="{% if mix.id %}{{url('admin/mixProdutos/editar/'~mix.id)}}{%else%}{{url('admin/mixProdutos/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="cod_prod_mix" class="form-label">Cod.prod</label>
+                        <input type="text" name="cod_prod_mix" id="cod_prod_mix" value="{{mix.cod_prod_mix}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="id_cli_fabrica" class="form-label">Cliente_Fábrica</label>
+                        <select class="form-select" name="id_cli_fabrica" id="id_cli_fabrica">
+                            {% for cliente in clientes %}
+                            <option value="{{cliente.id}}" {% if mix.id_cli_fabrica == cliente.id %}selected{%endif%}>{{cliente.nome_cliente}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="categoria_produto" class="form-label">Categorias</label>
+                        <select class="form-select" name="categoria_produto" id="categoria_produto">
+                            <option value="Seco" {% if mix.categoria_produto %}selected{%endif%}>Seco</option>
+                            <option value="Refrigerado" {% if mix.categoria_produto == 'refrigerado' %}selected{%endif%}>Refrigerado</option>
+                            <option value="Congelado" {% if mix.categoria_produto == 'congelado' %}selected{%endif%}>Congelado</option>
+                            <option value="Fresco" {% if mix.categoria_produto == 'fresco' %}selected{%endif%}>Fresco</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="1" {% if mix.status == '1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if mix.status == '0' %}selected{%endif%}>Inativo</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+
             <div class="mb-3">
                 <label for="produto_mix" class="form-label">Nome Produto</label>
-                <input type="text" name="produto_mix" id="produto_mix" value="{{mixproduto.produto_mix}}" class="form-control">
+                <input type="text" name="produto_mix" id="produto_mix" value="{{mix.produto_mix}}" class="form-control">
             </div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="departamento" class="form-label">Departamento</label>
-                        <input type="text" name="departamento" id="departamento" value="{{mixproduto.departamento}}" class="form-control"></input>             
+                        <input type="text" name="departamento" id="departamento" value="{{mix.departamento}}" class="form-control"></input>             
                     </div>
                 </div>                
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="rendimento_receita_kg" class="form-label">Rend.Kg</label>
-                        <input type="text" name="rendimento_receita_kg" id="rendimento_receita_kg" value="{{mixproduto.rendimento_receita_kg}}" class="form-control"></input>
+                        <input type="text" name="rendimento_receita_kg" id="rendimento_receita_kg" value="{{mix.rendimento_receita_kg}}" class="form-control"></input>
                     </div>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-3">
                     <div class="mb-3">
                         <label for="rendimento_receita_unid" class="form-label">Rend.Unid</label>
-                        <input type="text" name="rendimento_receita_unid" id="rendimento_receita_unid" value="{{mixproduto.rendimento_receita_unid}}" class="form-control"></input>
+                        <input type="text" name="rendimento_receita_unid" id="rendimento_receita_unid" value="{{mix.rendimento_receita_unid}}" class="form-control"></input>
                     </div>
                 </div>
-                
+
                 <div class="col-md-2">
                     <div class="mb-3">
                         <label for="validade_produto" class="form-label">Validade</label>
-                        <input type="date" name="validade_produto" id="validade_produto" value="{{mixproduto.validade_produto}}" class="form-control"></input>
+                        <input type="date" name="validade_produto" id="validade_produto" value="{{mix.validade_produto}}" class="form-control"></input>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
-                aqui vamos colocar outra table CATEGORIAS
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="categoria_produto" class="form-label">Categorias</label>
-                        <input type="text" name="categoria_produto" id="categoria_produto" value="{{mixproduto.categoria_produto}}" class="form-control"></input>
-                    </div>
-                </div>
-                FORNECEDOR?????
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="categoria_produto" class="form-label">Fornecedor</label>
-                        <input type="text" name="categoria_produto" id="categoria_produto" value="{{}}" class="form-control"></input>
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select class="form-select" name="status">
-                            <option value="1" {% if mixproduto.status == '1' %}selected{%endif%}>Ativo</option>
-                            <option value="0" {% if mixproduto.status == '0' %}selected{%endif%}>Inativo</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <input type="submit" class="btn btn-primary" value="{% if mixproduto.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
+
+            <input type="submit" class="btn btn-primary" value="{% if mix.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
             <a href="{{url('admin/mixProdutos/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
         </form>
     </div>    
 </div>
 {% endblock %}
-            
+

@@ -42,7 +42,7 @@ class MixProdutosModelo extends Modelo
     }
 
     /**
-     * Salva o post com slug
+     * Salva com slug
      * @return bool
      */
     public function salvar(): bool

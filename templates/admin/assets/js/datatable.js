@@ -174,11 +174,21 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     var html = '';
 
+                    html += ' <a href=" ' + url + 'admin/clientes/status/' + row[0] + ' " tooltip="tooltip" title="Status"><i class="fa fa-child" aria-hidden="true"></i></a> ';
+
                     html += ' <a href=" ' + url + 'admin/clientes/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
-
                     html += '<a href=" ' + url + 'admin/clientes/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
-
                     return html;
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (row[10] === 1) {
+                        return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
+                    } else {
+                        return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';
+                    }
                 }
             }
         ],
@@ -217,12 +227,24 @@ $(document).ready(function () {
                 data: null,
                 render: function (data, type, row) {
                     var html = '';
+                    html += ' <a href=" ' + url + 'admin/fornecedor/status/' + row[0] + ' " tooltip="tooltip" title="Status"><i class="fa fa-child" aria-hidden="true"></i></a> ';
+
 
                     html += ' <a href=" ' + url + 'admin/fornecedor/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
 
                     html += '<a href=" ' + url + 'admin/fornecedor/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
 
                     return html;
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (row[5] === 1) {
+                        return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
+                    } else {
+                        return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';
+                    }
                 }
             }
         ],
@@ -233,7 +255,7 @@ $(document).ready(function () {
             },
             {
                 className: 'dt-center',
-                targets: [3, 4, 5, 6, 7]
+                targets: [3, 4, 5, 6]
             },
             {
                 orderable: false,
@@ -243,7 +265,7 @@ $(document).ready(function () {
         ]
     });
     //TABELA MIX_PRODUTO
-    $('#tabelamixProduto').DataTable({
+    $('#tabelamixProdutos').DataTable({
         order: [[0, 'desc']],
         processing: true,
         serverSide: true,
@@ -262,11 +284,23 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     var html = '';
 
+                    html += ' <a href=" ' + url + 'admin/mixProdutos/status/' + row[0] + ' " tooltip="tooltip" title="Status"><i class="fa fa-child" aria-hidden="true"></i></a> ';
+
                     html += ' <a href=" ' + url + 'admin/mixProdutos/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
 
                     html += '<a href=" ' + url + 'admin/mixProdutos/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
 
                     return html;
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (row[9] === 1) {
+                        return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
+                    } else {
+                        return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';
+                    }
                 }
             }
         ],
@@ -286,6 +320,119 @@ $(document).ready(function () {
 
         ]
     });
+
+//TABELA RECEITAS
+    $('#tabelaReceitas').DataTable({
+        order: [[0, 'desc']],
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: url + 'admin/receitas/datatable',
+            type: 'POST',
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        },
+
+        columns: [
+            null, null, null,
+            {
+                data: null,
+                render: function (data, type, row) {
+                    var html = '';
+
+                    html += ' <a href=" ' + url + 'admin/receitas/status/' + row[0] + ' " tooltip="tooltip" title="Status"><i class="fa fa-child" aria-hidden="true"></i></a> ';
+                    html += ' <a href=" ' + url + 'admin/receitas/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
+
+                    html += '<a href=" ' + url + 'admin/receitas/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
+
+                    return html;
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (row[7] === 1) {
+                        return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
+                    } else {
+                        return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';
+                    }
+                }
+            }
+        ],
+        columnDefs: [
+            {
+                className: 'dt-body-left',
+                targets: [1, 2]
+            },
+            {
+                className: 'dt-center',
+                targets: [3, 4, 5, 6, 7, 8]
+            },
+            {
+                orderable: false,
+                targets: [-1]
+            }
+
+        ]
+    });
+
+//TABELA PRODUCAO
+    $('#tabelapProducao').DataTable({
+        order: [[0, 'desc']],
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: url + 'admin/producao/datatable',
+            type: 'POST',
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        },
+
+        columns: [
+            null, null, null,
+            {
+                data: null,
+                render: function (data, type, row) {
+                    var html = '';
+
+                    html += ' <a href=" ' + url + 'admin/producao/status/' + row[0] + ' " tooltip="tooltip" title="Status"><i class="fa fa-child" aria-hidden="true"></i></a> ';
+                    html += ' <a href=" ' + url + 'admin/producao/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
+
+                    html += '<a href=" ' + url + 'admin/producao/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
+
+                    return html;
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (row[7] === 1) {
+                        return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
+                    } else {
+                        return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';
+                    }
+                }
+            }
+        ],
+        columnDefs: [
+            {
+                className: 'dt-body-left',
+                targets: [1, 2]
+            },
+            {
+                className: 'dt-center',
+                targets: [3, 4, 5, 6, 7, 8]
+            },
+            {
+                orderable: false,
+                targets: [-1]
+            }
+
+        ]
+    });
+
 
 
 });

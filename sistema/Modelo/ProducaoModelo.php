@@ -23,8 +23,8 @@ class ProducaoModelo extends Modelo
      */
     public function producao(): ?ProducaoModelo
     {
-        if ($this->id_pedido_producao) {
-            return (new ProducaoModelo())->buscaPorId($this->id_pedido_producao);
+        if ($this->id) {
+            return (new ProducaoModelo())->buscaPorId($this->id);
         }
         return null;
     }
@@ -42,13 +42,28 @@ class ProducaoModelo extends Modelo
     }
 
     /**
+     * Busca o CLIENTE/FABRICA pelo ID
+     * @return UsuarioModelo|null
+     */
+    public function fabrica(): ?ClienteModelo
+    {
+        if ($this->id) {
+            return (new ClienteModelo())->buscaPorId($this->id);
+        }
+        return null;
+    }
+
+    
+    
+    /**
      * Salva o post com slug
      * @return bool
-
+     */
+     
       public function salvar(): bool
       {
       $this->slug();
       return parent::salvar();
       }
-     */
+     
 }

@@ -3,7 +3,7 @@
 {% block conteudo %}  
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">
+        <li class="breadcrumb-item" style="font-size: 11px">
             <a href="{{url('admin/dashboard')}}">
                 Admin
             </a>
@@ -16,18 +16,18 @@
 {{ flash() }}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if receita.id_tbl_Receita %}{{url('admin/receitas/editar/'~receita.id_tbl_Receita)}}{%else%}{{url('admin/receitas/cadastrar')}}{%endif%}" method="post">
+        <form action="{% if receita.id %}{{url('admin/receitas/editar/'~receita.id)}}{%else%}{{url('admin/receitas/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-5">
                     <div class="mb-3">
-                        <label for="nomeReceita" class="form-label">Nome da Receita</label>
-                        <input type="text" name="nomeReceita" id="nomeReceita" class="form-control">            
+                        <label for="nome_receita" class="form-label">Nome da Receita</label>
+                        <input type="text" name="nome_receita" id="nome_receita" value="{{cliente.nome_receita}}" class="form-control">            
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="mb-3">
-                        <label for="descricao" class="form-label">Descrição</label>
-                        <input type="text" name="descricao" id="descricao" class="form-control">
+                        <label for="descricao_receita" class="form-label">Descrição</label>
+                        <input type="text" name="descricao_receita" id="descricao_receita" value="{{cliente.descricao_receita}}" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -42,28 +42,28 @@
             </div>
 
             <div class="mb-3">
-                <label for="preparo" class="form-label">Modo de preparo</label>
-                <textarea name="preparo" id="preparo" class="form-control" rows="3"></textarea>
+                <label for="modo_preparo" class="form-label">Modo de preparo</label>
+                <textarea name="modo_preparo" id="modo_preparo" class="form-control ckeditor" rows="2">{{receita.modo_preparo}}</textarea>
             </div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label for="qtde" class="form-label">Qtde prevista da receita</label>
-                        <input type="text" name="qtde" id="qtde" class="form-control">
+                        <label for="qtde_prevista_receita" class="form-label">Qtde prevista da receita</label>
+                        <input type="text" name="qtde_prevista_receita" id="qtde_prevista_receita" value="{{cliente.}}" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <label for="validade" class="form-label">Validade</label>
-                        <input type="date" name="validade" id="validade" class="form-control">
+                        <label for="validade_receita" class="form-label">Validade</label>
+                        <input type="date" name="validade_receita" id="validade_receita" value="{{cliente.validade_receita}}" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="mb-3">
-                        <label for="cliente_id" class="form-label">Cliente Fábrica</label>
-                        <select class="form-select" name="cliente_id" id="cliente.id_tbl_cliente">
+                        <label for="id_tbl_cliente_fabrica " class="form-label">Cliente Fábrica</label>
+                        <select class="form-select" name="id_tbl_cliente_fabrica " id="id_tbl_cliente_fabrica ">
                             {% for cliente in clientes %}
-                            <option value="{{cliente.id_tbl_cliente}}">{{cliente.nome_cliente}}</option>
+                            <option value="{{cliente.id}}"  {% if cliente.id_tbl_cliente_fabrica == cliente.id %}selected{%endif%}>{{cliente.nome_cliente}}</option>
                             {%endfor%}
                         </select>
                     </div>
@@ -71,21 +71,13 @@
 
             </div>
             <div class="mb-3">
-                <label for="obs" class="form-label">Observação</label>
-                <textarea name="obs" id="obs" class="form-control" rows="3"></textarea>
+                <label for="observacao_receita" class="form-label">Observação</label>
+                <textarea name="observacao_receita" id="observacao_receita" class="form-control" rows="1">{{cliente.observacao_receita}}</textarea>
             </div>
-            
-            <input type="submit" class="btn btn-primary" value="{% if receita.id_tbl_Receita %}Atualizar{%else%}Cadastrar{%endif%}">
 
-            <input type="submit" class="btn btn-primary" value="Cadastrar"><hr>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="mb-3">
-                        <a href="{{url('admin/receitas/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Receitas">Consultar Receitas</a>
-                        <a href="{{url('admin/receitas/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
-                    </div>
-                </div>
-            </div>
+            <input type="submit" class="btn btn-primary" value="{% if receita.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
+            <a href="{{url('admin/receitas/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+
         </form> 
 
     </div>

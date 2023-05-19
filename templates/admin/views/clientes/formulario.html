@@ -16,7 +16,7 @@
 {{ flash()}}
 <div class="card border-0 shadow-sm">
     <div class="card-body">
-        <form action="{% if cliente.id %}{{url('admin/clientes/editar/'~cliente.id)}}{%else%}{{url('admin/clientes/cadastrar')}}{%endif%}" method="post">
+        <form action="{% if cliente.id %}{{url('admin/clientes/editar/'~cliente.id)}}{%else%}{{url('admin/clientes/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="nome_cliente" class="form-label">Nome Cliente</label>
                 <input type="text" name="nome_cliente" id="nome_cliente" value="{{cliente.nome_cliente}}" class="form-control">

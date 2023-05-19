@@ -19,10 +19,12 @@
             <span class="badge rounded text-bg-success">{{total.mixprodutoAtiva}} ativo</span> 
             <span class="badge rounded text-bg-danger">{{total.mixprodutoInativa}} inativo</span> 
         </div>
+         <a href="{{url('admin/mixProdutos/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Mix">Cadastrar</a>
+       
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover table-striped">
+            <table id="tabelamixProdutos" url="{{url()}}" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th scope="col">id</th>
@@ -38,6 +40,7 @@
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
+                
                 <tbody>
                     {% for mix in mixproduto %}
                     <tr>
@@ -48,8 +51,8 @@
                         <td>{{mix.rendimento_receita_kg}}</td>
                         <td>{{mix.rendimento_receita_unid}}</td>
                         <td>{{mix.validade_produto|date("d/m/Y")}}</td>
-                        <td>{{mix.categoria_produto}}</td>    
-                        <td></td>
+                        <td>{{mix.categoria_produto}}</td> 
+                        <td>{{mix.id_cli_fabrica}}</td> 
                         <td class="text-center">
                             {% if mix.status == 1 %}
                             <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
@@ -57,8 +60,6 @@
                             <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
                             {% endif %}
                         </td>
-
-
                         <td class="text-center">
                             <a href="#info{{mix.id}}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
                                 <i class="fa-solid fa-arrow-trend-up"></i>
@@ -70,26 +71,34 @@
                                 <i class="fa-solid fa-trash m-1"></i>
                             </a>
                         </td>
-                        status
                     </tr>
+                
+
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{mix.id}}">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{mix.produto_mix}}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
+
                     <div class="offcanvas-body">
                         <ul class="list-group list-group-flush">
+
+                            <li class="list-group-item" >Fábricado por: {{mix.id_cli_fabrica}}
+                            </li>
+
+                            <li class="list-group-item">
+                                Categoria: {{mix.categoria_produto}}
+                            </li>
+
                             <li class="list-group-item">
                                 Validade Produto: {{mix.validade.produto|date("d/m/Y")}}
                             </li>
-                            <li class="list-group-item">
-                                Fábricado por: {{mix.departamento}}
-                            </li>
-                            <li class="list-group-item">
-                                Departamento: {{mix.departamento}}
-                            </li>
+
                             <li class="list-group-item">
                                 Cadastrado em: <b>{{mix.cadastrado_em|date("d/m/Y H:i:s")}}</b>
+                            </li>
+                            <li class="list-group-item">
+                                Usuário: {{mix.usuario_id}}
                             </li>
                         </ul>
                     </div>
@@ -97,8 +106,6 @@
                 {%endfor%}
                 </tbody>
             </table>
-            <a href="{{url('admin/mixProdutos/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Mix">Cadastrar</a>
-            <a href="{{url('admin/mixProdutos/consultar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Consultar Mix">Consultar</a>     
         </div>     
     </div>
 </div>
