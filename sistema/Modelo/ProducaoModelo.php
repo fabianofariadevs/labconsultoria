@@ -30,40 +30,37 @@ class ProducaoModelo extends Modelo
     }
 
     /**
-     * Busca o usuário pelo ID
-     * @return UsuarioModelo|null
-     */
-    public function usuario(): ?UsuarioModelo
-    {
-        if ($this->usuario_id) {
-            return (new UsuarioModelo())->buscaPorId($this->usuario_id);
-        }
-        return null;
-    }
-
-    /**
      * Busca o CLIENTE/FABRICA pelo ID
      * @return UsuarioModelo|null
      */
-    public function fabrica(): ?ClienteModelo
+    public function cliente(): ?ClienteModelo
     {
-        if ($this->id) {
-            return (new ClienteModelo())->buscaPorId($this->id);
+        if ($this->id_cliente_fabrica) {
+            return (new ClienteModelo())->buscaPorId($this->id_cliente_fabrica);
+        }
+        return null;
+    }
+    
+    /**
+     * Busca o LOJA PDV pelo ID
+     * @return pdvModelo|null
+     */
+    public function pdv(): ?PdvModelo
+    {
+        if ($this->id_loja_pdv ) {
+            return (new PdvModelo())->buscaPorId($this->id_loja_pdv );
         }
         return null;
     }
 
-    
-    
     /**
      * Salva o post com slug
      * @return bool
      */
-     
-      public function salvar(): bool
-      {
-      $this->slug();
-      return parent::salvar();
-      }
-     
+    public function salvar(): bool
+    {
+        $this->slug();
+        return parent::salvar();
+    }
+
 }

@@ -11,11 +11,12 @@ use sistema\Nucleo\Modelo;
  */
 class ReceitaModelo extends Modelo
 {
-   public function __construct()
+
+    public function __construct()
     {
         parent::__construct('tbl_receita');
     }
-    
+
     /**
      * Busca a Receita pelo ID
      * @return ReceitaModelo|null
@@ -39,9 +40,21 @@ class ReceitaModelo extends Modelo
         }
         return null;
     }
-    
+
     /**
-     * Salva o post com slug
+     * Busca o CLIENTE/FABRICA pelo ID
+     * @return ClienteModelo|null
+     */
+    public function cliente(): ?ClienteModelo
+    {
+        if ($this->id_tbl_cliente_fabrica) {
+            return (new ClienteModelo())->buscaPorId($this->id_tbl_cliente_fabrica);
+        }
+        return null;
+    }
+
+    /**
+     * Salva o Receita com slug
      * @return bool
      */
     public function salvar(): bool

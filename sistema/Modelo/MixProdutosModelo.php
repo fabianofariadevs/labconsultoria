@@ -28,8 +28,19 @@ class MixProdutosModelo extends Modelo
         }
         return null;
     }
-
-    /**
+/**
+     * Busca o CLIENTE/FABRICA pelo ID
+     * @return ClienteModelo|null
+     */
+    public function cliente(): ?ClienteModelo
+    {
+        if ($this->id_cli_fabrica) {
+            return (new ClienteModelo())->buscaPorId($this->id_cli_fabrica);
+        }
+        return null;
+    }
+    
+        /**
      * Busca o usuário pelo ID
      * @return UsuarioModelo|null
      */

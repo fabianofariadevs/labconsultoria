@@ -4,7 +4,7 @@ namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\ProducaoModelo;
 use sistema\Modelo\ClienteModelo;
-use sistema\Modelo\FornecedorModelo;
+use sistema\Modelo\PdvModelo;
 use sistema\Nucleo\Helpers;
 
 /**
@@ -34,7 +34,7 @@ class AdminProducao extends AdminControlador
             2 => 'descricao_pedido',
             3 => 'qtde_pedido',
             4 => 'data_entrega_pedido',
-            5 => 'tbl_loja_pdv_id_tbl_loja_pdv',
+            5 => 'id_loja_pdv',
             6 => 'id_cliente_fabrica',
             7 => 'status',
         ];
@@ -42,34 +42,32 @@ class AdminProducao extends AdminControlador
         $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
         $ordem .= " " . $datatable['order'][0]['dir'] . " ";
 
-        $mixproduto = new MixProdutosModelo();
+        $producao = new ProducaoModelo();
 
         if (empty($busca)) {
-            $mixproduto->busca()->ordem($ordem)->limite($limite)->offset($offset);
-            $mixproduto = (new MixProdutosModelo())->busca(null, 'COUNT(id)', 'id')->total();
+            $producao->busca()->ordem($ordem)->limite($limite)->offset($offset);
+            $total = (new ProducaoModelo())->busca(null, 'COUNT(id)', 'id')->total();
         } else {
-            $mixproduto->busca("id LIKE '%{$busca}%' OR produto_mix LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
-            $total = $mixproduto->total();
+            $producao->busca("id LIKE '%{$busca}%' OR descricao_pedido LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
+            $total = $producao->total();
         }
 
         $dados = [];
 
-        if ($mixproduto->resultado(true)) {
-            foreach ($mixproduto->resultado(true) as $mix) {
+        if ($producao->resultado(true)) {
+            foreach ($producao->resultado(true) as $prod) {
                 $dados[] = [
-                    $mix->id,
-                    $mix->data_pedido_prod,
-                    $mix->descricao_pedido,
-                    $mix->qtde_pedido,
-                    $mix->data_entrega_pedido,
-                    $mix->tbl_loja_pdv_id_tbl_loja_pdv,
-                    $mix->id_cliente_fabrica,
-                    $mix->status
+                    $prod->id,
+                    $prod->data_pedido_prod,
+                    $prod->descricao_pedido,
+                    $prod->qtde_pedido,
+                    $prod->data_entrega_pedido,
+                    $prod->pdv()->nome_loja ?? '-----',
+                    $prod->cliente()->nome_cliente ?? '-----',
+                    $prod->status
                 ];
             }
         }
-
-
         $retorno = [
             "draw" => $datatable['draw'],
             "recordsTotal" => $total,
@@ -87,14 +85,17 @@ class AdminProducao extends AdminControlador
     public function listar(): void
     {
         $producao = new ProducaoModelo();
+        $pdvs = new PdvModelo();
 
         echo $this->template->renderizar('producao/listar.html', [
-            'producao' => $producao->busca()->ordem('data_pedido_prod ASC')->resultado(true),
             'total' => [
-                'producao' => $producao->total(),
-                'producaoAtiva' => $producao->busca('status = 1')->total(),
-                'producaoInativa' => $producao->busca('status = 0')->total(),
-            ]
+                'producao' => $producao->busca(null, 'COUNT(id)', 'id')->total(),
+                'producaoAtiva' => $producao->busca('status = :s', 's=1 COUNT(status))', 'status')->total(),
+                'producaoInativa' => $producao->busca('status = :s', 's=0 COUNT(status))', 'status')->total(),
+            ],
+            'pdvs' => $pdvs->busca(null, 'COUNT(id)', 'id')->total(),
+            'pdvsAtivo' => $pdvs->busca('status = :s', 's=1 COUNT(status))', 'status')->total(),
+            'pdvsInativo' => $pdvs->busca('status = :s', 's=0 COUNT(status)', 'status')->total(),
         ]);
     }
 
@@ -115,8 +116,8 @@ class AdminProducao extends AdminControlador
                 $producao->descricao_pedido = $dados['descricao_pedido'];
                 $producao->qtde_pedido = $dados['qtde_pedido'];
                 $producao->data_entrega_pedido = $dados['data_entrega_pedido'];
-                $producao->tbl_loja_pdv_id_tbl_loja_pdv = $dados['tbl_loja_pdv_id_tbl_loja_pdv '];
-                $producao->id_cliente_fabrica = $dados['id_cliente_fabrica '];
+                $producao->id_loja_pdv = $dados['id_loja_pdv'];
+                $producao->id_cliente_fabrica = $dados['id_cliente_fabrica'];
                 $producao->status = $dados['status'];
 
                 if ($producao->salvar()) {
@@ -130,8 +131,9 @@ class AdminProducao extends AdminControlador
         }
 
         echo $this->template->renderizar('producao/formulario.html', [
-            'producao' => $dados
-         //   'cliente' => (new ClienteModelo())->busca('status = 1')->resultado(true)
+            'prod' => $dados,
+            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true),
+            'pdv' => (new PdvModelo())->busca('status = 1')->resultado(true)
         ]);
     }
 
@@ -139,15 +141,15 @@ class AdminProducao extends AdminControlador
     {
 
         if (empty($dados['descricao_pedido'])) {
-            $this->mensagem->alerta('Escreva uma Descrição para o Produção!')->flash();
+            $this->mensagem->alerta('Escreva uma Descrição para o Pedido!')->flash();
             return false;
         }
         if (empty($dados['qtde_pedido'])) {
-            $this->mensagem->alerta('Escreva uma Qtde para o Produção!')->flash();
+            $this->mensagem->alerta('Escreva uma Qtde para o Pedido!')->flash();
             return false;
         }
         if (empty($dados['data_entrega_pedido'])) {
-            $this->mensagem->alerta('Escreva uma data_entrega_pedido para o Produção!')->flash();
+            $this->mensagem->alerta('Escreva uma data_entrega_pedido para o Pedido!')->flash();
             return false;
         }
 
@@ -168,8 +170,8 @@ class AdminProducao extends AdminControlador
                 $producao->descricao_pedido = $dados['descricao_pedido'];
                 $producao->qtde_pedido = $dados['qtde_pedido'];
                 $producao->data_entrega_pedido = $dados['data_entrega_pedido'];
-                $producao->tbl_loja_pdv_id_tbl_loja_pdv = $dados['tbl_loja_pdv_id_tbl_loja_pdv '];
-                $producao->id_cliente_fabrica = $dados['id_cliente_fabrica '];
+                $producao->id_loja_pdv = $dados['id_loja_pdv'];
+                $producao->id_cliente_fabrica = $dados['id_cliente_fabrica'];
                 $producao->status = $dados['status'];
 
                 if ($producao->salvar()) {
@@ -184,8 +186,8 @@ class AdminProducao extends AdminControlador
 
         echo $this->template->renderizar('producao/formulario.html', [
 ////**VER AQUI TAMBEM           
-            'producao' => $producao,
-            'cliente' => (new ClienteModelo())->busca('status = 1')->resultado(true)
+            'prod' => $producao,
+            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true)
         ]);
     }
 

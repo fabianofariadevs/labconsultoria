@@ -8,7 +8,6 @@
         </li>
         <li class="breadcrumb-item active" aria-current="page">
             Cadastrar Novo Mix de Produto 
-            {% if mix.id %}Atualizar{%else%}Cadastrar{%endif%}
         </li>
     </ol>
 </nav>
@@ -37,10 +36,10 @@
                     <div class="mb-3">
                         <label for="categoria_produto" class="form-label">Categorias</label>
                         <select class="form-select" name="categoria_produto" id="categoria_produto">
-                            <option value="Seco" {% if mix.categoria_produto %}selected{%endif%}>Seco</option>
-                            <option value="Refrigerado" {% if mix.categoria_produto == 'refrigerado' %}selected{%endif%}>Refrigerado</option>
-                            <option value="Congelado" {% if mix.categoria_produto == 'congelado' %}selected{%endif%}>Congelado</option>
-                            <option value="Fresco" {% if mix.categoria_produto == 'fresco' %}selected{%endif%}>Fresco</option>
+                            <option value="Seco" {% if mix.categoria_produto == 'Seco' %}selected{%endif%}>Seco</option>
+                            <option value="Refrigerado" {% if mix.categoria_produto == 'Refrigerado' %}selected{%endif%}>Refrigerado</option>
+                            <option value="Congelado" {% if mix.categoria_produto == 'Congelado' %}selected{%endif%}>Congelado</option>
+                            <option value="Fresco" {% if mix.categoria_produto == 'Fresco' %}selected{%endif%}>Fresco</option>
                         </select>
                     </div>
                 </div>

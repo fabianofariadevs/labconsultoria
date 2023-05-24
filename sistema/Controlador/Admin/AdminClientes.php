@@ -13,15 +13,84 @@ use sistema\Nucleo\Helpers;
 class AdminClientes extends AdminControlador
 {
 
+    /**
+     * Método responsável por exibir os dados tabulados utilizando o plugin datatables
+     * @return void
+     */
+    public function datatable(): void
+    {
+        $datatable = $_REQUEST;
+        $datatable = filter_var_array($datatable, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $limite = $datatable['length'];
+        $offset = $datatable['start'];
+        $busca = $datatable['search']['value'];
+
+        $colunas = [
+            0 => 'id',
+            1 => 'nome_cliente',
+            2 => 'endereco_cliente',
+            3 => 'bairro_cli',
+            4 => 'cidade_cli',
+            5 => 'estado_cli',
+            6 => 'responsavel_empresa',
+            7 => 'status',
+        ];
+
+        $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
+        $ordem .= " " . $datatable['order'][0]['dir'] . " ";
+
+        $clientes = new ClienteModelo();
+
+        if (empty($busca)) {
+            $clientes->busca()->ordem($ordem)->limite($limite)->offset($offset);
+            $total = (new ClienteModelo())->busca(null, 'COUNT(id)', 'id')->total();
+        } else {
+            $clientes->busca("id LIKE '%{$busca}%' OR nome_cliente LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
+            $total = $clientes->total();
+        }
+
+        $dados = [];
+
+        if ($clientes->resultado(true)) {
+            foreach ($clientes->resultado(true) as $cliente) {
+                $dados[] = [
+                    $cliente->id,
+                    $cliente->nome_cliente,
+                    $cliente->endereco_cliente,
+                    $cliente->bairro_cli,
+                    $cliente->cidade_cli,
+                    $cliente->estado_cli,
+                    $cliente->responsavel_empresa,
+                    $cliente->status
+                ];
+            }
+        }
+
+
+        $retorno = [
+            "draw" => $datatable['draw'],
+            "recordsTotal" => $total,
+            "recordsFiltered" => $total,
+            "data" => $dados
+        ];
+
+        echo json_encode($retorno);
+    }
+
+    /**
+     * Lista CLIENTES
+     * @return void
+     */
     public function listar(): void
     {
         $clientes = new ClienteModelo();
+
         echo $this->template->renderizar('clientes/listar.html', [
-            'clientes' => $clientes->busca()->ordem('nome_cliente ASC')->resultado(true),
             'total' => [
-                'clientes' => $clientes->total(),
-                'clientesAtivo' => $clientes->busca('status = 1')->total(),
-                'clientesInativo' => $clientes->busca('status = 0')->total()
+                'clientes' => $clientes->busca(null, 'COUNT(id)', 'id')->total(),
+                'clientesAtivo' => $clientes->busca('status = :s', 's=1 COUNT(status))', 'status')->total(),
+                'clientesInativo' => $clientes->busca('status = :s', 's=0 COUNT(status)', 'status')->total(),
         ]]);
     }
 

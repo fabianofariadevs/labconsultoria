@@ -64,7 +64,6 @@ try {
         SimpleRouter::get(URL_ADMIN . 'receitas/deletar/{id}', 'AdminReceitas@deletar');
         SimpleRouter::post(URL_ADMIN . 'receitas/datatable', 'AdminReceitas@datatable');
 
-        
 //ADMIN PLANEJAMENTO DE PRODUÇÃO
         SimpleRouter::get(URL_ADMIN . 'producao/listar', 'AdminProducao@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'producao/cadastrar', 'AdminProducao@cadastrar');
@@ -72,7 +71,7 @@ try {
         SimpleRouter::get(URL_ADMIN . 'producao/deletar/{id}', 'AdminProducao@deletar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'producao/consultar', 'AdminProducao@consultar');
         SimpleRouter::post(URL_ADMIN . 'producao/datatable', 'AdminProducao@datatable');
-        
+
 //ADMIN FORNECEDORES
         SimpleRouter::get(URL_ADMIN . 'fornecedor/listar', 'AdminFornecedor@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'fornecedor/cadastrar', 'AdminFornecedor@cadastrar');
@@ -86,6 +85,13 @@ try {
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'mixProdutos/editar/{id}', 'AdminMixProdutos@editar');
         SimpleRouter::get(URL_ADMIN . 'mixProdutos/deletar/{id}', 'AdminMixProdutos@deletar');
         SimpleRouter::post(URL_ADMIN . 'mixProdutos/datatable', 'AdminMixProdutos@datatable');
+
+//ADMIN MIX PDVS
+        SimpleRouter::get(URL_ADMIN . 'pdvs/listar', 'AdminPdv@listar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'pdvs/cadastrar', 'AdminPdv@cadastrar');
+        SimpleRouter::match(['get', 'post'], URL_ADMIN . 'pdvs/editar/{id}', 'AdminPdv@editar');
+        SimpleRouter::get(URL_ADMIN . 'pdvs/deletar/{id}', 'pdvs');
+        SimpleRouter::post(URL_ADMIN . 'pdvs/datatable', 'AdminPdv@datatable');
 
 //ADMIN ESTOQUE M.PRIMA
         SimpleRouter::get(URL_ADMIN . 'estoqueMp/listar', 'AdminEstoqueMp@listar');

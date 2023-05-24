@@ -28,8 +28,12 @@
                 </div>
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label for="tbl_loja_pdv_id_tbl_loja_pdv" class="form-label">Loja_Filial</label>
-                        <input type="text" name="tbl_loja_pdv_id_tbl_loja_pdv" id="tbl_loja_pdv_id_tbl_loja_pdv" value="{{prod.tbl_loja_pdv_id_tbl_loja_pdv}}" class="form-control">
+                        <label for="id_loja_pdv " class="form-label">Loja_Filial</label>
+                        <select class="form-select" name="id_loja_pdv" id="id_loja_pdv">
+                            {% for pdv in pdvs %}
+                            <option value="{{pdv.id}}" {% if prod.id_loja_pdv == pdv.id %}selected{%endif%}>{{pdv.nome_loja}}</option>
+                            {%endfor%}
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-3">

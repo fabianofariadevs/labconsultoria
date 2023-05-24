@@ -20,6 +20,7 @@
             <span class="badge rounded text-bg-danger">{{total.clientesInativo}} inativo</span> 
         </div>
         <a href="{{url('admin/clientes/cadastrar')}}" class="btn btn-primary" tooltip="tooltip" title="Cadastrar Clientes">Cadastrar</a>
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -35,75 +36,12 @@
                         <th scope="col">Responsável</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Ação</th>
-                <i class="bi bi-pencil-square"></i>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for cliente in clientes %}
-                    <tr>
-                        <th>{{cliente.id}}</th>
-                        <td>{{cliente.nome_cliente}}</td>
-                        <td>{{cliente.endereco_cliente}}</td>
-                        <td>{{cliente.bairro_cli}}</td>
-                        <td>{{cliente.cidade_cli}}</td>
-                        <td>{{cliente.estado_cli}}</td>
-                        <td>{{cliente.responsavel_empresa}}</td>
-                        <td class="text-center">
-                            {% if cliente.status == 1 %}
-                            <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
-                            {% else %}
-                            <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            <a href="#info{{cliente.id}}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
-                                <i class="fa-solid fa-arrow-trend-up"></i>
-                            </a>
-
-                            <a href="{{ url('admin/clientes/editar/'~cliente.id) }}" tooltip="tooltip" title="Editar">
-                                <i class="fa-solid fa-pen m-1"></i>
-                            </a>
-                            <a href="{{ url('admin/clientes/deletar/'~cliente.id) }}" tooltip="tooltip" title="Deletar">
-                                <i class="fa-solid fa-trash m-1"></i>
-                            </a>
-
-                        </td>
                     </tr>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{cliente.id}}">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{cliente.nome_cliente}}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-
-                    <div class="offcanvas-body">
-                        <ul class="list-group list-group-flush">
-                            
-                            <li class="list-group-item">
-                                Responsável Nome: {{cliente.responsavel_empresa}}
-                            </li>
-                            <li class="list-group-item" >
-                                Whatsapp: {{cliente.Whatsapp}}
-                            </li>
-                            <li class="list-group-item">
-                                Email: {{cliente.email_cli}}
-                            </li>
-
-                            <li class="list-group-item">
-                                Cadastrado em: <b>{{cliente.cadastrado_em|date("d/m/Y")}}</b>
-                            </li>
-                            <li class="list-group-item">
-                                Atualizado em: <b>{{cliente.atualizado_em|date("d/m/Y H:i:s")}}</b>
-                            </li>
-                            <li class="list-group-item">
-                                Usuário: {{cliente.usuario_id}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                {%endfor%}
-                </tbody>
+                </thead>
             </table>
-        </div>     
+        </div>   
+        <a href="{{url('admin/pdvs/listar')}}" class="btn btn-secondary" tooltip="tooltip" title="PDVs Filiais">Consultar PDVs</a>
+
     </div>
 </div>
 {% endblock %}

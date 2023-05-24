@@ -1,0 +1,106 @@
+{% extends "dashboard.html" %}
+
+{% block conteudo %}  
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" style="font-size: 11px">
+            ADMIN & Usuários
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Cadastrar Novo PDV x Filial 
+        </li>
+    </ol>
+</nav>
+{{ flash() }}
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form action="{% if pdv.id %}{{url('admin/pdvs/editar/'~pdv.id)}}{%else%}{{url('admin/pdvs/cadastrar')}}{%endif%}" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="cod_pdv" class="form-label">Cod.PDV</label>
+                        <input type="text" name="cod_pdv" id="cod_pdv" value="{{pdv.cod_pdv}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="id_cliente_fabrica" class="form-label">Cliente_Fábrica</label>
+                        <select class="form-select" name="id_cliente_fabrica" id="id_cliente_fabrica">
+                            {% for cliente in clientes %}
+                            <option value="{{cliente.id}}" {% if pdv.id_cliente_fabrica == cliente.id %}selected{%endif%}>{{cliente.nome_cliente}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="nome_loja" class="form-label">Nome PDV</label>
+                        <input type="text" name="nome_loja" id="nome_loja" value="{{pdv.nome_loja}}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="1" {% if pdv.status == '1' %}selected{%endif%}>Ativo</option>
+                            <option value="0" {% if pdv.status == '0' %}selected{%endif%}>Inativo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="cnpj_loja" class="form-label">Cnpj:</label>
+                        <input type="text" name="cnpj_loja" id="cnpj_loja" value="{{pdv.cnpj_loja}}" class="form-control"></input>             
+                    </div>
+                </div>                
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="responsavel_loja" class="form-label">Responsável</label>
+                        <input type="text" name="responsavel_loja" id="responsavel_loja" value="{{pdv.responsavel_loja}}" class="form-control"></input>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="endereco_loja" class="form-label">Endereço</label>
+                        <input type="text" name="endereco_loja" id="endereco_loja" value="{{pdv.endereco_loja}}" class="form-control"></input>
+                    </div>
+                </div>
+                 <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="bairro_loja" class="form-label">Bairro</label>
+                        <input type="text" name="bairro_loja" id="bairro_loja" value="{{pdv.bairro_loja}}" class="form-control"></input>
+                    </div>
+                </div>
+                 <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="cidade_loja" class="form-label">Cidade</label>
+                        <input type="text" name="cidade_loja" id="cidade_loja" value="{{pdv.cidade_loja}}" class="form-control"></input>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="uf_loja" class="form-label">Uf</label>
+                        <input type="text" name="uf_loja" id="uf_loja" value="{{pdv.uf_loja}}" class="form-control"></input>
+                    </div>
+                </div>
+                 <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="telefone" class="form-label">Contato</label>
+                        <input type="text" name="telefone" id="telefone" value="{{pdv.telefone}}" class="form-control"></input>
+                    </div>
+                </div>
+            </div>
+
+
+            <input type="submit" class="btn btn-primary" value="{% if pdv.id %}Atualizar{%else%}Cadastrar{%endif%}"><hr>
+            <a href="{{url('admin/pdvs/listar')}}" class="btn btn-outline-secondary" tooltip="tooltip" title="Voltar ao Menu">Voltar</a>
+        </form>
+    </div>    
+</div>
+{% endblock %}
+

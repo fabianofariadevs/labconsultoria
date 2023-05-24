@@ -13,9 +13,6 @@ use sistema\Nucleo\Helpers;
  */
 class AdminMixProdutos extends AdminControlador
 {
-
-    private string $capa;
-
     /**
      * Método responsável por exibir os dados tabulados utilizando o plugin datatables
      * @return void
@@ -40,6 +37,7 @@ class AdminMixProdutos extends AdminControlador
             7 => 'categoria_produto',
             8 => 'id_cli_fabrica',
             9 => 'status',
+            10 => '',
         ];
 
         $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
@@ -49,7 +47,7 @@ class AdminMixProdutos extends AdminControlador
 
         if (empty($busca)) {
             $mixproduto->busca()->ordem($ordem)->limite($limite)->offset($offset);
-            $mixproduto = (new MixProdutosModelo())->busca(null, 'COUNT(id)', 'id')->total();
+            $total = (new MixProdutosModelo())->busca(null, 'COUNT(id)', 'id')->total();
         } else {
             $mixproduto->busca("id LIKE '%{$busca}%' OR produto_mix LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
             $total = $mixproduto->total();
@@ -94,11 +92,10 @@ class AdminMixProdutos extends AdminControlador
         $mixproduto = new MixProdutosModelo();
 
         echo $this->template->renderizar('mixProdutos/listar.html', [
-            'mixproduto' => $mixproduto->busca()->ordem('id ASC')->resultado(true),
             'total' => [
-                'mixproduto' => $mixproduto->total(),
-                'mixprodutoAtiva' => $mixproduto->busca('status = 1')->total(),
-                'mixprodutoInativa' => $mixproduto->busca('status = 0')->total(),
+                'mixproduto' => $mixproduto->busca(null, 'COUNT(id)', 'id')->total(),
+                'mixprodutoAtiva' => $mixproduto->busca('status = :s', 's=1 COUNT(status))', 'status')->total(),
+                'mixprodutoInativa' => $mixproduto->busca('status = :s', 's=0 COUNT(status)', 'status')->total(),
             ]
         ]);
     }
@@ -136,10 +133,9 @@ class AdminMixProdutos extends AdminControlador
                 }
             }
         }
-
         echo $this->template->renderizar('mixProdutos/formulario.html', [
             'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true),
-            'mixproduto' => $dados
+            'mix' => $dados
         ]);
     }
 
@@ -211,8 +207,8 @@ class AdminMixProdutos extends AdminControlador
 
         echo $this->template->renderizar('mixProdutos/formulario.html', [
 ////**VER AQUI TAMBEM           
-            'mixproduto' => $mixproduto,
-            'cliente' => (new ClienteModelo())->busca('status = 1')->resultado(true)
+            'mix' => $mixproduto,
+            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true)
         ]);
     }
 

@@ -33,68 +33,8 @@
                         <th scope="col">Email</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Ações</th>
-                <i class="bi bi-pencil-square"></i>
                 </tr>
                 </thead>
-                <tbody>
-                    {% for fornec in fornecedor %}
-                    <tr>
-                        <th>{{fornec.id}}</th>
-                        <td>{{fornec.nome_fornec}}</td>
-                        <td>{{fornec.endereco_fornec}}</td>
-                        <td>{{fornec.contato_whatsapp}}</td>
-                        <td>{{fornec.email_fornec}}</td>
-                        <td class="text-center">
-                            {% if fornec.status == 1 %}
-                            <i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>
-                            {% else %}
-                            <i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            <a href="#info{{fornec.id}}" data-bs-toggle="offcanvas" tooltip="tooltip" title="Status">
-                                <i class="fa-solid fa-arrow-trend-up"></i>
-                            </a>
-                            <a href="{{ url('admin/fornecedor/editar/'~fornec.id) }}" tooltip="tooltip" title="Editar">
-                                <i class="fa-solid fa-pen m-1"></i>
-                            </a>
-                            <a href="{{ url('admin/fornecedor/deletar/'~fornec.id) }}" tooltip="tooltip" title="Deletar">
-                                <i class="fa-solid fa-trash m-1"></i>
-                            </a>
-
-                        </td>
-                    </tr>
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="info{{fornec.id}}">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Status do Fornecedor:<br>{{fornec.nome_fornec}}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-
-                    <div class="offcanvas-body">
-                        <ul class="list-group list-group-flush">
-
-                            <li class="list-group-item" >Whatsapp: {{fornec.contato_whatsapp}}
-                            </li>
-
-                            <li class="list-group-item">
-                                Cadastrado em: {{fornec.cadastrado_em}}
-                            </li>
-
-                            <li class="list-group-item">
-                                Status: {{fornec.status}}
-                            </li>
-
-                            <li class="list-group-item">
-                                Atualizado em: <b>{{fornec.atualizado_em|date("d/m/Y")}}</b>
-                            </li>
-                            <li class="list-group-item">
-                                Usuário: {{fornec.usuario_id}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                {%endfor%}
-                </tbody>
             </table>
         </div>     
     </div>

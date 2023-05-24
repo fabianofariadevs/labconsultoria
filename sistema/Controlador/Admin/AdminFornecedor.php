@@ -14,19 +14,80 @@ class AdminFornecedor extends AdminControlador
 {
 
     /**
+     * Método responsável por exibir os dados tabulados utilizando o plugin datatables
+     * @return void
+     */
+    public function datatable(): void
+    {
+        $datatable = $_REQUEST;
+        $datatable = filter_var_array($datatable, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $limite = $datatable['length'];
+        $offset = $datatable['start'];
+        $busca = $datatable['search']['value'];
+
+        $colunas = [
+            0 => 'id',
+            1 => 'nome_fornec',
+            2 => 'endereco_fornec',
+            3 => 'contato_whatsapp',
+            4 => 'email_fornec',
+            5 => 'status',
+        ];
+
+        $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
+        $ordem .= " " . $datatable['order'][0]['dir'] . " ";
+
+        $fornecedor = new FornecedorModelo();
+
+        if (empty($busca)) {
+            $fornecedor->busca()->ordem($ordem)->limite($limite)->offset($offset);
+            $total = (new FornecedorModelo())->busca(null, 'COUNT(id)', 'id')->total();
+        } else {
+            $fornecedor->busca("id LIKE '%{$busca}%' OR nome_fornec LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
+            $total = $fornecedor->total();
+        }
+
+        $dados = [];
+
+        if ($fornecedor->resultado(true)) {
+            foreach ($fornecedor->resultado(true) as $fornecedo) {
+                $dados[] = [
+                    $fornecedo->id,
+                    $fornecedo->nome_fornec,
+                    $fornecedo->endereco_fornec,
+                    $fornecedo->contato_whatsapp,
+                    $fornecedo->email_fornec,
+                    $fornecedo->status
+                ];
+            }
+        }
+
+
+        $retorno = [
+            "draw" => $datatable['draw'],
+            "recordsTotal" => $total,
+            "recordsFiltered" => $total,
+            "data" => $dados
+        ];
+
+        echo json_encode($retorno);
+    }
+
+    /**
      * Lista FORNECEDOR
      * @return void
      */
     public function listar(): void
     {
         $fornecedor = new FornecedorModelo();
+
         echo $this->template->renderizar('fornecedor/listar.html', [
-            'fornecedor' => $fornecedor->busca()->ordem('nome_fornec ASC')->resultado(true),
             'total' => [
-                'fornecedor' => $fornecedor->total(),
-                'fornecedorAtiva' => $fornecedor->busca('status = 1')->total(),
-                'fornecedorInativa' => $fornecedor->busca('status = 0')->total(),
-            ]]);
+                'fornecedor' => $fornecedor->busca(null, 'COUNT(id)', 'id')->total(),
+                'fornecedorAtiva' => $fornecedor->busca('status = :s', 's=1 COUNT(status))', 'status')->total(),
+                'fornecedorInativa' => $fornecedor->busca('status = :s', 's=0 COUNT(status)', 'status')->total(),
+        ]]);
     }
 
     /**
@@ -39,7 +100,7 @@ class AdminFornecedor extends AdminControlador
         if (isset($dados)) {
             if ($this->validarDados($dados)) {
                 $fornecedor = new fornecedorModelo();
-                
+
                 $fornecedor->usuario_id = $this->usuario->id;
                 $fornecedor->cnpj_forn = $dados['cnpj_forn'];
                 $fornecedor->nome_fornec = $dados['nome_fornec'];
@@ -97,7 +158,7 @@ class AdminFornecedor extends AdminControlador
         if (isset($dados)) {
             if ($this->validarDados($dados)) {
                 $fornecedor = (new FornecedorModelo())->buscaPorId($id);
-                
+
                 $fornecedor->usuario_id = $this->usuario->id;
                 $fornecedor->cnpj_forn = $dados['cnpj_forn'];
                 $fornecedor->nome_fornec = $dados['nome_fornec'];
