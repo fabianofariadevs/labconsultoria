@@ -17,18 +17,13 @@ class PdvModelo extends Modelo
         parent::__construct('tbl_loja_pdv');
     }
 
-    /**
-     * Busca MixProduto pelo ID
-     * @return MixProdutosModelo|null
-     */
     public function pdv(): ?PdvModelo
     {
         if ($this->id) {
-            return (new PdvModelo())->buscaPorId($this->id);
+            return (new ClienteModelo())->buscaPorId($this->id);
         }
         return null;
     }
-
     /**
      * Busca o CLIENTE/FABRICA pelo ID
      * @return ClienteModelo|null

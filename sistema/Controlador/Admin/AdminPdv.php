@@ -3,22 +3,88 @@
 namespace sistema\Controlador\Admin;
 
 use sistema\Modelo\PdvModelo;
+use sistema\Modelo\ClienteModelo;
 use sistema\Nucleo\Helpers;
 
-/* Classe AdminClientes
+/* Classe PDVs
  *
  * @author Fabiano Faria
  */
 
 class AdminPdv extends AdminControlador
 {
+
     /**
      * Método responsável por exibir os dados tabulados utilizando o plugin datatables
      * @return void
      */
+    public function datatable(): void
+    {
+        $datatable = $_REQUEST;
+        $datatable = filter_var_array($datatable, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $limite = $datatable['length'];
+        $offset = $datatable['start'];
+        $busca = $datatable['search']['value'];
+
+        $colunas = [
+            0 => 'id',
+            1 => 'nome_loja',
+            2 => 'id_cliente_fabrica',
+            3 => 'responsavel_loja',
+            4 => 'endereco_loja',
+            5 => 'bairro_loja',
+            6 => 'cidade_loja',
+            7 => 'uf_loja',
+            8 => 'telefone',
+            9 => 'status',
+        ];
+
+        $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";
+        $ordem .= " " . $datatable['order'][0]['dir'] . " ";
+
+        $pdvs = new PdvModelo();
+
+        if (empty($busca)) {
+            $pdvs->busca()->ordem($ordem)->limite($limite)->offset($offset);
+            $total = (new PdvModelo())->busca(null, 'COUNT(id)', 'id')->total();
+        } else {
+            $pdvs->busca("id LIKE '%{$busca}%' OR nome_loja LIKE '%{$busca}%' ")->limite($limite)->offset($offset);
+            $total = $pdvs->total();
+        }
+
+        $dados = [];
+
+        if ($pdvs->resultado(true)) {
+            foreach ($pdvs->resultado(true) as $pdv) {
+                $dados[] = [
+                    $pdv->id,
+                    $pdv->nome_loja,
+                    $pdv->cliente()->nome_cliente ?? '-----',
+                    $pdv->responsavel_loja,
+                    $pdv->endereco_loja,
+                    $pdv->bairro_loja,
+                    $pdv->cidade_loja,
+                    $pdv->uf_loja,
+                    $pdv->telefone,
+                    $pdv->status,
+                ];
+            }
+        }
+
+
+        $retorno = [
+            "draw" => $datatable['draw'],
+            "recordsTotal" => $total,
+            "recordsFiltered" => $total,
+            "data" => $dados
+        ];
+
+        echo json_encode($retorno);
+    }
 
     /**
-     * Lista CLIENTES
+     * Lista PDVs
      * @return void
      */
     public function listar(): void
@@ -30,7 +96,8 @@ class AdminPdv extends AdminControlador
                 'pdvs' => $pdvs->busca(null, 'COUNT(id)', 'id')->total(),
                 'pdvsAtivo' => $pdvs->busca('status = :s', 's=1 COUNT(status))', 'status')->total(),
                 'pdvsInativo' => $pdvs->busca('status = :s', 's=0 COUNT(status)', 'status')->total(),
-        ]]);
+            ]
+        ]);
     }
 
     public function cadastrar(): void
@@ -41,6 +108,7 @@ class AdminPdv extends AdminControlador
                 $pdvs = new PdvModelo();
 
                 $pdvs->usuario_id = $this->usuario->id;
+                $pdvs->slug = Helpers::slug($dados['nome_loja']);
                 $pdvs->cod_pdv = $dados['cod_pdv'];
                 $pdvs->id_cliente_fabrica = $dados['id_cliente_fabrica'];
                 $pdvs->cnpj_loja = $dados['cnpj_loja'];
@@ -54,7 +122,7 @@ class AdminPdv extends AdminControlador
                 $pdvs->status = $dados['status'];
 
                 if ($pdvs->salvar()) {
-                    $this->mensagem->sucesso('Cliente cadastrado com sucesso')->flash();
+                    $this->mensagem->sucesso('PDV cadastrado com sucesso')->flash();
                     Helpers::redirecionar('admin/pdvs/listar');
                 } else {
                     $this->mensagem->erro($pdvs->erro())->flash();
@@ -63,9 +131,10 @@ class AdminPdv extends AdminControlador
             }
         }
         echo $this->template->renderizar('pdvs/formulario.html', [
-            ///***ver qual classe cliente????          
-            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true),
-            'pdv' => $dados]);
+            ///***ver qual classe cliente????  
+            'pdv' => $dados,
+            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true)
+        ]);
     }
 
     public function validarDados(array $dados): bool
@@ -96,6 +165,8 @@ class AdminPdv extends AdminControlador
                 $pdvs = (new PdvModelo())->buscaPorId($id);
 
                 $pdvs->usuario_id = $this->usuario->id;
+                $pdvs->slug = Helpers::slug($dados['nome_loja']);
+                $pdvs->cod_pdv = $dados['cod_pdv'];
                 $pdvs->id_cliente_fabrica = $dados['id_cliente_fabrica'];
                 $pdvs->cnpj_loja = $dados['cnpj_loja'];
                 $pdvs->nome_loja = $dados['nome_loja'];
@@ -108,7 +179,7 @@ class AdminPdv extends AdminControlador
                 $pdvs->status = $dados['status'];
 
                 if ($pdvs->salvar()) {
-                    $this->mensagem->sucesso('Cliente atualizado com sucesso')->flash();
+                    $this->mensagem->sucesso('PDV atualizado com sucesso')->flash();
                     Helpers::redirecionar('admin/pdvs/listar');
                 } else {
                     $this->mensagem->erro($pdvs->erro())->flash();
@@ -119,23 +190,22 @@ class AdminPdv extends AdminControlador
 
         echo $this->template->renderizar('pdvs/formulario.html', [
             ////**VER AQUI TAMBEM           
-            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true),
             'pdv' => $pdvs,
+            'clientes' => (new ClienteModelo())->busca('status = 1')->resultado(true)
         ]);
     }
 
-    public
-            function deletar(int $id): void
+    public function deletar(int $id): void
     {
 //        $id = filter_var($id, FILTER_VALIDATE_INT);
         if (is_int($id)) {
-            $pdvs = (new ClienteModelo())->buscaPorId($id);
+            $pdvs = (new PdvModelo())->buscaPorId($id);
             if (!$pdvs) {
-                $this->mensagem->alerta('O Cliente que você está tentando deletar não existe!')->flash();
+                $this->mensagem->alerta('O PDV que você está tentando deletar não existe!')->flash();
                 Helpers::redirecionar('admin/pdvs/listar');
             } else {
                 if ($pdvs->deletar()) {
-                    $this->mensagem->sucesso('Cliente deletado com sucesso!')->flash();
+                    $this->mensagem->sucesso('PDV deletado com sucesso!')->flash();
                     Helpers::redirecionar('admin/pdvs/listar');
                 } else {
                     $this->mensagem->erro($pdvs->erro())->flash();

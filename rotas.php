@@ -86,11 +86,11 @@ try {
         SimpleRouter::get(URL_ADMIN . 'mixProdutos/deletar/{id}', 'AdminMixProdutos@deletar');
         SimpleRouter::post(URL_ADMIN . 'mixProdutos/datatable', 'AdminMixProdutos@datatable');
 
-//ADMIN MIX PDVS
+//ADMIN PDVS
         SimpleRouter::get(URL_ADMIN . 'pdvs/listar', 'AdminPdv@listar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'pdvs/cadastrar', 'AdminPdv@cadastrar');
         SimpleRouter::match(['get', 'post'], URL_ADMIN . 'pdvs/editar/{id}', 'AdminPdv@editar');
-        SimpleRouter::get(URL_ADMIN . 'pdvs/deletar/{id}', 'pdvs');
+        SimpleRouter::get(URL_ADMIN . 'pdvs/deletar/{id}', 'AdminPdv@deletar');
         SimpleRouter::post(URL_ADMIN . 'pdvs/datatable', 'AdminPdv@datatable');
 
 //ADMIN ESTOQUE M.PRIMA

@@ -417,5 +417,60 @@ $(document).ready(function () {
     });
 
 
+//TABELA PDVS
+    $('#tabelaPdvs').DataTable({
+        order: [[0, 'desc']],
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: url + 'admin/pdvs/datatable',
+            type: 'POST',
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        },
+        columns: [
+            null, null, null, null, null, null, null, null, null,
+            {
+                data: null,
+                render: function (data, type, row) {
+                    if (row[9] === 1) {
+                        return '<i class="fa-solid fa-circle text-success" tooltip="tooltip" title="Ativo"></i>';
+                    } else {
+                        return '<i class="fa-solid fa-circle text-danger" tooltip="tooltip" title="Inativo"></i>';
+                    }
+                }
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    var html = '';
+
+                    html += ' <a href=" ' + url + row[0] + ' "data-bs-toggle="offcanvas" tooltip="tooltip" title="Status"><i class="fa-solid fa-arrow-trend-up"></i></a> ';
+                    html += ' <a href=" ' + url + 'admin/pdvs/editar/' + row[0] + ' " tooltip="tooltip" title="Editar"><i class="fa-solid fa-pen m-1"></i></a> ';
+
+                    html += '<a href=" ' + url + 'admin/pdvs/deletar/' + row[0] + ' "><i class="fa-solid fa-trash m-1" tooltip="tooltip" title="Deletar"></i></a>';
+
+                    return html;
+                }
+            }
+        ],
+        columnDefs: [
+            {
+                className: 'dt-body-left',
+                targets: [0, 1, 2]
+            },
+            {
+                className: 'dt-center',
+                targets: [3, 4, 5, 6, 7, 8, 9, 10]
+            },
+            {
+                orderable: false,
+                targets: [-1]
+            }
+        ]
+    });
+
+
 
 });

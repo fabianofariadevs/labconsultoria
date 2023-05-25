@@ -13,6 +13,7 @@ use sistema\Nucleo\Helpers;
  */
 class AdminMixProdutos extends AdminControlador
 {
+
     /**
      * Método responsável por exibir os dados tabulados utilizando o plugin datatables
      * @return void
@@ -36,8 +37,7 @@ class AdminMixProdutos extends AdminControlador
             6 => 'validade_produto',
             7 => 'categoria_produto',
             8 => 'id_cli_fabrica',
-            9 => 'status',
-            10 => '',
+            9 => 'status'
         ];
 
         $ordem = " " . $colunas[$datatable['order'][0]['column']] . " ";

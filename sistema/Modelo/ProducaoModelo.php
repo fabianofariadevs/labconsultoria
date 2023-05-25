@@ -3,6 +3,8 @@
 namespace sistema\Modelo;
 
 use sistema\Nucleo\Modelo;
+use sistema\Modelo\ClienteModelo;
+use sistema\Modelo\PdvModelo;
 
 /**
  * Classe PLANEJ__Producao
